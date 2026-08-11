@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- 
+    =================================================================================
+    INTESTAZIONE XML E IMPORTAZIONI JAVAFX (SCHERMATA DI LOGIN)
+    =================================================================================
+    - <?xml version="1.0" encoding="UTF-8"?>: Dichiarazione XML con codifica caratteri UTF-8.
+    - <?import ... ?>: Importazione delle classi del framework JavaFX utilizzate nel file.
+      * Insets: Gestisce le distanze e i margini interni (padding).
+      * Button: Componente per creare pulsanti interattivi cliccabili.
+      * CheckBox: Casella di controllo selezionabile per abilitare/disabilitare funzioni (es. Mostra Password).
+      * Label: Etichette di testo statico per la visualizzazione a schermo.
+      * PasswordField: Campo di testo speciale con caratteri oscurati per la sicurezza dei dati sensibili.
+      * TextField: Campo di input per l'inserimento di testo a linea singola.
+      * GridPane: Disposizione a tabella organizzata in righe e colonne.
+      * HBox: Contenitore orizzontale che affianca gli elementi da sinistra a destra.
+      * StackPane: Contenitore a livelli che sovrappone i componenti nell'ordine di inserimento.
+      * VBox: Contenitore verticale radice dell'interfaccia.
+-->
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+
+<!--
+    =================================================================================
+    CONTENITORE PRINCIPALE (VBox - Form di Login)
+    =================================================================================
+    Organizza tutti i gruppi di elementi (titolo, modulo e pulsanti) lungo un asse verticale.
+    
+    ATTRIBUTI E SINTASSI:
+    - alignment="CENTER": Centra tutti i nodi figli sia in verticale che in orizzontale.
+    - spacing="20.0": Spaziatura verticale costante di 20 pixel tra gli elementi del form.
+    - prefWidth="600.0" e prefHeight="400.0": Dimensioni di riferimento (larghezza x altezza in pixel).
+    - xmlns e xmlns:fx: Dichiarazione dei namespace ufficiali JavaFX e FXML.
+    - fx:controller="controller.SchermataLoginController": Associa la vista alla classe controller Java che gestisce il login.
+    - styleClass="root-form": Applica lo stile grafico di sfondo definito nel foglio di stile CSS.
+-->
+<VBox alignment="CENTER" spacing="20.0" prefWidth="600.0" prefHeight="400.0"
+      xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="controller.SchermataLoginController"
+      styleClass="root-form">
+
+    <!-- 
+        =============================================================================
+        LISTA DEI NODI FIGLI (<children>)
+        =============================================================================
+        Racchiude tutti i componenti dell'interfaccia grafica contenuti nel VBox radice.
+    -->
+    <children>
+
+        <!-- 
+            TITOLO INTESTAZIONE LOGIN (Label)
+            - text="🔑 ACCESSO UTENTE": Testo dell'etichetta di benvenuto con emoji decorativa.
+            - styleClass="form-title": Classe CSS per stilizzare il titolo principale con font grande e grassetto.
+        -->
+        <Label text="🔑 ACCESSO UTENTE" styleClass="form-title"/>
+
+        <!-- 
+            =========================================================================
+            MODULO AD ALLINEAMENTO A GRIGLIA (GridPane)
+            =========================================================================
+            Struttura a tabella usata per affiancare con precisione le etichette di testo ai rispettivi campi di input.
+            
+            ATTRIBUTI UTILIZZATI:
+            - hgap="10.0": Spaziatura orizzontale di 10 pixel tra le colonne (etichetta e campo di testo).
+            - vgap="15.0": Spaziatura verticale di 15 pixel tra le righe del modulo.
+            - alignment="CENTER": Allinea l'intera griglia al centro dello schermo.
+            - prefHeight="120.0": Altezza preferita della griglia in pixel.
+        -->
+        <GridPane hgap="10.0" vgap="15.0" alignment="CENTER" prefHeight="120.0">
+            <children>
+
+                <!-- 
+                    RIGA 0 - COLONNA 0: ETICHETTA CODICE FISCALE
+                    - GridPane.columnIndex="0" e GridPane.rowIndex="0": Posiziona l'elemento nella prima colonna e prima riga.
+                    - styleClass="form-label": Classe CSS per rendere uniforme l'aspetto delle etichette del form.
+                -->
+                <Label text="Codice Fiscale:" GridPane.columnIndex="0" GridPane.rowIndex="0" styleClass="form-label"/>
+
+                <!-- 
+                    RIGA 0 - COLONNA 1: CAMPO INPUT CODICE FISCALE (TextField)
+                    - fx:id="txtCodiceFiscale": ID univoco associato alla variabile nel controller Java per recuperare il valore immesso.
+                    - promptText="Inserisci il tuo codice fiscale": Testo guida segnaposto (placeholder) in grigio chiaro.
+                    - prefWidth="250.0": Larghezza del campo impostata a 250 pixel.
+                    - GridPane.columnIndex="1" e GridPane.rowIndex="0": Posiziona il campo nella seconda colonna, prima riga.
+                -->
+                <TextField fx:id="txtCodiceFiscale" promptText="Inserisci il tuo codice fiscale"
+                           GridPane.columnIndex="1" GridPane.rowIndex="0" prefWidth="250.0" styleClass="text-field-custom"/>
+
+                <!-- 
+                    RIGA 1 - COLONNA 0: ETICHETTA PASSWORD
+                    - GridPane.columnIndex="0" e GridPane.rowIndex="1": Seconda riga, prima colonna.
+                -->
+                <Label text="Password:" GridPane.columnIndex="0" GridPane.rowIndex="1" styleClass="form-label"/>
+
+                <!-- 
+                    RIGA 1 - COLONNA 1: SOVRAPPOSIZIONE CAMPI PASSWORD (StackPane)
+                    - StackPane: Permette di posizionare più elementi uno sopra l'altro nello stesso spazio.
+                    - Utilizzato per alternare il PasswordField (nascosto) e il TextField (in chiaro) quando l'utente attiva "Mostra password".
+                -->
+                <StackPane GridPane.columnIndex="1" GridPane.rowIndex="1" prefWidth="250.0">
+                    <children>
+                        <!-- Campo Password protetto (nasconde i caratteri digitati sostituendoli con pallini) -->
+                        <PasswordField fx:id="txtPassword" promptText="Inserisci la password" styleClass="text-field-custom"/>
+                        
+                        <!-- Campo Password visibile in chiaro (nascosto di default tramite l'attributo visible="false") -->
+                        <TextField fx:id="txtPasswordMostrata" promptText="Inserisci la password" visible="false" styleClass="text-field-custom"/>
+                    </children>
+                </StackPane>
+
+                <!-- 
+                    RIGA 2 - COLONNA 1: CASELLA DI SPUNTA MOSTRA PASSWORD (CheckBox)
+                    - fx:id="chkMostraPassword": ID per verificare lo stato di spunta nel controller.
+                    - text="Mostra password": Etichetta associata alla checkbox.
+                    - onAction="#gestisciMostraPassword": Esegue il metodo Java per alternare la visibilità della password.
+                    - GridPane.columnIndex="1" e GridPane.rowIndex="2": Posizionata sotto al campo password nella seconda colonna.
+                -->
+                <CheckBox fx:id="chkMostraPassword" text="Mostra password" onAction="#gestisciMostraPassword"
+                          GridPane.columnIndex="1" GridPane.rowIndex="2" styleClass="form-label"/>
+
+            </children>
+        </GridPane>
+
+        <!-- 
+            =========================================================================
+            CONTENITORE ORIZZONTALE PULSANTI (HBox)
+            =========================================================================
+            Dispone i pulsanti di interazione ("ANNULLA" e "ACCESSO") affiancati su una riga.
+            - alignment="CENTER": Centra i pulsanti orizzontalmente.
+            - spacing="15.0": Lascia una spaziatura di 15 pixel tra un pulsante e l'altro.
+        -->
+        <HBox alignment="CENTER" spacing="15.0">
+            <children>
+
+                <!-- 
+                    PULSANTE ANNULLA (Button)
+                    - fx:id="btnAnnulla": Identificatore per il controller Java.
+                    - prefWidth="120.0": Larghezza del pulsante (120 pixel).
+                    - onAction="#gestisciAnnulla": Ritorna alla schermata di benvenuto iniziale.
+                    - styleClass="btn-outline": Stile CSS con bordo visibile e sfondo trasparente.
+                -->
+                <Button fx:id="btnAnnulla" text="ANNULLA" prefWidth="120.0" onAction="#gestisciAnnulla" styleClass="btn-outline"/>
+
+                <!-- 
+                    PULSANTE ACCESSO (Button con icona enter.png)
+                    - fx:id="btnLogin": Identificatore per il controller Java.
+                    - prefWidth="160.0": Larghezza di 160 pixel per evidenziare l'azione principale.
+                    - onAction="#gestisciLogin": Avvia il processo di autenticazione e convalida credenziali.
+                    - styleClass="btn-primary": Stile CSS primario ad alto contrasto visivo.
+                -->
+                <Button fx:id="btnLogin" text="ACCESSO" prefWidth="160.0" onAction="#gestisciLogin" styleClass="btn-primary">
+                    <graphic>
+                        <ImageView fitWidth="18.0" fitHeight="18.0" preserveRatio="true">
+                            <image>
+                                <Image url="@../images/enter.png"/>
+                            </image>
+                        </ImageView>
+                    </graphic>
+                </Button>
+
+            </children>
+        </HBox>
+
+    </children>
+
+    <!-- 
+        =============================================================================
+        SPAZIATURA INTERNA (PADDING)
+        =============================================================================
+        - <padding>: Definisce la distanza tra il bordo esterno del VBox e il suo contenuto interno.
+        - <Insets bottom="30.0" left="30.0" right="30.0" top="30.0"/>: Rientro omogeneo di 30 pixel su tutti i lati.
+    -->
+    <padding>
+        <Insets bottom="30.0" left="30.0" right="30.0" top="30.0"/>
+    </padding>
+
+</VBox>

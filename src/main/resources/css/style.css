@@ -1,0 +1,348 @@
+/* =================================================================================
+   FOGLIO DI STILE CSS GLOBALE (style.css) - JAVAFX STYLING
+   =================================================================================
+   Questo foglio di stile gestisce l'aspetto estetico dell'applicazione MyPatenti.
+   Nota per JavaFX CSS:
+   Tutte le proprietà CSS specifiche di JavaFX sono precedute dal prefisso '-fx-'.
+   ================================================================================= */
+
+/* 
+   ---------------------------------------------------------------------------------
+   1. SCHERMATE E FORMS (SFONDI E CONTENITORI RADICE)
+   ---------------------------------------------------------------------------------
+*/
+
+/* Sfondo della schermata iniziale di benvenuto (Colore blu primario MyPatenti) */
+.root-initial {
+    -fx-background-color: #0284c7; /* Colore di sfondo azzurro/blu primario */
+}
+
+/* Sfondo delle schermate dei moduli di Login e Registrazione (Colore rosa tenue) */
+.root-form {
+    -fx-background-color: #f3b0c3; /* Sfondo pastel rosa tenue per contrasto visivo */
+}
+
+/* 
+   ---------------------------------------------------------------------------------
+   2. TIPOGRAFIA E STILI DI TESTO (LABEL)
+   ---------------------------------------------------------------------------------
+*/
+
+/* Titolo grande della Schermata Iniziale */
+.title-label {
+    -fx-text-fill: white;      /* Colore del testo bianco per leggibilità sul blu */
+    -fx-font-size: 32px;       /* Dimensione del font (32 pixel) */
+    -fx-font-weight: bold;     /* Testo in grassetto */
+}
+
+/* Sottotitolo della Schermata Iniziale */
+.subtitle-label {
+    -fx-text-fill: white;      /* Colore del testo bianco */
+    -fx-font-size: 16px;       /* Dimensione del font (16 pixel) */
+}
+
+/* Titolo principale dei moduli (Login / Registrazione) */
+.form-title {
+    -fx-text-fill: #2b2b2b;    /* Colore del testo grigio scuro/nero per alto contrasto */
+    -fx-font-size: 24px;       /* Dimensione del font (24 pixel) */
+    -fx-font-weight: bold;     /* Testo in grassetto */
+}
+
+/* Etichette dei campi del form (es. "Nome:", "Password:") */
+.form-label {
+    -fx-text-fill: #2b2b2b;    /* Colore del testo grigio scuro */
+    -fx-font-weight: bold;     /* Testo in grassetto per evidenziare il campo */
+}
+
+/* Sottotitolo scuro per testi su sfondi chiari */
+.subtitle-dark {
+    -fx-text-fill: #1e293b;    /* Colore Slate scuro */
+    -fx-font-size: 15px;       /* Dimensione font 15px */
+    -fx-font-weight: bold;     /* Testo in grassetto */
+}
+
+/* 
+   ---------------------------------------------------------------------------------
+   3. PULSANTI FORM E CAMPI DI TESTO INTERATTIVI
+   ---------------------------------------------------------------------------------
+*/
+
+/* Pulsante primario per le azioni principali (Accedi, Registrati, Crea Account) */
+.btn-primary {
+    -fx-background-color: #e94560; /* Sfondo rosso/rosa scuro primario */
+    -fx-text-fill: white;          /* Testo di colore bianco */
+    -fx-font-size: 15px;           /* Dimensione font 15px */
+    -fx-font-weight: bold;         /* Carattere in grassetto */
+    -fx-background-radius: 8;      /* Raggio di arrotondamento degli angoli del pulsante (8px) */
+    -fx-cursor: hand;              /* Cambia il cursore del mouse in una manina quando si passa sopra */
+}
+
+/* Effetto al passaggio del mouse (hover) sul pulsante primario */
+.btn-primary:hover {
+    -fx-background-color: #d1344e; /* Sfondo leggermente più scuro al passaggio del mouse */
+}
+
+/* Pulsante secondario (es. "ANNULLA") con sfondo trasparente e bordo visibile */
+.btn-outline {
+    -fx-background-color: transparent; /* Sfondo trasparente */
+    -fx-text-fill: #2b2b2b;           /* Testo di colore grigio scuro */
+    -fx-font-size: 14px;              /* Dimensione font 14px */
+    -fx-font-weight: bold;            /* Carattere in grassetto */
+    -fx-border-color: #2b2b2b;        /* Colore del bordo grigio scuro */
+    -fx-border-radius: 8;             /* Arrotondamento del bordo a 8 pixel */
+    -fx-cursor: hand;                 /* Cursore a manina */
+}
+
+/* Personalizzazione dei campi di input (TextField e PasswordField) */
+.text-field-custom {
+    -fx-background-radius: 6;         /* Angoli arrotondati a 6 pixel per i campi di inserimento */
+}
+
+/* 
+   ---------------------------------------------------------------------------------
+   4. DASHBOARD - HEADER E LAYOUT PRINCIPALE
+   ---------------------------------------------------------------------------------
+*/
+
+/* Sfondo della Dashboard principale (Colore grigio/blu chiaro Tailwind Slate-50) */
+.root-dashboard-light {
+    -fx-background-color: #f8fafc;
+}
+
+/* Colore di sfondo per l'intestazione superiore */
+.header-celeste {
+    -fx-background-color: #0284c7; /* Azzurro brillante */
+}
+
+/* Titolo dell'intestazione principale */
+.header-title {
+    -fx-text-fill: white;          /* Testo bianco */
+    -fx-font-size: 20px;           /* Dimensione 20px */
+    -fx-font-weight: bold;         /* Grassetto */
+}
+
+/* Personalizzazione dello ScrollPane centrale (rimozione bordi e sfondi scuri) */
+.scroll-pane-custom {
+    -fx-background-color: transparent;
+    -fx-background: transparent;
+}
+
+/* 
+   ---------------------------------------------------------------------------------
+   5. TASTONI CARDS DASHBOARD (SNELLITE E PULITE)
+   ---------------------------------------------------------------------------------
+*/
+
+/* Base Card Button */
+.card-button {
+    -fx-cursor: hand;
+    -fx-background-radius: 20px;
+    -fx-padding: 16px;
+}
+
+/* Colori Sfondo Cards */
+.card-patenti { -fx-background-color: #ffedd5; }
+.card-veicoli { -fx-background-color: #dcfce7; }
+.card-teoria  { -fx-background-color: #f3e8ff; }
+.card-quiz    { -fx-background-color: #ffe4e6; }
+
+.card-patenti:hover { -fx-background-color: #fed7aa; }
+.card-veicoli:hover { -fx-background-color: #bbf7d0; }
+.card-teoria:hover  { -fx-background-color: #e9d5ff; }
+.card-quiz:hover    { -fx-background-color: #fecdd3; }
+
+/* Squircles Icone */
+.icon-squircle {
+    -fx-background-radius: 18px;
+}
+.icon-patenti { -fx-background-color: linear-gradient(to bottom right, #ff9f43, #ff6b00); }
+.icon-veicoli { -fx-background-color: linear-gradient(to bottom right, #26de81, #10b981); }
+.icon-teoria  { -fx-background-color: linear-gradient(to bottom right, #a55eea, #7c3aed); }
+.icon-quiz    { -fx-background-color: linear-gradient(to bottom right, #ff6b6b, #ef4444); }
+
+/* Titolo e Sottotitolo */
+.card-title {
+    -fx-font-size: 16.5px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #1e293b;
+    -fx-text-alignment: center;
+}
+
+.card-subtitle {
+    -fx-font-size: 13px;
+    -fx-text-fill: #475569;
+    -fx-text-alignment: center;
+}
+
+/* Bottone Freccetta */
+.arrow-circle {
+    -fx-background-color: white;
+    -fx-background-radius: 50%;
+}
+.arrow-text {
+    -fx-font-weight: bold;
+    -fx-font-size: 18px;
+    -fx-text-fill: #64748b;
+}
+
+/* 
+   ---------------------------------------------------------------------------------
+   6. BARRA DI NAVIGAZIONE INFERIORE (TAB BAR)
+   ---------------------------------------------------------------------------------
+*/
+
+/* Barra di navigazione fissa in basso */
+.bottom-navigation-bar {
+    -fx-background-color: #ffffff;    /* Sfondo bianco pulito */
+    -fx-border-color: #e2e8f0;        /* Bordo grigio chiaro */
+    -fx-border-width: 1px 0 0 0;      /* Bordo applicato solo sul lato superiore (1px) */
+}
+
+/* Pulsanti trasparenti nella barra di navigazione */
+.btn-nav-mini {
+    -fx-background-color: transparent; /* Sfondo trasparente */
+    -fx-text-fill: #64748b;           /* Testo grigio ardesia */
+    -fx-font-weight: bold;            /* Grassetto */
+    -fx-font-size: 13px;              /* Dimensione 13px */
+    -fx-cursor: hand;                 /* Cursore a manina */
+}
+
+/* Effetto hover sui pulsanti della barra inferiore */
+.btn-nav-mini:hover {
+    -fx-text-fill: #0284c7;           /* Cambia colore in blu brillante al passaggio del mouse */
+}
+
+/* Pulsante Home attivo nella barra inferiore */
+.btn-nav-home {
+    -fx-background-color: #e0f2fe;    /* Sfondo azzurro tenue attivo */
+    -fx-text-fill: #0369a1;           /* Testo blu scuro */
+    -fx-font-weight: bold;            /* Grassetto */
+    -fx-background-radius: 8;         /* Angoli arrotondati a 8px */
+}
+
+/* Testo informativo secondario scuro */
+.info-text-dark {
+    -fx-text-fill: #475569;
+    -fx-font-size: 13px;
+}
+
+/* ---------------------------------------------------------------------------------
+   7. IMPOSTAZIONI - TOGGLE SWITCH
+   --------------------------------------------------------------------------------- */
+
+/* Toggle OFF (default) */
+.toggle-switch {
+    -fx-pref-width: 46px;
+    -fx-pref-height: 26px;
+    -fx-background-radius: 13px;
+    -fx-background-color: #cbd5e1;
+    -fx-text-fill: transparent;
+    -fx-padding: 0;
+    -fx-cursor: hand;
+    -fx-graphic-text-gap: 0;
+}
+.toggle-switch:hover {
+    -fx-background-color: #94a3b8;
+}
+
+/* Toggle ON */
+.toggle-switch:selected {
+    -fx-background-color: #0284c7;
+}
+.toggle-switch:selected:hover {
+    -fx-background-color: #0369a1;
+}
+
+/* Sezioni impostazioni */
+.settings-section {
+    -fx-background-radius: 14px;
+    -fx-padding: 0;
+}
+.settings-section-aspetto  { -fx-background-color: #f5f3ff; }
+.settings-section-notifiche{ -fx-background-color: #eff6ff; }
+.settings-section-quiz     { -fx-background-color: #f0fdf4; }
+.settings-section-account  { -fx-background-color: #fff1f2; }
+
+/* Intestazione di sezione */
+.settings-section-header {
+    -fx-font-size: 15px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #1e293b;
+}
+
+/* Riga singola impostazione */
+.settings-row-label {
+    -fx-font-size: 13px;
+    -fx-text-fill: #334155;
+}
+
+/* RadioButton impostazioni */
+.settings-radio {
+    -fx-font-size: 13px;
+    -fx-text-fill: #334155;
+    -fx-cursor: hand;
+}
+
+/* Bottone riga account (Cambia password) */
+.settings-account-btn {
+    -fx-background-color: transparent;
+    -fx-text-fill: #1e293b;
+    -fx-font-size: 13px;
+    -fx-cursor: hand;
+    -fx-padding: 0;
+    -fx-alignment: CENTER_LEFT;
+}
+.settings-account-btn:hover {
+    -fx-text-fill: #0284c7;
+}
+
+/* Link rosso Esci */
+.settings-logout-link {
+    -fx-background-color: transparent;
+    -fx-text-fill: #ef4444;
+    -fx-font-size: 13px;
+    -fx-font-weight: bold;
+    -fx-cursor: hand;
+    -fx-padding: 0;
+}
+.settings-logout-link:hover {
+    -fx-text-fill: #dc2626;
+}
+
+/* Pulsanti piccoli per riga account (stile compatto come nella UI richiesta) */
+.settings-account-btn-small {
+    -fx-background-color: transparent;
+    -fx-border-color: #e2e8f0;
+    -fx-border-radius: 8px;
+    -fx-background-radius: 8px;
+    -fx-text-fill: #1e293b;
+    -fx-font-size: 13px;
+    -fx-cursor: hand;
+    -fx-padding: 6 10 6 10; /* top right bottom left */
+    -fx-min-height: 28px;
+    -fx-pref-width: 160px;
+    -fx-alignment: CENTER;
+}
+.settings-account-btn-small:hover {
+    -fx-background-color: #f8fafc;
+    -fx-border-color: #c7e9ff;
+}
+
+.settings-logout-link-small {
+    -fx-background-color: transparent;
+    -fx-border-color: #fee2e2;
+    -fx-border-radius: 8px;
+    -fx-background-radius: 8px;
+    -fx-text-fill: #ef4444;
+    -fx-font-size: 13px;
+    -fx-font-weight: bold;
+    -fx-cursor: hand;
+    -fx-padding: 6 10 6 10;
+    -fx-min-height: 28px;
+    -fx-pref-width: 160px;
+    -fx-alignment: CENTER;
+}
+.settings-logout-link-small:hover {
+    -fx-background-color: #fff1f2;
+    -fx-border-color: #fca5a5;
+}

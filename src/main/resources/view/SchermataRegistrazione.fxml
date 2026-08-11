@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- 
+    =================================================================================
+    INTESTAZIONE XML E IMPORTAZIONI JAVAFX (SCHERMATA DI REGISTRAZIONE)
+    =================================================================================
+    - <?xml version="1.0" encoding="UTF-8"?>: Codifica caratteri standard UTF-8.
+    - <?import ... ?>: Importazione delle classi del framework JavaFX utilizzate nel form di registrazione.
+      * Insets: Gestisce la spaziatura interna (padding) del layout.
+      * Button: Pulsanti interattivi per confermare o annullare l'operazione.
+      * CheckBox: Casella spuntabile per mostrare/nascondere la password in chiaro.
+      * Label: Etichette di testo statiche per descrivere i singoli campi di inserimento.
+      * PasswordField: Campo di input riservato che mascherate la digitazione della password.
+      * TextField: Campo per la digitazione di testo generico a linea singola (nome, cognome, email, CF).
+      * GridPane: Layout a tabella (righe e colonne) per allineare accuratamente etichette e campi.
+      * HBox: Layout orizzontale per affiancare i pulsanti di azione in basso.
+      * StackPane: Contenitore a livelli sovrapposti per lo scambio dinamico della visibilità della password.
+      * VBox: Contenitore radice a disposizione verticale.
+-->
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+
+<!--
+    =================================================================================
+    CONTENITORE PRINCIPALE (VBox - Form di Registrazione)
+    =================================================================================
+    Organizza verticalmente il titolo, la tabella dei campi di inserimento e i pulsanti finali.
+    
+    ATTRIBUTI E SINTASSI:
+    - alignment="CENTER": Centra tutti i nodi figli sia in verticale che in orizzontale.
+    - spacing="20.0": Spaziatura verticale di 20 pixel tra gli elementi del form.
+    - prefWidth="600.0" e prefHeight="480.0": Dimensioni ottimali per visualizzare tutti i campi senza barre di scorrimento.
+    - xmlns e xmlns:fx: Namespace XML ufficiali per JavaFX.
+    - fx:controller="controller.SchermataRegistrazioneController": Collega la vista al Controller Java gestore della registrazione.
+    - styleClass="root-form": Applica lo stile grafico di sfondo definito nel foglio CSS.
+-->
+<VBox alignment="CENTER" spacing="20.0" prefWidth="600.0" prefHeight="480.0"
+      xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="controller.SchermataRegistrazioneController"
+      styleClass="root-form">
+
+    <!-- 
+        =============================================================================
+        LISTA DEI NODI FIGLI (<children>)
+        =============================================================================
+        Racchiude l'insieme di tutti i componenti visivi contenuti nel VBox.
+    -->
+    <children>
+
+        <!-- 
+            TITOLO PRINCIPALE DELLA REGISTRAZIONE (Label)
+            - text="📝 REGISTRAZIONE UTENTE": Titolo con icona emoji del blocco note.
+            - styleClass="form-title": Stile CSS con carattere in evidenza per i titoli dei moduli.
+        -->
+        <Label text="📝 REGISTRAZIONE UTENTE" styleClass="form-title"/>
+
+        <!-- 
+            =========================================================================
+            MODULO DI REGISTRAZIONE A GRIGLIA (GridPane - 6 Righe x 2 Colonne)
+            =========================================================================
+            Struttura tabellare per organizzare i dati dell'utente (Nome, Cognome, Email, CF, Password).
+            
+            ATTRIBUTI UTILIZZATI:
+            - hgap="10.0": Spaziatura orizzontale di 10px tra le etichette e i relativi campi di testo.
+            - vgap="12.0": Spaziatura verticale di 12px tra le varie righe del modulo.
+            - alignment="CENTER": Centra la griglia all'interno del VBox.
+            - prefHeight="220.0": Altezza preferita assegnata alla griglia.
+        -->
+        <GridPane hgap="10.0" vgap="12.0" alignment="CENTER" prefHeight="220.0">
+            <children>
+
+                <!-- RIGA 0: CAMPO NOME -->
+                <!-- Label (Colonna 0, Riga 0) -->
+                <Label text="Nome:" GridPane.columnIndex="0" GridPane.rowIndex="0" styleClass="form-label"/>
+                <!-- TextField (Colonna 1, Riga 0): campo per inserire il nome -->
+                <TextField fx:id="txtNome" promptText="Inserisci il tuo nome"
+                           GridPane.columnIndex="1" GridPane.rowIndex="0" prefWidth="250.0" styleClass="text-field-custom"/>
+
+                <!-- RIGA 1: CAMPO COGNOME -->
+                <!-- Label (Colonna 0, Riga 1) -->
+                <Label text="Cognome:" GridPane.columnIndex="0" GridPane.rowIndex="1" styleClass="form-label"/>
+                <!-- TextField (Colonna 1, Riga 1): campo per inserire il cognome -->
+                <TextField fx:id="txtCognome" promptText="Inserisci il tuo cognome"
+                           GridPane.columnIndex="1" GridPane.rowIndex="1" prefWidth="250.0" styleClass="text-field-custom"/>
+
+                <!-- RIGA 2: CAMPO EMAIL -->
+                <!-- Label (Colonna 0, Riga 2) -->
+                <Label text="Email:" GridPane.columnIndex="0" GridPane.rowIndex="2" styleClass="form-label"/>
+                <!-- TextField (Colonna 1, Riga 2): campo con placeholder dell'indirizzo email -->
+                <TextField fx:id="txtEmail" promptText="esempio@email.com"
+                           GridPane.columnIndex="1" GridPane.rowIndex="2" prefWidth="250.0" styleClass="text-field-custom"/>
+
+                <!-- RIGA 3: CAMPO CODICE FISCALE -->
+                <!-- Label (Colonna 0, Riga 3) -->
+                <Label text="Codice Fiscale:" GridPane.columnIndex="0" GridPane.rowIndex="3" styleClass="form-label"/>
+                <!-- TextField (Colonna 1, Riga 3): campo di 16 caratteri alfanumerici -->
+                <TextField fx:id="txtCodiceFiscale" promptText="Inserisci i 16 caratteri"
+                           GridPane.columnIndex="1" GridPane.rowIndex="3" prefWidth="250.0" styleClass="text-field-custom"/>
+
+                <!-- RIGA 4: CAMPO PASSWORD (SOVRAPPOSIZIONE CON STACKPANE) -->
+                <!-- Label (Colonna 0, Riga 4) -->
+                <Label text="Password:" GridPane.columnIndex="0" GridPane.rowIndex="4" styleClass="form-label"/>
+                
+                <!-- StackPane (Colonna 1, Riga 4): sovrappone il PasswordField e il TextField visibile -->
+                <StackPane GridPane.columnIndex="1" GridPane.rowIndex="4" prefWidth="250.0">
+                    <children>
+                        <!-- PasswordField: mascheramento dei caratteri con i pallini -->
+                        <PasswordField fx:id="txtPassword" promptText="Crea una password sicura" styleClass="text-field-custom"/>
+                        
+                        <!-- TextField: campo in chiaro per mostrare la password (nascosto di default con visible="false") -->
+                        <TextField fx:id="txtPasswordMostrata" promptText="Crea una password sicura" visible="false" styleClass="text-field-custom"/>
+                    </children>
+                </StackPane>
+
+                <!-- RIGA 5: CASELLA DI SPUNTA MOSTRA PASSWORD -->
+                <!-- CheckBox (Colonna 1, Riga 5): attiva/disattiva la visibilità della password -->
+                <CheckBox fx:id="chkMostraPassword" text="Mostra password" onAction="#gestisciMostraPassword"
+                          GridPane.columnIndex="1" GridPane.rowIndex="5" styleClass="form-label"/>
+
+            </children>
+        </GridPane>
+
+        <!-- 
+            =========================================================================
+            CONTENITORE ORIZZONTALE PULSANTI DI AZIONE (HBox)
+            =========================================================================
+            Contiene i pulsanti per annullare o inviare i dati di registrazione.
+            - alignment="CENTER": Centra i pulsanti sotto al modulo.
+            - spacing="15.0": Distanza di 15 pixel tra il pulsante ANNULLA e CREA ACCOUNT.
+        -->
+        <HBox alignment="CENTER" spacing="15.0">
+            <children>
+
+                <!-- 
+                    PULSANTE ANNULLA (Button)
+                    - fx:id="btnAnnulla": ID per il gestore di eventi nel controller Java.
+                    - prefWidth="120.0": Larghezza di 120 pixel.
+                    - onAction="#gestisciAnnulla": Ritorna alla schermata iniziale annullando la registrazione.
+                    - styleClass="btn-outline": Stile CSS secondario con bordo.
+                -->
+                <Button fx:id="btnAnnulla" text="ANNULLA" prefWidth="120.0" onAction="#gestisciAnnulla" styleClass="btn-outline"/>
+
+                <!-- 
+                    PULSANTE CREA ACCOUNT (Button con icona add.png)
+                    - fx:id="btnInviaRegistrazione": ID univoco per il controller Java.
+                    - prefWidth="160.0": Larghezza di 160 pixel per evidenziare l'azione principale.
+                    - onAction="#gestisciRegistrazione": Raccoglie i dati inseriti, convalida l'account ed effettua la registrazione.
+                    - styleClass="btn-primary": Stile CSS primario per l'azione di conferma.
+                -->
+                <Button fx:id="btnInviaRegistrazione" text="CREA ACCOUNT" prefWidth="160.0" onAction="#gestisciRegistrazione" styleClass="btn-primary">
+                    <graphic>
+                        <ImageView fitWidth="18.0" fitHeight="18.0" preserveRatio="true">
+                            <image>
+                                <Image url="@../images/add.png"/>
+                            </image>
+                        </ImageView>
+                    </graphic>
+                </Button>
+
+            </children>
+        </HBox>
+
+    </children>
+
+    <!-- 
+        =============================================================================
+        PADDING E MARGINI INTERNI (<padding> & <Insets>)
+        =============================================================================
+        - <padding>: Distanza interna dai bordi del VBox radice.
+        - <Insets bottom="25.0" left="25.0" right="25.0" top="25.0"/>: 25 pixel di spaziatura su tutti e quattro i lati.
+    -->
+    <padding>
+        <Insets bottom="25.0" left="25.0" right="25.0" top="25.0"/>
+    </padding>
+
+</VBox>

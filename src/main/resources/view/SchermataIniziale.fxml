@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- 
+    =================================================================================
+    INTESTAZIONE XML E IMPORTAZIONI JAVAFX
+    =================================================================================
+    - <?xml version="1.0" encoding="UTF-8"?>: Dichiarazione XML standard. Specifica la versione dell'XML e la codifica dei caratteri (UTF-8).
+    - <?import ... ?>: Istruzioni di elaborazione che importano le classi Java necessarie nel file FXML (equivalente all'import in Java).
+-->
+<?import javafx.geometry.Insets?>       <!-- Classe JavaFX per definire i margini interni (padding) -->
+<?import javafx.scene.control.Button?>   <!-- Classe JavaFX per i pulsanti interattivi -->
+<?import javafx.scene.control.Label?>    <!-- Classe JavaFX per le etichette di testo non modificabili -->
+<?import javafx.scene.layout.VBox?>      <!-- Layout manager che impila i componenti verticalmente -->
+<?import javafx.scene.image.ImageView?>  <!-- Nodo grafico per visualizzare le immagini nell'interfaccia -->
+<?import javafx.scene.image.Image?>      <!-- Oggetto che rappresenta l'immagine caricata da un file o URL -->
+
+<!--
+    =================================================================================
+    CONTENITORE PRINCIPALE (VBox)
+    =================================================================================
+    Il VBox (Vertical Box) ordina tutti i componenti figli in un'unica colonna dall'alto verso il basso.
+    
+    ATTRIBUTI E SINTASSI UTILIZZATI:
+    - alignment="CENTER": Allinea sia in verticale che in orizzontale tutti gli elementi figli al centro del VBox.
+    - spacing="20.0": Imposta uno spazio fisso di 20 pixel tra un componente figlio e quello successivo.
+    - prefWidth="600.0": Larghezza preferita in pixel della finestra/schermata.
+    - prefHeight="400.0": Altezza preferita in pixel della finestra/schermata.
+    - xmlns="http://javafx.com/javafx/21": Namespace XML predefinito per tutti i tag JavaFX standard.
+    - xmlns:fx="http://javafx.com/fxml/1": Namespace XML per gli attributi specifici di FXML (es. fx:id, fx:controller).
+    - fx:controller="controller.SceltaInizialeController": Collega questa vista FXML alla classe Controller Java che gestirà la logica e gli eventi.
+    - styleClass="root-initial": Assegna la classe di stile CSS per applicare lo sfondo sfumato o personalizzato definito nel file style.css.
+-->
+<VBox alignment="CENTER" spacing="20.0" prefWidth="600.0" prefHeight="400.0"
+      xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="controller.SceltaInizialeController"
+      styleClass="root-initial">
+
+    <!-- 
+        =============================================================================
+        LISTA DEI COMPONENTI FIGLI (<children>)
+        =============================================================================
+        Il tag <children> racchiude tutti gli elementi grafici contenuti e gestiti all'interno del VBox.
+    -->
+    <children>
+
+        <!-- 
+            ICONA DELL'APPLICAZIONE (ImageView & Image)
+            - ImageView: Nodo grafico deputato alla resa visiva dell'immagine.
+              * fitWidth="80.0" e fitHeight="80.0": Ridimensionano l'immagine a una dimensione di 80x80 pixel.
+              * preserveRatio="true": Mantiene le proporzioni originali dell'immagine (evita che venga distorta o allungata).
+            - <image>: Proprietà contenitore che racchiude l'oggetto Image.
+            - <Image url="@../images/car-icon.png"/>: Carica il file immagine dal percorso relativo al file FXML.
+              * Il simbolo '@' indica a JavaFX che il percorso è relativo alla cartella delle risorse (resources).
+        -->
+        <ImageView fitWidth="80.0" fitHeight="80.0" preserveRatio="true">
+            <image>
+                <Image url="@../images/car-icon.png"/>
+            </image>
+        </ImageView>
+
+        <!-- 
+            TITOLO PRINCIPALE (Label)
+            - Label: Componente grafico utilizzato per visualizzare un testo a schermo.
+            - text=" MYPATENTI ": Il contenuto testuale dell'intestazione principale dell'applicazione.
+            - styleClass="title-label": Applica la classe CSS per la formattazione del titolo (es. font grande, grassetto, colore specifico).
+        -->
+        <Label text="🔥 MYPATENTI 🚗" styleClass="title-label"/>
+
+        <!-- 
+            SOTTOTITOLO DI BENVENUTO (Label)
+            - text="Benvenuto nell'app MyPatenti! Scegli un'opzione per iniziare:": Testo del messaggio guida rivolto all'utente.
+            - styleClass="subtitle-label": Applica la classe CSS per lo stile del sottotitolo (es. font di dimensione media, colore secondario).
+        -->
+        <Label text="Benvenuto nell'app MyPatenti! Scegli un'opzione per iniziare:" styleClass="subtitle-label"/>
+
+        <!-- 
+            PULSANTE ACCEDI (Button con icona enter.png)
+            - Button: Componente per creare un pulsante interattivo su cui l'utente può cliccare.
+            - fx:id="btnAccedi": Identificatore univoco collegato al campo `@FXML private Button btnAccedi;` nel controller Java.
+            - text="ACCEDI": Testo visibile dentro il pulsante.
+            - prefWidth="200.0": Larghezza preferita del pulsante impostata a 200 pixel per garantire uniformità visiva.
+            - onAction="#gestisciAccedi": Associa il click del pulsante al metodo `gestisciAccedi(ActionEvent event)` nel controller.
+            - styleClass="btn-primary": Applica lo stile CSS primario per il pulsante.
+            - <graphic>: Inserisce l'icona grafica enter.png all'interno del pulsante.
+        -->
+        <Button fx:id="btnAccedi" text="ACCEDI" prefWidth="200.0" onAction="#gestisciAccedi" styleClass="btn-primary">
+            <graphic>
+                <ImageView fitWidth="20.0" fitHeight="20.0" preserveRatio="true">
+                    <image>
+                        <Image url="@../images/enter.png"/>
+                    </image>
+                </ImageView>
+            </graphic>
+        </Button>
+
+        <!-- 
+            PULSANTE REGISTRATI (Button con icona add.png)
+            - fx:id="btnRegistrati": Identificatore univoco collegato al campo `@FXML private Button btnRegistrati;` nel controller Java.
+            - text="REGISTRATI": Testo visibile nel pulsante con la parola REGISTRATI.
+            - prefWidth="200.0": Larghezza preferita di 200 pixel coerente con gli altri pulsanti.
+            - onAction="#gestisciRegistrati": Associa il click al metodo `gestisciRegistrati(ActionEvent event)` nel controller Java per aprire la schermata di registrazione.
+            - styleClass="btn-primary": Classe CSS per mantenere l'aspetto estetico primario del pulsante.
+            - <graphic>: Inserisce l'icona grafica add.png all'interno del pulsante.
+        -->
+        <Button fx:id="btnRegistrati" text="REGISTRATI" prefWidth="200.0" onAction="#gestisciRegistrati" styleClass="btn-primary">
+            <graphic>
+                <ImageView fitWidth="20.0" fitHeight="20.0" preserveRatio="true">
+                    <image>
+                        <Image url="@../images/add.png"/>
+                    </image>
+                </ImageView>
+            </graphic>
+        </Button>
+
+    </children>
+
+    <!-- 
+        =============================================================================
+        PADDING E MARGINI INTERNI (<padding> & <Insets>)
+        =============================================================================
+        - <padding>: Proprietà del VBox per impostare la spaziatura interna tra i bordi della finestra e i componenti contenuti.
+        - <Insets bottom="40.0" left="40.0" right="40.0" top="40.0"/>:
+          Crea un rientro vuoto di 40 pixel su tutti e 4 i lati:
+          * top="40.0": 40 pixel di margine in alto.
+          * bottom="40.0": 40 pixel di margine in basso.
+          * left="40.0": 40 pixel di margine a sinistra.
+          * right="40.0": 40 pixel di margine a destra.
+    -->
+    <padding>
+        <Insets bottom="40.0" left="40.0" right="40.0" top="40.0"/>
+    </padding>
+
+</VBox>

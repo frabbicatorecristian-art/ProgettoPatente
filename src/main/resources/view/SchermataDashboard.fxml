@@ -1,0 +1,437 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- 
+    =================================================================================
+    INTESTAZIONE XML E IMPORTAZIONI JAVAFX (SCHERMATA DASHBOARD PRINCIPALE)
+    =================================================================================
+    - <?xml version="1.0" encoding="UTF-8"?>: Codifica caratteri standard UTF-8.
+    - <?import javafx.geometry.*?>: Importa tutte le classi per la gestione di margini e allineamenti (Insets, ecc.).
+    - <?import javafx.scene.control.*?>: Importa i controlli dell'interfaccia (Button, Label, ScrollPane, MenuButton, MenuItem, ecc.).
+    - <?import javafx.scene.layout.*?>: Importa i layout manager (VBox, HBox, StackPane, ecc.).
+-->
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.MenuButton?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<!--
+    =================================================================================
+    CONTENITORE PRINCIPALE RADICE (VBox - Dashboard)
+    =================================================================================
+    Struttura verticale principale che racchiude:
+    1. Barra di navigazione superiore (Navbar)
+    2. Area di contenuto scrollabile (ScrollPane)
+    3. Barra di navigazione inferiore (Tab Bar)
+    
+    ATTRIBUTI UTILIZZATI:
+    - alignment="TOP_CENTER": Allinea i contenuti in alto e al centro.
+    - prefWidth="900.0" e prefHeight="800.0": Dimensioni preferite della finestra in pixel.
+    - style="-fx-background-color: #f1f5f9;": Stile inline per impostare il colore di sfondo grigio chiaro (Tailwind Slate-100).
+    - xmlns e xmlns:fx: Namespace XML ufficiali JavaFX e FXML.
+    - fx:controller="controller.DashboardController": Collega la vista FXML alla classe Controller Java per la gestione dell'aula virtuale.
+-->
+<VBox alignment="TOP_CENTER" prefHeight="800.0" prefWidth="900.0" 
+      style="-fx-background-color: #f1f5f9;" 
+      xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" 
+      fx:controller="controller.DashboardController">
+
+    <!-- 
+        =============================================================================
+        LISTA DEI COMPONENTI FIGLI (<children>)
+        =============================================================================
+        Racchiude tutti i nodi principali della Dashboard.
+    -->
+    <children>
+
+        <!-- 
+            =========================================================================
+            1. BARRA DI NAVIGAZIONE SUPERIORE (NAVBAR - HBox)
+            =========================================================================
+            Dispone orizzontalmente il logo dell'app e il menu profilo utente.
+            - alignment="CENTER_LEFT": Allinea gli elementi al centro verticalmente e a sinistra orizzontalmente.
+            - prefHeight="65.0": Altezza fissa della navbar di 65 pixel.
+            - spacing="15.0": Spaziatura di 15 pixel tra gli elementi.
+            - style="-fx-background-color: #0284c7;": Sfondo di colore blu azzurro per la barra superiore.
+        -->
+        <HBox alignment="CENTER_LEFT" prefHeight="65.0" spacing="15.0" style="-fx-background-color: #0284c7;">
+            <children>
+                <!-- Logo e Nome dell'Applicazione (Label) -->
+                <HBox alignment="CENTER_LEFT" spacing="10.0">
+                    <children>
+                        <ImageView fitHeight="32.0" fitWidth="32.0" preserveRatio="true">
+                            <image><Image url="@../images/car.png" /></image>
+                        </ImageView>
+                        <Label style="-fx-text-fill: white; -fx-font-size: 22px; -fx-font-weight: bold;" text="MyPatenti" />
+                    </children>
+                </HBox>
+                
+                <!-- Spaziatore flessibile (VBox): HBox.hgrow="ALWAYS" spinge il menu utente tutto a destra -->
+                <VBox HBox.hgrow="ALWAYS" />
+
+                <!-- 
+                    MENU PROFILO UTENTE (MenuButton & MenuItem)
+                    - MenuButton: Pulsante a discesa con l'indicazione del nome utente.
+                    - fx:id="menuProfilo": ID per personalizzare il testo nel controller Java in base all'utente loggato.
+                -->
+                <MenuButton fx:id="menuProfilo" style="-fx-background-color: #0369a1; -fx-text-fill: white; -fx-font-size: 15px; -fx-font-weight: bold;" text="👤 Ciao, Utente">
+                    <items>
+                        <!-- Opzioni del Menu a discesa con le relative azioni (onAction) gestite nel controller -->
+                        <MenuItem onAction="#apriProfilo" text=" Il mio profilo">
+                            <graphic>
+                                <ImageView fitHeight="14.0" fitWidth="14.0" preserveRatio="true">
+                                    <image><Image url="@../images/user-account.png" /></image>
+                                </ImageView>
+                            </graphic>
+                        </MenuItem>
+                        <MenuItem onAction="#apriImpostazioni" text=" Impostazioni">
+                            <graphic>
+                                <ImageView fitHeight="14.0" fitWidth="14.0" preserveRatio="true">
+                                    <image><Image url="@../images/settings.png" /></image>
+                                </ImageView>
+                            </graphic>
+                        </MenuItem>
+                        <MenuItem onAction="#gestisciLogout" text=" Esci">
+                            <graphic>
+                                <ImageView fitHeight="14.0" fitWidth="14.0" preserveRatio="true">
+                                    <image><Image url="@../images/enter.png" /></image>
+                                </ImageView>
+                            </graphic>
+                        </MenuItem>
+                    </items>
+                </MenuButton>
+            </children>
+
+            <!-- Padding interno della Navbar: 12px sopra/sotto e 25px sui lati -->
+            <padding>
+                <Insets bottom="12.0" left="25.0" right="25.0" top="12.0" />
+            </padding>
+        </HBox>
+
+        <!-- 
+            =========================================================================
+            2. CONTENUTO CENTRALE PRINCIPALE (Senza ScrollPane)
+            =========================================================================
+            VBox centrale che occupa tutto lo spazio verticale disponibile senza scorrimento.
+        -->
+        <VBox VBox.vgrow="ALWAYS" spacing="15.0" style="-fx-background-color: transparent;">
+            <children>
+
+                <!-- BANNER BENVENUTO COMPATTO -->
+                <HBox alignment="CENTER_LEFT" prefHeight="90.0" spacing="20.0" 
+                      style="-fx-background-color: #ffffff; -fx-background-radius: 16px; -fx-padding: 14px 24px; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.05), 8, 0, 0, 2);">
+                    <children>
+                        <!-- Testo di Benvenuto e Sottotitolo -->
+                        <VBox alignment="CENTER_LEFT" spacing="4.0" HBox.hgrow="ALWAYS">
+                            <children>
+                                <Label fx:id="lblBenvenuto" style="-fx-font-size: 22px; -fx-font-weight: bold; -fx-text-fill: #1e293b;" text="Bentornato, Cristian! 👋" wrapText="true" />
+                                <Label style="-fx-font-size: 13px; -fx-text-fill: #64748b;" text="Gestisci le tue patenti, i tuoi veicoli e consulta il materiale teorico." wrapText="true" />
+                            </children>
+                        </VBox>
+
+                        <!-- Immagine car_license.png posizionata in alto a destra -->
+                        <ImageView fitHeight="90.0" preserveRatio="true">
+                            <image>
+                                <Image url="@../images/car_license.png"/>
+                            </image>
+                        </ImageView>
+                    </children>
+                </HBox>
+
+                <!--
+                    =========================================================
+                    SEZIONE 4 PULSANTI DI NAVIGAZIONE PRINCIPALE (GRID 2x2 QUADRATA)
+                    =========================================================
+                    GridPane 2x2 contenente i 4 tastoni disposti a mo' di quadrato.
+                    Si espande in verticale (VBox.vgrow="ALWAYS") occupando tutto lo spazio senza bisogno di scorrere.
+                -->
+                <GridPane alignment="CENTER" hgap="20.0" vgap="20.0" VBox.vgrow="ALWAYS">
+                    <columnConstraints>
+                        <ColumnConstraints hgrow="ALWAYS" percentWidth="50.0" />
+                        <ColumnConstraints hgrow="ALWAYS" percentWidth="50.0" />
+                    </columnConstraints>
+                    <rowConstraints>
+                        <RowConstraints percentHeight="50.0" vgrow="ALWAYS" />
+                        <RowConstraints percentHeight="50.0" vgrow="ALWAYS" />
+                    </rowConstraints>
+
+                    <children>
+                        <!-- 1. TASTONE: LE MIE PATENTI (col 0, row 0) -->
+                        <Button maxHeight="Infinity" maxWidth="Infinity" onAction="#apriSezionePatenti" styleClass="card-button, card-patenti">
+                            <graphic>
+                                <StackPane maxHeight="Infinity" maxWidth="Infinity">
+                                    <children>
+                                        <VBox alignment="CENTER" spacing="12.0" StackPane.alignment="CENTER">
+                                            <children>
+                                                <StackPane maxHeight="64.0" maxWidth="64.0" prefHeight="64.0" prefWidth="64.0" styleClass="icon-squircle, icon-patenti">
+                                                    <children>
+                                                        <ImageView fitHeight="36.0" fitWidth="36.0" preserveRatio="true">
+                                                            <image>
+                                                                <Image url="@../images/drivers-license_dashboard.png" />
+                                                            </image>
+                                                        </ImageView>
+                                                    </children>
+                                                </StackPane>
+
+                                                <VBox alignment="CENTER" spacing="5.0">
+                                                    <children>
+                                                        <Label styleClass="card-title" text="LE MIE PATENTI" />
+                                                        <Label alignment="CENTER" maxWidth="300.0" styleClass="card-subtitle" text="Visualizza le patenti attualmente in tuo possesso, le scadenze e i dettagli." textAlignment="CENTER" wrapText="true" />
+                                                    </children>
+                                                </VBox>
+                                            </children>
+                                        </VBox>
+
+                                        <StackPane maxHeight="32.0" maxWidth="32.0" prefHeight="32.0" prefWidth="32.0" styleClass="arrow-circle" StackPane.alignment="BOTTOM_RIGHT">
+                                            <children>
+                                                <Label styleClass="arrow-text" text="›" />
+                                            </children>
+                                        </StackPane>
+                                    </children>
+                                </StackPane>
+                            </graphic>
+                            <GridPane.columnIndex>0</GridPane.columnIndex>
+                            <GridPane.rowIndex>0</GridPane.rowIndex>
+                        </Button>
+
+                        <!-- 2. TASTONE: I MIEI VEICOLI (col 1, row 0) -->
+                        <Button maxHeight="Infinity" maxWidth="Infinity" onAction="#apriSezioneVeicoli" styleClass="card-button, card-veicoli">
+                            <graphic>
+                                <StackPane maxHeight="Infinity" maxWidth="Infinity">
+                                    <children>
+                                        <VBox alignment="CENTER" spacing="12.0" StackPane.alignment="CENTER">
+                                            <children>
+                                                <StackPane maxHeight="64.0" maxWidth="64.0" prefHeight="64.0" prefWidth="64.0" styleClass="icon-squircle, icon-veicoli">
+                                                    <children>
+                                                        <ImageView fitHeight="36.0" fitWidth="36.0" preserveRatio="true">
+                                                            <image>
+                                                                <Image url="@../images/car.png" />
+                                                            </image>
+                                                        </ImageView>
+                                                    </children>
+                                                </StackPane>
+
+                                                <VBox alignment="CENTER" spacing="5.0">
+                                                    <children>
+                                                        <Label styleClass="card-title" text="I MIEI VEICOLI" />
+                                                        <Label alignment="CENTER" maxWidth="300.0" styleClass="card-subtitle" text="Visualizza e gestisci i veicoli di tua proprietà, assicurazioni e revisioni." textAlignment="CENTER" wrapText="true" />
+                                                    </children>
+                                                </VBox>
+                                            </children>
+                                        </VBox>
+
+                                        <StackPane maxHeight="32.0" maxWidth="32.0" prefHeight="32.0" prefWidth="32.0" styleClass="arrow-circle" StackPane.alignment="BOTTOM_RIGHT">
+                                            <children>
+                                                <Label styleClass="arrow-text" text="›" />
+                                            </children>
+                                        </StackPane>
+                                    </children>
+                                </StackPane>
+                            </graphic>
+                            <GridPane.columnIndex>1</GridPane.columnIndex>
+                            <GridPane.rowIndex>0</GridPane.rowIndex>
+                        </Button>
+
+                        <!-- 3. TASTONE: TEORIA & MANUALE (col 0, row 1) -->
+                        <Button maxHeight="Infinity" maxWidth="Infinity" onAction="#apriSezioneTeoria" styleClass="card-button, card-teoria">
+                            <graphic>
+                                <StackPane maxHeight="Infinity" maxWidth="Infinity">
+                                    <children>
+                                        <VBox alignment="CENTER" spacing="12.0" StackPane.alignment="CENTER">
+                                            <children>
+                                                <StackPane maxHeight="64.0" maxWidth="64.0" prefHeight="64.0" prefWidth="64.0" styleClass="icon-squircle, icon-teoria">
+                                                    <children>
+                                                        <ImageView fitHeight="36.0" fitWidth="36.0" preserveRatio="true">
+                                                            <image>
+                                                                <Image url="@../images/book_dashboard.png" />
+                                                            </image>
+                                                        </ImageView>
+                                                    </children>
+                                                </StackPane>
+
+                                                <VBox alignment="CENTER" spacing="5.0">
+                                                    <children>
+                                                        <Label styleClass="card-title" text="TEORIA &amp; MANUALE" />
+                                                        <Label alignment="CENTER" maxWidth="300.0" styleClass="card-subtitle" text="Consulta i moduli teorici del Codice della Strada sempre aggiornati." textAlignment="CENTER" wrapText="true" />
+                                                    </children>
+                                                </VBox>
+                                            </children>
+                                        </VBox>
+
+                                        <StackPane maxHeight="32.0" maxWidth="32.0" prefHeight="32.0" prefWidth="32.0" styleClass="arrow-circle" StackPane.alignment="BOTTOM_RIGHT">
+                                            <children>
+                                                <Label styleClass="arrow-text" text="›" />
+                                            </children>
+                                        </StackPane>
+                                    </children>
+                                </StackPane>
+                            </graphic>
+                            <GridPane.columnIndex>0</GridPane.columnIndex>
+                            <GridPane.rowIndex>1</GridPane.rowIndex>
+                        </Button>
+
+                        <!-- 4. TASTONE: QUIZ (col 1, row 1) -->
+                        <Button maxHeight="Infinity" maxWidth="Infinity" onAction="#apriSezioneQuiz" styleClass="card-button, card-quiz">
+                            <graphic>
+                                <StackPane maxHeight="Infinity" maxWidth="Infinity">
+                                    <children>
+                                        <VBox alignment="CENTER" spacing="12.0" StackPane.alignment="CENTER">
+                                            <children>
+                                                <StackPane maxHeight="64.0" maxWidth="64.0" prefHeight="64.0" prefWidth="64.0" styleClass="icon-squircle, icon-quiz">
+                                                    <children>
+                                                        <ImageView fitHeight="36.0" fitWidth="36.0" preserveRatio="true">
+                                                            <image>
+                                                                <Image url="@../images/quiz_dashboard.png" />
+                                                            </image>
+                                                        </ImageView>
+                                                    </children>
+                                                </StackPane>
+
+                                                <VBox alignment="CENTER" spacing="5.0">
+                                                    <children>
+                                                        <Label styleClass="card-title" text="QUIZ" />
+                                                        <Label alignment="CENTER" maxWidth="300.0" styleClass="card-subtitle" text="Allenati con i quiz ministeriali e verifica la tua preparazione." textAlignment="CENTER" wrapText="true" />
+                                                    </children>
+                                                </VBox>
+                                            </children>
+                                        </VBox>
+
+                                        <StackPane maxHeight="32.0" maxWidth="32.0" prefHeight="32.0" prefWidth="32.0" styleClass="arrow-circle" StackPane.alignment="BOTTOM_RIGHT">
+                                            <children>
+                                                <Label styleClass="arrow-text" text="›" />
+                                            </children>
+                                        </StackPane>
+                                    </children>
+                                </StackPane>
+                            </graphic>
+                            <GridPane.columnIndex>1</GridPane.columnIndex>
+                            <GridPane.rowIndex>1</GridPane.rowIndex>
+                        </Button>
+                    </children>
+                </GridPane>
+
+            </children>
+            <!-- Margini interni del contenitore centrale (padding 20px ai lati, 15px sopra e sotto) -->
+            <padding>
+                <Insets bottom="18.0" left="25.0" right="25.0" top="15.0" />
+            </padding>
+        </VBox>
+
+        <!--
+            =========================================================================
+            3. BARRA DI NAVIGAZIONE INFERIORE (TAB BAR - VBox con HBox interno)
+            =========================================================================
+            Barra fissa posizionata in fondo allo schermo con pulsanti a scheda (Tab).
+            - VBox.vgrow="NEVER": Impedisce la riduzione o l'espansione verticale della barra.
+            - style="-fx-background-color: #0284c7;": Colore di sfondo blu primario.
+        -->
+        <VBox fx:id="barNavInferiore" alignment="CENTER" spacing="20.0" style="-fx-background-color: #0284c7;" VBox.vgrow="NEVER" visible="false" managed="false">
+            <children>
+                <!-- Disposizione orizzontale a larghezza massima per i pulsanti della Tab Bar -->
+                <HBox alignment="CENTER" maxWidth="Infinity" spacing="15.0">
+                    <children>
+
+                        <!-- TAB HOME -->
+                        <Button fx:id="btnNavHome" maxWidth="Infinity" onAction="#apriSezioneHome" prefHeight="70.0" style="-fx-background-color: #0369a1; -fx-text-fill: #ffffff; -fx-font-weight: bold; -fx-cursor: hand;" HBox.hgrow="ALWAYS">
+                            <graphic>
+                                <VBox alignment="CENTER" spacing="5.0">
+                                    <children>
+                                        <ImageView fitWidth="26.0" fitHeight="26.0" preserveRatio="true">
+                                            <image>
+                                                <Image url="@../images/home_dashboard.png"/>
+                                            </image>
+                                        </ImageView>
+                                        <Label style="-fx-text-fill: #ffffff; -fx-font-weight: bold; -fx-font-size: 12px;" text="Home" />
+                                    </children>
+                                </VBox>
+                            </graphic>
+                        </Button>
+
+                        <!-- TAB PATENTI -->
+                        <Button fx:id="btnNavPatenti" maxWidth="Infinity" onAction="#apriSezionePatenti" prefHeight="70.0" style="-fx-background-color: transparent; -fx-text-fill: #ffffff; -fx-font-weight: bold; -fx-cursor: hand;" HBox.hgrow="ALWAYS">
+                            <graphic>
+                                <VBox alignment="CENTER" spacing="5.0">
+                                    <children>
+                                        <ImageView fitWidth="26.0" fitHeight="26.0" preserveRatio="true">
+                                            <image>
+                                                <Image url="@../images/drivers-license_dashboard.png"/>
+                                            </image>
+                                        </ImageView>
+                                        <Label style="-fx-text-fill: #ffffff; -fx-font-weight: bold; -fx-font-size: 12px;" text="Patenti" />
+                                    </children>
+                                </VBox>
+                            </graphic>
+                        </Button>
+
+                        <!-- TAB VEICOLI -->
+                        <Button fx:id="btnNavVeicoli" maxWidth="Infinity" onAction="#apriSezioneVeicoli" prefHeight="70.0" style="-fx-background-color: transparent; -fx-text-fill: #ffffff; -fx-font-weight: bold; -fx-cursor: hand;" HBox.hgrow="ALWAYS">
+                            <graphic>
+                                <VBox alignment="CENTER" spacing="5.0">
+                                    <children>
+                                        <ImageView fitWidth="26.0" fitHeight="26.0" preserveRatio="true">
+                                            <image>
+                                                <Image url="@../images/car.png"/>
+                                            </image>
+                                        </ImageView>
+                                        <Label style="-fx-text-fill: #ffffff; -fx-font-weight: bold; -fx-font-size: 12px;" text="Veicoli" />
+                                    </children>
+                                </VBox>
+                            </graphic>
+                        </Button>
+
+                        <!-- TAB TEORIA -->
+                        <Button fx:id="btnNavTeoria" maxWidth="Infinity" onAction="#apriSezioneTeoria" prefHeight="70.0" style="-fx-background-color: transparent; -fx-text-fill: #ffffff; -fx-font-weight: bold; -fx-cursor: hand;" HBox.hgrow="ALWAYS">
+                            <graphic>
+                                <VBox alignment="CENTER" spacing="5.0">
+                                    <children>
+                                        <ImageView fitWidth="26.0" fitHeight="26.0" preserveRatio="true">
+                                            <image>
+                                                <Image url="@../images/book_dashboard.png"/>
+                                            </image>
+                                        </ImageView>
+                                        <Label style="-fx-text-fill: #ffffff; -fx-font-weight: bold; -fx-font-size: 12px;" text="Teoria" />
+                                    </children>
+                                </VBox>
+                            </graphic>
+                        </Button>
+
+                        <!-- TAB QUIZ -->
+                        <Button fx:id="btnNavQuiz" maxWidth="Infinity" onAction="#apriSezioneQuiz" prefHeight="70.0" style="-fx-background-color: transparent; -fx-text-fill: #ffffff; -fx-font-weight: bold; -fx-cursor: hand;" HBox.hgrow="ALWAYS">
+                            <graphic>
+                                <VBox alignment="CENTER" spacing="5.0">
+                                    <children>
+                                        <ImageView fitWidth="26.0" fitHeight="26.0" preserveRatio="true">
+                                            <image>
+                                                <Image url="@../images/quiz_dashboard.png"/>
+                                            </image>
+                                        </ImageView>
+                                        <Label style="-fx-text-fill: #ffffff; -fx-font-weight: bold; -fx-font-size: 12px;" text="Quiz" />
+                                    </children>
+                                </VBox>
+                            </graphic>
+                        </Button>
+
+                    </children>
+                </HBox>
+
+                <!-- Etichetta informativa sulla sezione corrente (inizialmente invisibile) -->
+                <Label fx:id="lblDettaglioSezione" style="-fx-text-fill: #ffffff; -fx-font-size: 13px; -fx-font-style: italic;" text="Sei nella vista principale della tua Aula Virtuale MyPatenti." wrapText="true" visible="false" />
+            </children>
+
+            <!-- Padding interno per la Tab Bar inferiore -->
+            <padding>
+                <Insets bottom="15.0" left="20.0" right="20.0" top="15.0" />
+            </padding>
+        </VBox>
+
+    </children>
+</VBox>

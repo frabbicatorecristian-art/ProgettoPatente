@@ -1,0 +1,154 @@
+<html>
+<head>
+<title>SchermataIniziale.fxml</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.s0 { color: #d5b778;}
+.s1 { color: #bcbec4;}
+.s2 { color: #6aab73;}
+.s3 { color: #bcbec4;}
+.s4 { color: #7a7e85;}
+.ln { color: #4b5059; font-weight: normal; font-style: normal; }
+</style>
+</head>
+<body bgcolor="#191a1c">
+<table CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#606060" >
+<tr><td><center>
+<font face="Arial, Helvetica" color="#000000">
+SchermataIniziale.fxml</font>
+</center></td></tr></table>
+<pre><a name="l1"><span class="ln">1    </span></a><span class="s0">&lt;?</span><span class="s1">xml version</span><span class="s2">=&quot;1.0&quot; </span><span class="s1">encoding</span><span class="s2">=&quot;UTF-8&quot;</span><span class="s0">?&gt;</span>
+<a name="l2"><span class="ln">2    </span></a>
+<a name="l3"><span class="ln">3    </span></a><span class="s4">&lt;!-- </span>
+<a name="l4"><span class="ln">4    </span></a>    <span class="s4">================================================================================= 
+<a name="l5"><span class="ln">5    </span></a>    INTESTAZIONE XML E IMPORTAZIONI JAVAFX 
+<a name="l6"><span class="ln">6    </span></a>    ================================================================================= 
+<a name="l7"><span class="ln">7    </span></a>    - &lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;: Dichiarazione XML standard. Specifica la versione dell'XML e la codifica dei caratteri (UTF-8). 
+<a name="l8"><span class="ln">8    </span></a>    - &lt;?import ... ?&gt;: Istruzioni di elaborazione che importano le classi Java necessarie nel file FXML (equivalente all'import in Java). 
+<a name="l9"><span class="ln">9    </span></a>--&gt;</span>
+<a name="l10"><span class="ln">10   </span></a><span class="s0">&lt;?</span><span class="s1">import </span><span class="s2">javafx.geometry.Insets</span><span class="s0">?&gt;       </span><span class="s4">&lt;!-- Classe JavaFX per definire i margini interni (padding) --&gt;</span>
+<a name="l11"><span class="ln">11   </span></a><span class="s0">&lt;?</span><span class="s1">import </span><span class="s2">javafx.scene.control.Button</span><span class="s0">?&gt;   </span><span class="s4">&lt;!-- Classe JavaFX per i pulsanti interattivi --&gt;</span>
+<a name="l12"><span class="ln">12   </span></a><span class="s0">&lt;?</span><span class="s1">import </span><span class="s2">javafx.scene.control.Label</span><span class="s0">?&gt;    </span><span class="s4">&lt;!-- Classe JavaFX per le etichette di testo non modificabili --&gt;</span>
+<a name="l13"><span class="ln">13   </span></a><span class="s0">&lt;?</span><span class="s1">import </span><span class="s2">javafx.scene.layout.VBox</span><span class="s0">?&gt;      </span><span class="s4">&lt;!-- Layout manager che impila i componenti verticalmente --&gt;</span>
+<a name="l14"><span class="ln">14   </span></a><span class="s0">&lt;?</span><span class="s1">import </span><span class="s2">javafx.scene.image.ImageView</span><span class="s0">?&gt;  </span><span class="s4">&lt;!-- Nodo grafico per visualizzare le immagini nell'interfaccia --&gt;</span>
+<a name="l15"><span class="ln">15   </span></a><span class="s0">&lt;?</span><span class="s1">import </span><span class="s2">javafx.scene.image.Image</span><span class="s0">?&gt;      </span><span class="s4">&lt;!-- Oggetto che rappresenta l'immagine caricata da un file o URL --&gt;</span>
+<a name="l16"><span class="ln">16   </span></a>
+<a name="l17"><span class="ln">17   </span></a><span class="s4">&lt;!--</span>
+<a name="l18"><span class="ln">18   </span></a>    <span class="s4">================================================================================= 
+<a name="l19"><span class="ln">19   </span></a>    CONTENITORE PRINCIPALE (VBox) 
+<a name="l20"><span class="ln">20   </span></a>    ================================================================================= 
+<a name="l21"><span class="ln">21   </span></a>    Il VBox (Vertical Box) ordina tutti i componenti figli in un'unica colonna dall'alto verso il basso. 
+<a name="l22"><span class="ln">22   </span></a>     
+<a name="l23"><span class="ln">23   </span></a>    ATTRIBUTI E SINTASSI UTILIZZATI: 
+<a name="l24"><span class="ln">24   </span></a>    - alignment=&quot;CENTER&quot;: Allinea sia in verticale che in orizzontale tutti gli elementi figli al centro del VBox. 
+<a name="l25"><span class="ln">25   </span></a>    - spacing=&quot;20.0&quot;: Imposta uno spazio fisso di 20 pixel tra un componente figlio e quello successivo. 
+<a name="l26"><span class="ln">26   </span></a>    - prefWidth=&quot;600.0&quot;: Larghezza preferita in pixel della finestra/schermata. 
+<a name="l27"><span class="ln">27   </span></a>    - prefHeight=&quot;400.0&quot;: Altezza preferita in pixel della finestra/schermata. 
+<a name="l28"><span class="ln">28   </span></a>    - xmlns=&quot;http://javafx.com/javafx/21&quot;: Namespace XML predefinito per tutti i tag JavaFX standard. 
+<a name="l29"><span class="ln">29   </span></a>    - xmlns:fx=&quot;http://javafx.com/fxml/1&quot;: Namespace XML per gli attributi specifici di FXML (es. fx:id, fx:controller). 
+<a name="l30"><span class="ln">30   </span></a>    - fx:controller=&quot;controller.SceltaInizialeController&quot;: Collega questa vista FXML alla classe Controller Java che gestirà la logica e gli eventi. 
+<a name="l31"><span class="ln">31   </span></a>    - styleClass=&quot;root-initial&quot;: Assegna la classe di stile CSS per applicare lo sfondo sfumato o personalizzato definito nel file style.css. 
+<a name="l32"><span class="ln">32   </span></a>--&gt;</span>
+<a name="l33"><span class="ln">33   </span></a><span class="s0">&lt;VBox </span><span class="s1">alignment</span><span class="s2">=&quot;CENTER&quot; </span><span class="s1">spacing</span><span class="s2">=&quot;20.0&quot; </span><span class="s1">prefWidth</span><span class="s2">=&quot;600.0&quot; </span><span class="s1">prefHeight</span><span class="s2">=&quot;400.0&quot;</span>
+<a name="l34"><span class="ln">34   </span></a>      <span class="s1">xmlns</span><span class="s2">=&quot;http://javafx.com/javafx/21&quot; </span><span class="s1">xmlns:fx</span><span class="s2">=&quot;http://javafx.com/fxml/1&quot;</span>
+<a name="l35"><span class="ln">35   </span></a>      <span class="s1">fx:controller</span><span class="s2">=&quot;controller.SceltaInizialeController&quot;</span>
+<a name="l36"><span class="ln">36   </span></a>      <span class="s1">styleClass</span><span class="s2">=&quot;root-initial&quot;</span><span class="s0">&gt;</span>
+<a name="l37"><span class="ln">37   </span></a>
+<a name="l38"><span class="ln">38   </span></a>    <span class="s4">&lt;!-- </span>
+<a name="l39"><span class="ln">39   </span></a>        <span class="s4">============================================================================= 
+<a name="l40"><span class="ln">40   </span></a>        LISTA DEI COMPONENTI FIGLI (&lt;children&gt;) 
+<a name="l41"><span class="ln">41   </span></a>        ============================================================================= 
+<a name="l42"><span class="ln">42   </span></a>        Il tag &lt;children&gt; racchiude tutti gli elementi grafici contenuti e gestiti all'interno del VBox. 
+<a name="l43"><span class="ln">43   </span></a>    --&gt;</span>
+<a name="l44"><span class="ln">44   </span></a>    <span class="s0">&lt;children&gt;</span>
+<a name="l45"><span class="ln">45   </span></a>
+<a name="l46"><span class="ln">46   </span></a>        <span class="s4">&lt;!-- </span>
+<a name="l47"><span class="ln">47   </span></a>            <span class="s4">ICONA DELL'APPLICAZIONE (ImageView &amp; Image) 
+<a name="l48"><span class="ln">48   </span></a>            - ImageView: Nodo grafico deputato alla resa visiva dell'immagine. 
+<a name="l49"><span class="ln">49   </span></a>              * fitWidth=&quot;80.0&quot; e fitHeight=&quot;80.0&quot;: Ridimensionano l'immagine a una dimensione di 80x80 pixel. 
+<a name="l50"><span class="ln">50   </span></a>              * preserveRatio=&quot;true&quot;: Mantiene le proporzioni originali dell'immagine (evita che venga distorta o allungata). 
+<a name="l51"><span class="ln">51   </span></a>            - &lt;image&gt;: Proprietà contenitore che racchiude l'oggetto Image. 
+<a name="l52"><span class="ln">52   </span></a>            - &lt;Image url=&quot;@../images/car-icon.png&quot;/&gt;: Carica il file immagine dal percorso relativo al file FXML. 
+<a name="l53"><span class="ln">53   </span></a>              * Il simbolo '@' indica a JavaFX che il percorso è relativo alla cartella delle risorse (resources). 
+<a name="l54"><span class="ln">54   </span></a>        --&gt;</span>
+<a name="l55"><span class="ln">55   </span></a>        <span class="s0">&lt;ImageView </span><span class="s1">fitWidth</span><span class="s2">=&quot;80.0&quot; </span><span class="s1">fitHeight</span><span class="s2">=&quot;80.0&quot; </span><span class="s1">preserveRatio</span><span class="s2">=&quot;true&quot;</span><span class="s0">&gt;</span>
+<a name="l56"><span class="ln">56   </span></a>            <span class="s0">&lt;image&gt;</span>
+<a name="l57"><span class="ln">57   </span></a>                <span class="s0">&lt;Image </span><span class="s1">url</span><span class="s2">=&quot;@../images/car-icon.png&quot;</span><span class="s0">/&gt;</span>
+<a name="l58"><span class="ln">58   </span></a>            <span class="s0">&lt;/image&gt;</span>
+<a name="l59"><span class="ln">59   </span></a>        <span class="s0">&lt;/ImageView&gt;</span>
+<a name="l60"><span class="ln">60   </span></a>
+<a name="l61"><span class="ln">61   </span></a>        <span class="s4">&lt;!-- </span>
+<a name="l62"><span class="ln">62   </span></a>            <span class="s4">TITOLO PRINCIPALE (Label) 
+<a name="l63"><span class="ln">63   </span></a>            - Label: Componente grafico utilizzato per visualizzare un testo a schermo. 
+<a name="l64"><span class="ln">64   </span></a>            - text=&quot; MYPATENTI &quot;: Il contenuto testuale dell'intestazione principale dell'applicazione. 
+<a name="l65"><span class="ln">65   </span></a>            - styleClass=&quot;title-label&quot;: Applica la classe CSS per la formattazione del titolo (es. font grande, grassetto, colore specifico). 
+<a name="l66"><span class="ln">66   </span></a>        --&gt;</span>
+<a name="l67"><span class="ln">67   </span></a>        <span class="s0">&lt;Label </span><span class="s1">text</span><span class="s2">=&quot;🔥 MYPATENTI 🚗&quot; </span><span class="s1">styleClass</span><span class="s2">=&quot;title-label&quot;</span><span class="s0">/&gt;</span>
+<a name="l68"><span class="ln">68   </span></a>
+<a name="l69"><span class="ln">69   </span></a>        <span class="s4">&lt;!-- </span>
+<a name="l70"><span class="ln">70   </span></a>            <span class="s4">SOTTOTITOLO DI BENVENUTO (Label) 
+<a name="l71"><span class="ln">71   </span></a>            - text=&quot;Benvenuto nell'app MyPatenti! Scegli un'opzione per iniziare:&quot;: Testo del messaggio guida rivolto all'utente. 
+<a name="l72"><span class="ln">72   </span></a>            - styleClass=&quot;subtitle-label&quot;: Applica la classe CSS per lo stile del sottotitolo (es. font di dimensione media, colore secondario). 
+<a name="l73"><span class="ln">73   </span></a>        --&gt;</span>
+<a name="l74"><span class="ln">74   </span></a>        <span class="s0">&lt;Label </span><span class="s1">text</span><span class="s2">=&quot;Benvenuto nell'app MyPatenti! Scegli un'opzione per iniziare:&quot; </span><span class="s1">styleClass</span><span class="s2">=&quot;subtitle-label&quot;</span><span class="s0">/&gt;</span>
+<a name="l75"><span class="ln">75   </span></a>
+<a name="l76"><span class="ln">76   </span></a>        <span class="s4">&lt;!-- </span>
+<a name="l77"><span class="ln">77   </span></a>            <span class="s4">PULSANTE ACCEDI (Button con icona enter.png) 
+<a name="l78"><span class="ln">78   </span></a>            - Button: Componente per creare un pulsante interattivo su cui l'utente può cliccare. 
+<a name="l79"><span class="ln">79   </span></a>            - fx:id=&quot;btnAccedi&quot;: Identificatore univoco collegato al campo `@FXML private Button btnAccedi;` nel controller Java. 
+<a name="l80"><span class="ln">80   </span></a>            - text=&quot;ACCEDI&quot;: Testo visibile dentro il pulsante. 
+<a name="l81"><span class="ln">81   </span></a>            - prefWidth=&quot;200.0&quot;: Larghezza preferita del pulsante impostata a 200 pixel per garantire uniformità visiva. 
+<a name="l82"><span class="ln">82   </span></a>            - onAction=&quot;#gestisciAccedi&quot;: Associa il click del pulsante al metodo `gestisciAccedi(ActionEvent event)` nel controller. 
+<a name="l83"><span class="ln">83   </span></a>            - styleClass=&quot;btn-primary&quot;: Applica lo stile CSS primario per il pulsante. 
+<a name="l84"><span class="ln">84   </span></a>            - &lt;graphic&gt;: Inserisce l'icona grafica enter.png all'interno del pulsante. 
+<a name="l85"><span class="ln">85   </span></a>        --&gt;</span>
+<a name="l86"><span class="ln">86   </span></a>        <span class="s0">&lt;Button </span><span class="s1">fx:id</span><span class="s2">=&quot;btnAccedi&quot; </span><span class="s1">text</span><span class="s2">=&quot;ACCEDI&quot; </span><span class="s1">prefWidth</span><span class="s2">=&quot;200.0&quot; </span><span class="s1">onAction</span><span class="s2">=&quot;#gestisciAccedi&quot; </span><span class="s1">styleClass</span><span class="s2">=&quot;btn-primary&quot;</span><span class="s0">&gt;</span>
+<a name="l87"><span class="ln">87   </span></a>            <span class="s0">&lt;graphic&gt;</span>
+<a name="l88"><span class="ln">88   </span></a>                <span class="s0">&lt;ImageView </span><span class="s1">fitWidth</span><span class="s2">=&quot;20.0&quot; </span><span class="s1">fitHeight</span><span class="s2">=&quot;20.0&quot; </span><span class="s1">preserveRatio</span><span class="s2">=&quot;true&quot;</span><span class="s0">&gt;</span>
+<a name="l89"><span class="ln">89   </span></a>                    <span class="s0">&lt;image&gt;</span>
+<a name="l90"><span class="ln">90   </span></a>                        <span class="s0">&lt;Image </span><span class="s1">url</span><span class="s2">=&quot;@../images/enter.png&quot;</span><span class="s0">/&gt;</span>
+<a name="l91"><span class="ln">91   </span></a>                    <span class="s0">&lt;/image&gt;</span>
+<a name="l92"><span class="ln">92   </span></a>                <span class="s0">&lt;/ImageView&gt;</span>
+<a name="l93"><span class="ln">93   </span></a>            <span class="s0">&lt;/graphic&gt;</span>
+<a name="l94"><span class="ln">94   </span></a>        <span class="s0">&lt;/Button&gt;</span>
+<a name="l95"><span class="ln">95   </span></a>
+<a name="l96"><span class="ln">96   </span></a>        <span class="s4">&lt;!-- </span>
+<a name="l97"><span class="ln">97   </span></a>            <span class="s4">PULSANTE REGISTRATI (Button con icona add.png) 
+<a name="l98"><span class="ln">98   </span></a>            - fx:id=&quot;btnRegistrati&quot;: Identificatore univoco collegato al campo `@FXML private Button btnRegistrati;` nel controller Java. 
+<a name="l99"><span class="ln">99   </span></a>            - text=&quot;REGISTRATI&quot;: Testo visibile nel pulsante con la parola REGISTRATI. 
+<a name="l100"><span class="ln">100  </span></a>            - prefWidth=&quot;200.0&quot;: Larghezza preferita di 200 pixel coerente con gli altri pulsanti. 
+<a name="l101"><span class="ln">101  </span></a>            - onAction=&quot;#gestisciRegistrati&quot;: Associa il click al metodo `gestisciRegistrati(ActionEvent event)` nel controller Java per aprire la schermata di registrazione. 
+<a name="l102"><span class="ln">102  </span></a>            - styleClass=&quot;btn-primary&quot;: Classe CSS per mantenere l'aspetto estetico primario del pulsante. 
+<a name="l103"><span class="ln">103  </span></a>            - &lt;graphic&gt;: Inserisce l'icona grafica add.png all'interno del pulsante. 
+<a name="l104"><span class="ln">104  </span></a>        --&gt;</span>
+<a name="l105"><span class="ln">105  </span></a>        <span class="s0">&lt;Button </span><span class="s1">fx:id</span><span class="s2">=&quot;btnRegistrati&quot; </span><span class="s1">text</span><span class="s2">=&quot;REGISTRATI&quot; </span><span class="s1">prefWidth</span><span class="s2">=&quot;200.0&quot; </span><span class="s1">onAction</span><span class="s2">=&quot;#gestisciRegistrati&quot; </span><span class="s1">styleClass</span><span class="s2">=&quot;btn-primary&quot;</span><span class="s0">&gt;</span>
+<a name="l106"><span class="ln">106  </span></a>            <span class="s0">&lt;graphic&gt;</span>
+<a name="l107"><span class="ln">107  </span></a>                <span class="s0">&lt;ImageView </span><span class="s1">fitWidth</span><span class="s2">=&quot;20.0&quot; </span><span class="s1">fitHeight</span><span class="s2">=&quot;20.0&quot; </span><span class="s1">preserveRatio</span><span class="s2">=&quot;true&quot;</span><span class="s0">&gt;</span>
+<a name="l108"><span class="ln">108  </span></a>                    <span class="s0">&lt;image&gt;</span>
+<a name="l109"><span class="ln">109  </span></a>                        <span class="s0">&lt;Image </span><span class="s1">url</span><span class="s2">=&quot;@../images/add.png&quot;</span><span class="s0">/&gt;</span>
+<a name="l110"><span class="ln">110  </span></a>                    <span class="s0">&lt;/image&gt;</span>
+<a name="l111"><span class="ln">111  </span></a>                <span class="s0">&lt;/ImageView&gt;</span>
+<a name="l112"><span class="ln">112  </span></a>            <span class="s0">&lt;/graphic&gt;</span>
+<a name="l113"><span class="ln">113  </span></a>        <span class="s0">&lt;/Button&gt;</span>
+<a name="l114"><span class="ln">114  </span></a>
+<a name="l115"><span class="ln">115  </span></a>    <span class="s0">&lt;/children&gt;</span>
+<a name="l116"><span class="ln">116  </span></a>
+<a name="l117"><span class="ln">117  </span></a>    <span class="s4">&lt;!-- </span>
+<a name="l118"><span class="ln">118  </span></a>        <span class="s4">============================================================================= 
+<a name="l119"><span class="ln">119  </span></a>        PADDING E MARGINI INTERNI (&lt;padding&gt; &amp; &lt;Insets&gt;) 
+<a name="l120"><span class="ln">120  </span></a>        ============================================================================= 
+<a name="l121"><span class="ln">121  </span></a>        - &lt;padding&gt;: Proprietà del VBox per impostare la spaziatura interna tra i bordi della finestra e i componenti contenuti. 
+<a name="l122"><span class="ln">122  </span></a>        - &lt;Insets bottom=&quot;40.0&quot; left=&quot;40.0&quot; right=&quot;40.0&quot; top=&quot;40.0&quot;/&gt;: 
+<a name="l123"><span class="ln">123  </span></a>          Crea un rientro vuoto di 40 pixel su tutti e 4 i lati: 
+<a name="l124"><span class="ln">124  </span></a>          * top=&quot;40.0&quot;: 40 pixel di margine in alto. 
+<a name="l125"><span class="ln">125  </span></a>          * bottom=&quot;40.0&quot;: 40 pixel di margine in basso. 
+<a name="l126"><span class="ln">126  </span></a>          * left=&quot;40.0&quot;: 40 pixel di margine a sinistra. 
+<a name="l127"><span class="ln">127  </span></a>          * right=&quot;40.0&quot;: 40 pixel di margine a destra. 
+<a name="l128"><span class="ln">128  </span></a>    --&gt;</span>
+<a name="l129"><span class="ln">129  </span></a>    <span class="s0">&lt;padding&gt;</span>
+<a name="l130"><span class="ln">130  </span></a>        <span class="s0">&lt;Insets </span><span class="s1">bottom</span><span class="s2">=&quot;40.0&quot; </span><span class="s1">left</span><span class="s2">=&quot;40.0&quot; </span><span class="s1">right</span><span class="s2">=&quot;40.0&quot; </span><span class="s1">top</span><span class="s2">=&quot;40.0&quot;</span><span class="s0">/&gt;</span>
+<a name="l131"><span class="ln">131  </span></a>    <span class="s0">&lt;/padding&gt;</span>
+<a name="l132"><span class="ln">132  </span></a>
+<a name="l133"><span class="ln">133  </span></a><span class="s0">&lt;/VBox&gt;</span></pre>
+</body>
+</html>
