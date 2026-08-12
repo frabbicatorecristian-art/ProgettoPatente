@@ -16,6 +16,8 @@ import javafx.scene.control.PasswordField;   // Campo di testo speciale con cara
 import javafx.scene.control.TextField;       // Campo di testo visibile a riga singola
 import javafx.stage.Stage;                  // Finestra principale gestita dal sistema operativo
 import java.io.IOException;                  // Gestione eccezioni di I/O per il caricamento delle viste
+import model.Utente;                         // POJO con i dati anagrafici dell'utente
+import model.SessioneUtente;                 // Singleton che mantiene l'utente loggato in memoria
 
 /**
  * =================================================================================
@@ -112,6 +114,20 @@ public class SchermataLoginController {
         // Si accetta qualsiasi password inserita qui (a condizione che non sia vuota) per permettere il login degli utenti già registrati.
 
         System.out.println("Login autorizzato con successo per l'utente CF: " + codiceFiscale);
+
+        // -----------------------------------------------------------------------
+        // SALVATAGGIO IN SESSIONE: crea un Utente con il solo CF (e campi vuoti)
+        // In futuro qui andrà la query SELECT al DB per caricare tutti i dati reali.
+        // TODO DB: Utente u = DBService.login(codiceFiscale, password);
+        //          SessioneUtente.getInstance().setUtente(u);
+        // -----------------------------------------------------------------------
+        Utente utenteLoggato = new Utente(
+                codiceFiscale,  // nome temporaneo = CF finché non c'è il DB
+                "",
+                "",
+                codiceFiscale
+        );
+        SessioneUtente.getInstance().setUtente(utenteLoggato);
 
         // 5. CARICAMENTO DIRETTO E FLUIDO DELLA DASHBOARD MYPATENTI (Senza Alert intermedi)
         try {

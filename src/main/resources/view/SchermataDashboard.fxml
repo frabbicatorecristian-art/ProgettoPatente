@@ -65,7 +65,15 @@
         -->
         <HBox alignment="CENTER_LEFT" prefHeight="65.0" spacing="15.0" style="-fx-background-color: #0284c7;">
             <children>
-                <!-- Logo e Nome dell'Applicazione (Label) -->
+                <!--
+                    IDENTITÀ DELL'APPLICAZIONE (HBox)
+                    - HBox: mantiene affiancati logo e nome del prodotto.
+                    - spacing="10.0": separa visivamente icona e testo di 10 pixel.
+                    - ImageView: visualizza car.png a 32×32 pixel; preserveRatio="true"
+                      evita deformazioni dell'immagine.
+                    - Label text="MyPatenti": mostra il nome dell'app con testo bianco,
+                      grande e in grassetto per risultare leggibile nella navbar.
+                -->
                 <HBox alignment="CENTER_LEFT" spacing="10.0">
                     <children>
                         <ImageView fitHeight="32.0" fitWidth="32.0" preserveRatio="true">
@@ -85,7 +93,13 @@
                 -->
                 <MenuButton fx:id="menuProfilo" style="-fx-background-color: #0369a1; -fx-text-fill: white; -fx-font-size: 15px; -fx-font-weight: bold;" text="👤 Ciao, Utente">
                     <items>
-                        <!-- Opzioni del Menu a discesa con le relative azioni (onAction) gestite nel controller -->
+                        <!--
+                            VOCI DEL MENU PROFILO (MenuItem)
+                            - onAction="#apriProfilo": apre la schermata del profilo.
+                            - onAction="#apriImpostazioni": apre la schermata delle preferenze.
+                            - onAction="#gestisciLogout": termina la sessione dell'utente.
+                            - <graphic>: associa un'icona a ogni voce senza sostituirne il testo.
+                        -->
                         <MenuItem onAction="#apriProfilo" text=" Il mio profilo">
                             <graphic>
                                 <ImageView fitHeight="14.0" fitWidth="14.0" preserveRatio="true">
@@ -165,7 +179,13 @@
                     </rowConstraints>
 
                     <children>
-                        <!-- 1. TASTONE: LE MIE PATENTI (col 0, row 0) -->
+                        <!--
+                            1. TASTONE: LE MIE PATENTI (colonna 0, riga 0)
+                            - Button: rende l'intera card cliccabile.
+                            - onAction="#apriSezionePatenti": delega al controller l'apertura della sezione patenti.
+                            - maxWidth/maxHeight="Infinity": consente alla card di occupare tutto lo spazio della cella.
+                            - styleClass="card-button, card-patenti": applica gli stili CSS comuni e il colore specifico.
+                        -->
                         <Button maxHeight="Infinity" maxWidth="Infinity" onAction="#apriSezionePatenti" styleClass="card-button, card-patenti">
                             <graphic>
                                 <StackPane maxHeight="Infinity" maxWidth="Infinity">
@@ -203,7 +223,12 @@
                             <GridPane.rowIndex>0</GridPane.rowIndex>
                         </Button>
 
-                        <!-- 2. TASTONE: I MIEI VEICOLI (col 1, row 0) -->
+                        <!--
+                            2. TASTONE: I MIEI VEICOLI (colonna 1, riga 0)
+                            - onAction="#apriSezioneVeicoli": apre la gestione dei veicoli.
+                            - styleClass="card-button, card-veicoli": combina lo stile base con quello della categoria.
+                            - GridPane.columnIndex/rowIndex: posizionano la card nella seconda colonna della prima riga.
+                        -->
                         <Button maxHeight="Infinity" maxWidth="Infinity" onAction="#apriSezioneVeicoli" styleClass="card-button, card-veicoli">
                             <graphic>
                                 <StackPane maxHeight="Infinity" maxWidth="Infinity">
@@ -241,7 +266,12 @@
                             <GridPane.rowIndex>0</GridPane.rowIndex>
                         </Button>
 
-                        <!-- 3. TASTONE: TEORIA & MANUALE (col 0, row 1) -->
+                        <!--
+                            3. TASTONE: TEORIA & MANUALE (colonna 0, riga 1)
+                            - onAction="#apriSezioneTeoria": porta ai contenuti teorici.
+                            - styleClass="card-button, card-teoria": applica l'aspetto CSS dedicato alla teoria.
+                            - Il contenuto grafico interno presenta icona, descrizione e indicatore di avanzamento.
+                        -->
                         <Button maxHeight="Infinity" maxWidth="Infinity" onAction="#apriSezioneTeoria" styleClass="card-button, card-teoria">
                             <graphic>
                                 <StackPane maxHeight="Infinity" maxWidth="Infinity">
@@ -279,7 +309,12 @@
                             <GridPane.rowIndex>1</GridPane.rowIndex>
                         </Button>
 
-                        <!-- 4. TASTONE: QUIZ (col 1, row 1) -->
+                        <!--
+                            4. TASTONE: QUIZ (colonna 1, riga 1)
+                            - onAction="#apriSezioneQuiz": apre l'area per esercitarsi con i quiz.
+                            - styleClass="card-button, card-quiz": applica la variante visiva dedicata ai quiz.
+                            - GridPane.columnIndex="1" e rowIndex="1": collocano la card in basso a destra.
+                        -->
                         <Button maxHeight="Infinity" maxWidth="Infinity" onAction="#apriSezioneQuiz" styleClass="card-button, card-quiz">
                             <graphic>
                                 <StackPane maxHeight="Infinity" maxWidth="Infinity">

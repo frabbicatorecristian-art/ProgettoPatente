@@ -1,5 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<!--
+    =============================================================================
+    INTESTAZIONE E IMPORTAZIONI — SCHERMATA IMPOSTAZIONI
+    =============================================================================
+    Questa vista consente di modificare tema, preferenze dei quiz e operazioni
+    sull'account. Gli import seguenti rendono disponibili i controlli JavaFX:
+    - Button e MenuButton: eseguono navigazione e azioni dell'utente.
+    - ComboBox e RadioButton: raccolgono preferenze selezionabili.
+    - ScrollPane: mantiene accessibili tutte le sezioni anche su finestre basse.
+    - VBox, HBox, StackPane e Region: organizzano contenuti e spaziatori.
+-->
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ComboBox?>
@@ -18,6 +29,15 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 
+<!--
+    CONTENITORE PRINCIPALE (VBox)
+    - alignment="TOP_CENTER": dispone le sezioni partendo dall'alto e centrate.
+    - prefWidth="900.0" e prefHeight="800.0": dimensioni di riferimento della vista.
+    - stylesheets="@../css/style.css": collega il foglio CSS condiviso.
+    - fx:controller="controller.ImpostazioniController": collega fx:id e onAction
+      ai campi e ai metodi del controller Java.
+    - style: applica lo sfondo grigio chiaro dell'area di lavoro.
+-->
 <VBox alignment="TOP_CENTER" prefHeight="800.0" prefWidth="900.0"
       stylesheets="@../css/style.css"
       style="-fx-background-color: #f1f5f9;"
@@ -25,26 +45,39 @@
       fx:controller="controller.ImpostazioniController">
     <children>
 
-        <!-- =====================================================================
-             NAVBAR BLU SUPERIORE
-             ===================================================================== -->
+        <!--
+             NAVBAR BLU SUPERIORE (HBox)
+             - HBox: affianca pulsante di ritorno, spaziatore e menu profilo.
+             - prefHeight="60.0": mantiene l'altezza della barra costante.
+             - style: imposta lo sfondo blu #0284c7, coerente con la navigazione.
+        -->
         <HBox alignment="CENTER_LEFT" prefHeight="60.0" spacing="15.0"
               style="-fx-background-color: #0284c7;">
             <children>
+                <!--
+                    PULSANTE TORNA ALLA DASHBOARD
+                    - fx:id="btnTornaDashboard": riferimento al pulsante nel controller.
+                    - onAction="#tornaAllaDashboard": richiama il metodo Java di navigazione.
+                    - style: sfondo trasparente, testo bianco e cursore cliccabile.
+                -->
                 <Button fx:id="btnTornaDashboard" onAction="#tornaAllaDashboard"
                         style="-fx-background-color: transparent; -fx-text-fill: white; -fx-font-size: 14px; -fx-cursor: hand;"
                         text="← Torna alla Dashboard" />
                 <Region HBox.hgrow="ALWAYS" />
+                <!--
+                    MENU PROFILO UTENTE (MenuButton)
+                    - fx:id="menuProfilo": consente al controller di accedere al menu della navbar.
+                    - text="👤 Ciao, Utente": mantiene la stessa etichetta usata nella schermata Profilo.
+                    - onAction="#apriProfilo": apre la schermata con i dati personali dell'utente.
+                    - onAction="#apriImpostazioniMenu": non cambia schermata perché l'utente è già nelle impostazioni.
+                    - onAction="#gestisciLogout": mostra la conferma e, se accettata, chiude la sessione.
+                -->
                 <MenuButton fx:id="menuProfilo"
                             style="-fx-background-color: #0369a1; -fx-text-fill: white; -fx-font-size: 14px; -fx-font-weight: bold;"
-                            text=" Impostazioni">
-                    <graphic>
-                        <ImageView fitHeight="16.0" fitWidth="16.0" preserveRatio="true">
-                            <image><Image url="@../images/settings.png" /></image>
-                        </ImageView>
-                    </graphic>
+                            text="👤 Ciao, Utente">
                     <items>
-                        <MenuItem onAction="#tornaAllaDashboard" text="🏠 Dashboard" />
+                        <MenuItem onAction="#apriProfilo" text="👤 Il mio profilo" />
+                        <MenuItem onAction="#apriImpostazioniMenu" text="⚙️ Impostazioni" />
                         <MenuItem onAction="#gestisciLogout" text="🚪 Esci" />
                     </items>
                 </MenuButton>

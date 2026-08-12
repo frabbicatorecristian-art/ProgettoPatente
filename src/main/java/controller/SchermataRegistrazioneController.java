@@ -16,6 +16,8 @@ import javafx.scene.control.PasswordField;   // Campo di testo speciale con cara
 import javafx.scene.control.TextField;       // Campo di testo visibile a riga singola
 import javafx.stage.Stage;                  // Finestra principale gestita dal sistema operativo
 import java.io.IOException;                  // Gestione eccezioni di I/O per il caricamento delle viste
+import model.Utente;                         // POJO con i dati anagrafici dell'utente
+import model.SessioneUtente;                 // Singleton che mantiene l'utente loggato in memoria
 
 /**
  * =================================================================================
@@ -128,6 +130,14 @@ public class SchermataRegistrazioneController {
         }
 
         System.out.println("Utente registrato con successo: " + nome + " " + cognome + " [CF: " + codiceFiscale + "]");
+
+        // -----------------------------------------------------------------------
+        // SALVATAGGIO IN SESSIONE: crea l'oggetto Utente con i dati del form
+        // e lo rende disponibile a tutti i controller tramite SessioneUtente.
+        // TODO DB: in futuro qui andrà anche la chiamata INSERT al database.
+        // -----------------------------------------------------------------------
+        Utente nuovoUtente = new Utente(nome, cognome, email, codiceFiscale);
+        SessioneUtente.getInstance().setUtente(nuovoUtente);
 
         // CARICAMENTO DIRETTO E FLUIDO DELLA DASHBOARD MYPATENTI (Senza Alert intermedi)
         try {

@@ -70,13 +70,4 @@ public class MainApp extends Application {
         primaryStage.show();
     }
 
-    /**
-     * Metodo main() di riserva (fallback).
-     * Se l'applicazione viene avviata direttamente da questa classe, invoca il metodo launch().
-     * 
-     * @param args Argomenti da riga di comando.
-     */
-    public static void main(String[] args) {
-        launch(args);
-    }
 }

@@ -17,6 +17,7 @@ import javafx.scene.control.MenuButton;
 import javafx.scene.control.MenuItem;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import model.SessioneUtente;
 import model.TemaManager;
 import java.io.IOException;
 import java.util.Optional;
@@ -60,7 +61,13 @@ public class DashboardController {
     public void initialize() {
         System.out.println("Dashboard MyPatenti inizializzata.");
 
-        String nomeUtenteLoggato = "Cristian";
+        // Legge il nome dell'utente loggato dalla sessione globale.
+        // In futuro i dati arriveranno direttamente dal database tramite SessioneUtente.
+        String nomeUtenteLoggato = "Utente"; // Fallback se la sessione non è disponibile
+        if (SessioneUtente.getInstance().isLoggato()) {
+            nomeUtenteLoggato = SessioneUtente.getInstance().getUtente().getNome();
+        }
+
         menuProfilo.setText("👤 Ciao, " + nomeUtenteLoggato);
         lblBenvenuto.setText("Bentornato, " + nomeUtenteLoggato + "! 👋");
         apriSezioneHome(null);
@@ -215,6 +222,9 @@ public class DashboardController {
         Optional<ButtonType> risultato = alert.showAndWait();
         if (risultato.isPresent() && risultato.get() == btnSiEsci) {
             try {
+                // Pulisce la sessione utente
+                SessioneUtente.getInstance().logout();
+
                 // Carica la vista iniziale di benvenuto
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/SchermataIniziale.fxml"));
                 Parent root = loader.load();

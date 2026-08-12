@@ -4,6 +4,7 @@ package controller;
 // IMPORT DELLE CLASSI JAVAFX E JAVA STANDARD
 // =================================================================================
 import model.TemaManager;                    // Gestisce la personalizzazione dinamica del tema (Chiaro/Scuro)
+import model.SessioneUtente;                 // Mantiene in memoria l'utente autenticato tra le schermate
 import javafx.collections.FXCollections;    // Crea liste osservabili di dati per ComboBox
 import javafx.event.ActionEvent;             // Rappresenta un evento di azione (click pulsante)
 import javafx.fxml.FXML;                    // Annotazione per iniettare attributi e metodi dal file FXML
@@ -71,6 +72,9 @@ public class ImpostazioniController {
     // VARIABILI DI ISTANZA - Stato temporaneo dell'applicazione
     // =====================================================================
     private boolean temaSalvato;                    // Memorizza lo stato del tema all'ultimo salvataggio (per la funzione "Annulla")
+    private int     numeroDomandeSalvato;           // Memorizza il numero di domande all'ultimo salvataggio
+    private boolean spiegazioneErroriSalvata;       // Memorizza lo stato del toggle "Spiegazione Errori" all'ultimo salvataggio
+    private boolean cronometroSalvato;              // Memorizza lo stato del toggle "Cronometro" all'ultimo salvataggio
 
     // =====================================================================
     // INIZIALIZZAZIONE AUTOMATICA DELLA SCHERMATA
@@ -83,6 +87,15 @@ public class ImpostazioniController {
      */
     @FXML
     public void initialize() {
+        // Aggiorna il menu della navbar con il nome dell'utente della sessione.
+        // Se la schermata viene aperta senza login, conserva il fallback "Utente"
+        // invece di provocare un errore per l'assenza di dati nella sessione.
+        String nomeUtenteLoggato = "Utente";
+        if (SessioneUtente.getInstance().isLoggato()) {
+            nomeUtenteLoggato = SessioneUtente.getInstance().getUtente().getNome();
+        }
+        menuProfilo.setText("👤 Ciao, " + nomeUtenteLoggato);
+
         // Popola il ComboBox con le opzioni per il numero di domande (10, 20, 30, 40)
         cmbNumeroDomande.setItems(FXCollections.observableArrayList(10, 20, 30, 40));
         
@@ -91,6 +104,11 @@ public class ImpostazioniController {
 
         // Recupera lo stato del tema salvato da TemaManager (true = scuro, false = chiaro)
         temaSalvato = TemaManager.getInstance().isTemaScuro();
+
+        // Salva i valori iniziali di TUTTE le impostazioni (snapshot per la funzione "Annulla")
+        numeroDomandeSalvato       = cmbNumeroDomande.getValue();
+        spiegazioneErroriSalvata   = toggleSpiegazioneErrori.isSelected();
+        cronometroSalvato          = toggleCronometro.isSelected();
         
         // Ripristina il tema salvato e aggiorna l'icona della luna/sole
         if (temaSalvato) {
@@ -159,8 +177,11 @@ public class ImpostazioniController {
         // Salva la preferenza nel TemaManager (persistenza globale)
         TemaManager.getInstance().setTemaScuro(scuro);
         
-        // Aggiorna lo stato salvato per la funzione "Annulla" futuro
-        temaSalvato = scuro;
+        // Aggiorna lo snapshot di TUTTE le impostazioni per la funzione "Annulla" futura
+        temaSalvato                = scuro;
+        numeroDomandeSalvato       = cmbNumeroDomande.getValue();
+        spiegazioneErroriSalvata   = toggleSpiegazioneErrori.isSelected();
+        cronometroSalvato          = toggleCronometro.isSelected();
         
         // Stampa un messaggio di debug nella console per confermare il salvataggio
         System.out.println("[Impostazioni] Salvate. Tema: " + (scuro ? "Scuro" : "Chiaro")
@@ -195,6 +216,7 @@ public class ImpostazioniController {
      */
     @FXML
     void annullaImpostazioni(ActionEvent event) {
+        // --- RIPRISTINO TEMA ---
         // Ripristina lo stato dei radio button al tema salvato precedentemente
         if (temaSalvato) {
             rbScuro.setSelected(true);
@@ -210,6 +232,14 @@ public class ImpostazioniController {
         // Ripristina il colore di sfondo secondo il tema salvato
         root.setStyle("-fx-background-color: "
                 + (temaSalvato ? TemaManager.BG_SCURO : TemaManager.BG_CHIARO) + ";");
+
+        // --- RIPRISTINO QUIZ ---
+        // Ripristina il numero di domande al valore dell'ultimo salvataggio
+        cmbNumeroDomande.setValue(numeroDomandeSalvato);
+        
+        // Ripristina i toggle al valore dell'ultimo salvataggio
+        toggleSpiegazioneErrori.setSelected(spiegazioneErroriSalvata);
+        toggleCronometro.setSelected(cronometroSalvato);
     }
 
     // =====================================================================
@@ -455,6 +485,31 @@ public class ImpostazioniController {
     void tornaAllaDashboard(ActionEvent event) {
         // Invoca il metodo helper passando il percorso FXML e il nuovo titolo dello Stage
         naviga("/view/SchermataDashboard.fxml", "MyPatenti - Dashboard");
+    }
+
+    /**
+     * GESTORE EVENTO: CLICK SU "IL MIO PROFILO" DAL MENU UTENTE.
+     * Carica la schermata del profilo, mantenendo la stessa struttura del menu
+     * presente nella navbar della schermata Profilo.
+     *
+     * @param event L'evento generato dalla selezione della voce di menu.
+     */
+    @FXML
+    void apriProfilo(ActionEvent event) {
+        naviga("/view/SchermataProfilo.fxml", "MyPatenti - Il mio profilo");
+    }
+
+    /**
+     * GESTORE EVENTO: CLICK SU "IMPOSTAZIONI" DAL MENU UTENTE.
+     * L'utente è già nella vista Impostazioni: non è necessario ricaricarla.
+     * Il metodo esiste per rendere il menu identico a quello del Profilo e per
+     * fornire a FXML un gestore dell'azione esplicito.
+     *
+     * @param event L'evento generato dalla selezione della voce di menu.
+     */
+    @FXML
+    void apriImpostazioniMenu(ActionEvent event) {
+        // Nessuna navigazione: la schermata corrente è già Impostazioni.
     }
 
     /**

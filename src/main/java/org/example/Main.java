@@ -9,7 +9,7 @@ import javafx.application.Application; // Classe astratta fondamentale che defin
  * =================================================================================
  * CLASSE DI AVVIO PRINCIPALE (Main)
  * =================================================================================
- * Questa classe funge da punto d'ingresso neutro (Entry Point) per l'applicazione.
+ * Questa classe è l'unico punto d'ingresso (Entry Point) dell'applicazione.
  * 
  * PERCHÉ QUESTA CLASSE È NECESSARIA?
  * Nei progetti JavaFX moderni (da Java 11+ in poi), se la classe che contiene il metodo main()
@@ -20,6 +20,11 @@ import javafx.application.Application; // Classe astratta fondamentale che defin
  * Creando una classe 'Main' separata che NON estende 'Application', si aggira questo controllo
  * permettendo l'avvio corretto dell'applicazione sia da IDE (es. IntelliJ, Eclipse, VS Code) 
  * che da file JAR o Maven senza configurazioni complesse.
+ *
+ * CONFIGURAZIONE DI AVVIO:
+ * In IntelliJ deve essere selezionata una sola configurazione di tipo Application
+ * con classe principale "org.example.Main". La classe MainApp non viene avviata
+ * direttamente: JavaFX la istanzia tramite Application.launch().
  */
 public class Main {
 

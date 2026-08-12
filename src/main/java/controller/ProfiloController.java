@@ -18,6 +18,8 @@ import javafx.scene.control.TextInputDialog; // Dialogo specializzato per l'inpu
 import javafx.stage.Stage;                  // Finestra principale gestita dal sistema operativo
 import java.io.IOException;                  // Gestione eccezioni di I/O per il caricamento delle viste
 import java.util.Optional;                   // Classe per gestire valori opzionali (null-safe)
+import model.SessioneUtente;                 // Singleton che mantiene l'utente loggato in memoria
+import model.Utente;                         // POJO con i dati anagrafici dell'utente
 
 /**
  * =================================================================================
@@ -46,12 +48,9 @@ public class ProfiloController {
     @FXML private Button btnTornaIndietro; // Pulsante per tornare indietro (navigazione browser-like)
 
     // =====================================================================
-    // DATI UTENTE (Storage Temporaneo - In futuro verranno dal DB)
+    // DATI UTENTE — letti dalla SessioneUtente (non più hardcodati)
     // =====================================================================
-    private static String nome = "Cristian";                      // Nome dell'allievo loggato
-    private static String cognome = "Fabbricatore";               // Cognome dell'allievo loggato
-    private static String email = "cristian@example.com";         // Indirizzo email modificabile dell'allievo
-    private static final String dataIscrizione = "05/01/2026";    // Data di registrazione al servizio MyPatenti
+    // I dati vengono recuperati in initialize() tramite SessioneUtente.getInstance().getUtente()
 
     /**
      * METODO INITIALIZE (Hook automatico JavaFX)
@@ -70,21 +69,25 @@ public class ProfiloController {
      * Inoltre aggiorna il testo del MenuButton con il saluto personalizzato.
      */
     private void aggiornaDatiVista() {
-        // Aggiorna l'etichetta del nome completo (es. "Cristian Fabbricatore")
-        lblNomeCompleto.setText(nome + " " + cognome);
+        // Recupera l'utente loggato dalla sessione globale
+        Utente u = SessioneUtente.getInstance().getUtente();
+        if (u == null) return; // Protezione: nessuna sessione attiva
+
+        // Aggiorna l'etichetta del nome completo (es. "Mario Rossi")
+        lblNomeCompleto.setText(u.getNomeCompleto());
         
         // Aggiorna l'etichetta del ruolo dell'utente
         lblRuolo.setText("Utente MyPatenti");
         
         // Aggiorna i singoli campi nome, cognome, email e data iscrizione
-        lblNome.setText(nome);
-        lblCognome.setText(cognome);
-        lblEmail.setText(email);
-        lblDataIscrizione.setText(dataIscrizione);
+        lblNome.setText(u.getNome());
+        lblCognome.setText(u.getCognome());
+        lblEmail.setText(u.getEmail());
+        lblDataIscrizione.setText(u.getDataIscrizione());
         
-        // Aggiorna il testo del MenuButton con il saluto personalizzato (emoji + nome dell'allievo)
+        // Aggiorna il testo del MenuButton con il saluto personalizzato
         if (menuProfilo != null) {
-            menuProfilo.setText("👤 Ciao, " + nome);
+            menuProfilo.setText("👤 Ciao, " + u.getNome());
         }
     }
 
@@ -151,8 +154,11 @@ public class ProfiloController {
      */
     @FXML
     void gestisciModificaProfilo(ActionEvent event) {
+        Utente u = SessioneUtente.getInstance().getUtente();
+        if (u == null) return;
+
         // Crea un dialogo di input con il valore corrente dell'email pre-compilato
-        TextInputDialog dialog = new TextInputDialog(email);
+        TextInputDialog dialog = new TextInputDialog(u.getEmail());
         dialog.setTitle("Modifica Email");
         dialog.setHeaderText("Aggiorna il tuo indirizzo email");
         dialog.setContentText("Nuova email:");
@@ -167,8 +173,9 @@ public class ProfiloController {
             
             // Controlla che l'email non sia vuota e contenga i simboli richiesti
             if (!trimmed.isEmpty() && trimmed.contains("@") && trimmed.contains(".")) {
-                // Aggiorna la variabile email con il nuovo valore validato
-                email = trimmed;
+                // Aggiorna la sessione con il nuovo valore (in futuro: anche UPDATE al DB)
+                // TODO DB: DBService.aggiornaEmail(u.getCodiceFiscale(), trimmed);
+                u.setEmail(trimmed);
                 
                 // Sincronizza tutte le Label della vista con il nuovo valore
                 aggiornaDatiVista();

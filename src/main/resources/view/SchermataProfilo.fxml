@@ -50,13 +50,25 @@
         <HBox alignment="CENTER_LEFT" prefHeight="60.0" spacing="15.0"
               style="-fx-background-color: #0284c7;">
             <children>
-                <!-- Pulsante per tornare alla Dashboard -->
+                <!--
+                    PULSANTE TORNA ALLA DASHBOARD
+                    - Button: controllo interattivo per cambiare schermata.
+                    - fx:id="btnTornaDashboard": identificatore collegato al controller.
+                    - onAction="#tornaAllaDashboard": invoca il metodo Java di navigazione al click.
+                    - style: testo bianco su sfondo trasparente, così il pulsante si integra nella navbar blu.
+                -->
                 <Button fx:id="btnTornaDashboard" onAction="#tornaAllaDashboard"
                         style="-fx-background-color: transparent; -fx-text-fill: white; -fx-font-size: 14px; -fx-cursor: hand;"
                         text="← Torna alla Dashboard" />
                 <!-- Spaziatore flessibile: HBox.hgrow="ALWAYS" fa espandere il nodo orizzontalmente -->
                 <Region HBox.hgrow="ALWAYS" />
-                <!-- Menu profilo a discesa con opzioni -->
+                <!--
+                    MENU PROFILO A DISCESA (MenuButton)
+                    - fx:id="menuProfilo": consente al controller di aggiornare il saluto utente.
+                    - text: etichetta visualizzata quando il menu è chiuso.
+                    - <items>: contiene le azioni Profilo, Impostazioni e Logout; i rispettivi
+                      attributi onAction richiamano i metodi del controller al clic.
+                -->
                 <MenuButton fx:id="menuProfilo"
                             style="-fx-background-color: #0369a1; -fx-text-fill: white; -fx-font-size: 14px; -fx-font-weight: bold;"
                             text="👤 Ciao, Utente">
@@ -267,7 +279,14 @@
                                     <padding><Insets top="16.0" bottom="16.0" left="28.0" right="28.0" /></padding>
                                 </HBox>
 
-                                <!-- DATA ISCRIZIONE (dalla prima bozza) -->
+                                <!--
+                                    CAMPO DATA DI ISCRIZIONE
+                                    - HBox: affianca l'icona calendario e il gruppo di etichette.
+                                    - Label text="ISCRITTO DAL": descrive il valore mostrato sotto.
+                                    - fx:id="lblDataIscrizione": riferimento aggiornabile dal controller con la
+                                      data dell'utente autenticato.
+                                    - padding: mantiene 16 pixel verticali e 28 pixel laterali attorno al campo.
+                                -->
                                 <HBox alignment="CENTER_LEFT" spacing="16.0">
                                     <children>
                                         <StackPane maxHeight="38.0" maxWidth="38.0" prefHeight="38.0" prefWidth="38.0"
@@ -297,11 +316,22 @@
                         <!-- PULSANTI (stile seconda bozza) -->
                         <VBox spacing="10.0">
                             <children>
-                                <!-- Modifica Dati -->
+                                <!--
+                                    PULSANTE MODIFICA DATI
+                                    - fx:id="btnModifica": identificatore del pulsante usato dal controller.
+                                    - onAction="#gestisciModificaProfilo": avvia il flusso di modifica del profilo.
+                                    - maxWidth="Infinity": estende il pulsante alla larghezza della card.
+                                    - style: bordo e testo blu distinguono l'azione principale senza riempimento.
+                                -->
                                 <Button fx:id="btnModifica" maxWidth="Infinity" onAction="#gestisciModificaProfilo"
                                         style="-fx-background-color: white; -fx-border-color: #0284c7; -fx-border-radius: 8px; -fx-background-radius: 8px; -fx-text-fill: #0284c7; -fx-font-size: 13px; -fx-font-weight: bold; -fx-cursor: hand; -fx-padding: 12px;"
                                         text="✏  MODIFICA DATI" />
-                                <!-- Torna Indietro -->
+                                <!--
+                                    PULSANTE TORNA INDIETRO
+                                    - fx:id="btnTornaIndietro": riferimento FXML del controllo.
+                                    - onAction="#tornaAllaDashboard": riutilizza l'azione di ritorno alla dashboard.
+                                    - style: bordo grigio e testo neutro definiscono un'azione secondaria.
+                                -->
                                 <Button fx:id="btnTornaIndietro" maxWidth="Infinity" onAction="#tornaAllaDashboard"
                                         style="-fx-background-color: white; -fx-border-color: #cbd5e1; -fx-border-radius: 8px; -fx-background-radius: 8px; -fx-text-fill: #475569; -fx-font-size: 13px; -fx-font-weight: bold; -fx-cursor: hand; -fx-padding: 12px;"
                                         text="← TORNA INDIETRO" />
