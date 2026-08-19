@@ -27,12 +27,12 @@
     - prefHeight="400.0": Altezza preferita in pixel della finestra/schermata.
     - xmlns="http://javafx.com/javafx/21": Namespace XML predefinito per tutti i tag JavaFX standard.
     - xmlns:fx="http://javafx.com/fxml/1": Namespace XML per gli attributi specifici di FXML (es. fx:id, fx:controller).
-    - fx:controller="controller.SceltaInizialeController": Collega questa vista FXML alla classe Controller Java che gestirà la logica e gli eventi.
+    - fx:controller="controller.HomeController": Collega questa vista FXML alla classe Controller Java che gestirà la logica e gli eventi.
     - styleClass="root-initial": Assegna la classe di stile CSS per applicare lo sfondo sfumato o personalizzato definito nel file style.css.
 -->
 <VBox alignment="CENTER" spacing="20.0" prefWidth="600.0" prefHeight="400.0"
       xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
-      fx:controller="controller.SceltaInizialeController"
+      fx:controller="controller.HomeController"
       styleClass="root-initial">
 
     <!-- 
@@ -49,12 +49,12 @@
               * fitWidth="80.0" e fitHeight="80.0": Ridimensionano l'immagine a una dimensione di 80x80 pixel.
               * preserveRatio="true": Mantiene le proporzioni originali dell'immagine (evita che venga distorta o allungata).
             - <image>: Proprietà contenitore che racchiude l'oggetto Image.
-            - <Image url="@../images/car-icon.png"/>: Carica il file immagine dal percorso relativo al file FXML.
+            - <Image url="@../images/icons/car-icon.png"/>: Carica il file immagine dal percorso relativo al file FXML.
               * Il simbolo '@' indica a JavaFX che il percorso è relativo alla cartella delle risorse (resources).
         -->
         <ImageView fitWidth="80.0" fitHeight="80.0" preserveRatio="true">
             <image>
-                <Image url="@../images/car-icon.png"/>
+                <Image url="@../images/icons/car-icon.png"/>
             </image>
         </ImageView>
 
@@ -87,7 +87,7 @@
             <graphic>
                 <ImageView fitWidth="20.0" fitHeight="20.0" preserveRatio="true">
                     <image>
-                        <Image url="@../images/enter.png"/>
+                        <Image url="@../images/icons/enter.png"/>
                     </image>
                 </ImageView>
             </graphic>
@@ -106,7 +106,7 @@
             <graphic>
                 <ImageView fitWidth="20.0" fitHeight="20.0" preserveRatio="true">
                     <image>
-                        <Image url="@../images/add.png"/>
+                        <Image url="@../images/icons/add.png"/>
                     </image>
                 </ImageView>
             </graphic>

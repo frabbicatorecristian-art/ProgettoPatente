@@ -34,6 +34,10 @@ public class Main {
      * @param args Array di stringhe contenente gli eventuali argomenti passati da riga di comando.
      */
     public static void main(String[] args) {
+        System.out.println("⏳ Test connessione al database in corso...");
+        // Richiama getConnection() per testare se i dati inseriti sono corretti
+        util.DatabaseConnection.getConnection();
+
         // Application.launch(): Metodo statico fornito da JavaFX.
         // Inizializza il runtime grafico di JavaFX, crea un'istanza della classe specificata (MainApp.class)
         // e invoca il suo metodo start(Stage primaryStage) sul Thread grafico dedicato (JavaFX Application Thread).

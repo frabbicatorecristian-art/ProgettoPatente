@@ -41,12 +41,12 @@
     - spacing="20.0": Spaziatura verticale di 20 pixel tra gli elementi del form.
     - prefWidth="600.0" e prefHeight="480.0": Dimensioni ottimali per visualizzare tutti i campi senza barre di scorrimento.
     - xmlns e xmlns:fx: Namespace XML ufficiali per JavaFX.
-    - fx:controller="controller.SchermataRegistrazioneController": Collega la vista al Controller Java gestore della registrazione.
+    - fx:controller="controller.RegistrazioneController": Collega la vista al Controller Java gestore della registrazione.
     - styleClass="root-form": Applica lo stile grafico di sfondo definito nel foglio CSS.
 -->
-<VBox alignment="CENTER" spacing="20.0" prefWidth="600.0" prefHeight="480.0"
+<VBox alignment="CENTER" spacing="20.0" prefWidth="600.0" prefHeight="520.0"
       xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
-      fx:controller="controller.SchermataRegistrazioneController"
+      fx:controller="controller.RegistrazioneController"
       styleClass="root-form">
 
     <!-- 
@@ -76,7 +76,7 @@
             - alignment="CENTER": Centra la griglia all'interno del VBox.
             - prefHeight="220.0": Altezza preferita assegnata alla griglia.
         -->
-        <GridPane hgap="10.0" vgap="12.0" alignment="CENTER" prefHeight="220.0">
+        <GridPane hgap="10.0" vgap="12.0" alignment="CENTER" prefHeight="260.0">
             <children>
 
                 <!-- RIGA 0: CAMPO NOME -->
@@ -122,10 +122,25 @@
                     </children>
                 </StackPane>
 
-                <!-- RIGA 5: CASELLA DI SPUNTA MOSTRA PASSWORD -->
-                <!-- CheckBox (Colonna 1, Riga 5): attiva/disattiva la visibilità della password -->
+                <!-- RIGA 5: CAMPO CONFERMA PASSWORD (SOVRAPPOSIZIONE CON STACKPANE) -->
+                <!-- Label (Colonna 0, Riga 5) -->
+                <Label text="Conferma Password:" GridPane.columnIndex="0" GridPane.rowIndex="5" styleClass="form-label"/>
+                
+                <!-- StackPane (Colonna 1, Riga 5): sovrappone il PasswordField e il TextField visibile -->
+                <StackPane GridPane.columnIndex="1" GridPane.rowIndex="5" prefWidth="250.0">
+                    <children>
+                        <!-- PasswordField: mascheramento dei caratteri con i pallini -->
+                        <PasswordField fx:id="txtConfermaPassword" promptText="Ripeti la password" styleClass="text-field-custom"/>
+                        
+                        <!-- TextField: campo in chiaro per mostrare la password (nascosto di default con visible="false") -->
+                        <TextField fx:id="txtConfermaPasswordMostrata" promptText="Ripeti la password" visible="false" styleClass="text-field-custom"/>
+                    </children>
+                </StackPane>
+
+                <!-- RIGA 6: CASELLA DI SPUNTA MOSTRA PASSWORD -->
+                <!-- CheckBox (Colonna 1, Riga 6): attiva/disattiva la visibilità della password -->
                 <CheckBox fx:id="chkMostraPassword" text="Mostra password" onAction="#gestisciMostraPassword"
-                          GridPane.columnIndex="1" GridPane.rowIndex="5" styleClass="form-label"/>
+                          GridPane.columnIndex="1" GridPane.rowIndex="6" styleClass="form-label"/>
 
             </children>
         </GridPane>
@@ -161,7 +176,7 @@
                     <graphic>
                         <ImageView fitWidth="18.0" fitHeight="18.0" preserveRatio="true">
                             <image>
-                                <Image url="@../images/add.png"/>
+                                <Image url="@../images/icons/add.png"/>
                             </image>
                         </ImageView>
                     </graphic>

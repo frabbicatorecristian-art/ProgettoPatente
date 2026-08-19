@@ -41,7 +41,7 @@
     - fx:controller="controller.DashboardController": Collega la vista FXML alla classe Controller Java per la gestione dell'aula virtuale.
 -->
 <VBox alignment="TOP_CENTER" prefHeight="800.0" prefWidth="900.0" 
-      style="-fx-background-color: #f1f5f9;" 
+      stylesheets="@../css/style.css"
       xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" 
       fx:controller="controller.DashboardController">
 
@@ -58,27 +58,18 @@
             1. BARRA DI NAVIGAZIONE SUPERIORE (NAVBAR - HBox)
             =========================================================================
             Dispone orizzontalmente il logo dell'app e il menu profilo utente.
-            - alignment="CENTER_LEFT": Allinea gli elementi al centro verticalmente e a sinistra orizzontalmente.
-            - prefHeight="65.0": Altezza fissa della navbar di 65 pixel.
-            - spacing="15.0": Spaziatura di 15 pixel tra gli elementi.
-            - style="-fx-background-color: #0284c7;": Sfondo di colore blu azzurro per la barra superiore.
         -->
-        <HBox alignment="CENTER_LEFT" prefHeight="65.0" spacing="15.0" style="-fx-background-color: #0284c7;">
+        <HBox alignment="CENTER_LEFT" prefHeight="65.0" spacing="15.0" styleClass="app-navbar">
             <children>
-                <!--
-                    IDENTITÀ DELL'APPLICAZIONE (HBox)
-                    - HBox: mantiene affiancati logo e nome del prodotto.
-                    - spacing="10.0": separa visivamente icona e testo di 10 pixel.
-                    - ImageView: visualizza car.png a 32×32 pixel; preserveRatio="true"
-                      evita deformazioni dell'immagine.
-                    - Label text="MyPatenti": mostra il nome dell'app con testo bianco,
-                      grande e in grassetto per risultare leggibile nella navbar.
-                -->
                 <HBox alignment="CENTER_LEFT" spacing="10.0">
                     <children>
-                        <ImageView fitHeight="32.0" fitWidth="32.0" preserveRatio="true">
-                            <image><Image url="@../images/car.png" /></image>
-                        </ImageView>
+                        <StackPane styleClass="navbar-logo-box">
+                            <children>
+                                <ImageView fitHeight="28.0" fitWidth="28.0" preserveRatio="true">
+                                    <image><Image url="@../images/dashboard/car.png" /></image>
+                                </ImageView>
+                            </children>
+                        </StackPane>
                         <Label style="-fx-text-fill: white; -fx-font-size: 22px; -fx-font-weight: bold;" text="MyPatenti" />
                     </children>
                 </HBox>
@@ -86,38 +77,27 @@
                 <!-- Spaziatore flessibile (VBox): HBox.hgrow="ALWAYS" spinge il menu utente tutto a destra -->
                 <VBox HBox.hgrow="ALWAYS" />
 
-                <!-- 
-                    MENU PROFILO UTENTE (MenuButton & MenuItem)
-                    - MenuButton: Pulsante a discesa con l'indicazione del nome utente.
-                    - fx:id="menuProfilo": ID per personalizzare il testo nel controller Java in base all'utente loggato.
-                -->
-                <MenuButton fx:id="menuProfilo" style="-fx-background-color: #0369a1; -fx-text-fill: white; -fx-font-size: 15px; -fx-font-weight: bold;" text="👤 Ciao, Utente">
+                <!-- MENU PROFILO UTENTE (MenuButton & MenuItem) -->
+                <MenuButton fx:id="menuProfilo" styleClass="app-nav-button" text="👤 Ciao, Utente">
                     <items>
-                        <!--
-                            VOCI DEL MENU PROFILO (MenuItem)
-                            - onAction="#apriProfilo": apre la schermata del profilo.
-                            - onAction="#apriImpostazioni": apre la schermata delle preferenze.
-                            - onAction="#gestisciLogout": termina la sessione dell'utente.
-                            - <graphic>: associa un'icona a ogni voce senza sostituirne il testo.
-                        -->
                         <MenuItem onAction="#apriProfilo" text=" Il mio profilo">
                             <graphic>
                                 <ImageView fitHeight="14.0" fitWidth="14.0" preserveRatio="true">
-                                    <image><Image url="@../images/user-account.png" /></image>
+                                    <image><Image url="@../images/icons/user-account.png" /></image>
                                 </ImageView>
                             </graphic>
                         </MenuItem>
                         <MenuItem onAction="#apriImpostazioni" text=" Impostazioni">
                             <graphic>
                                 <ImageView fitHeight="14.0" fitWidth="14.0" preserveRatio="true">
-                                    <image><Image url="@../images/settings.png" /></image>
+                                    <image><Image url="@../images/icons/settings.png" /></image>
                                 </ImageView>
                             </graphic>
                         </MenuItem>
                         <MenuItem onAction="#gestisciLogout" text=" Esci">
                             <graphic>
                                 <ImageView fitHeight="14.0" fitWidth="14.0" preserveRatio="true">
-                                    <image><Image url="@../images/enter.png" /></image>
+                                    <image><Image url="@../images/icons/enter.png" /></image>
                                 </ImageView>
                             </graphic>
                         </MenuItem>
@@ -142,23 +122,30 @@
 
                 <!-- BANNER BENVENUTO COMPATTO -->
                 <HBox alignment="CENTER_LEFT" prefHeight="90.0" spacing="20.0" 
-                      style="-fx-background-color: #ffffff; -fx-background-radius: 16px; -fx-padding: 14px 24px; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.05), 8, 0, 0, 2);">
+                      styleClass="dashboard-banner">
                     <children>
                         <!-- Testo di Benvenuto e Sottotitolo -->
                         <VBox alignment="CENTER_LEFT" spacing="4.0" HBox.hgrow="ALWAYS">
                             <children>
-                                <Label fx:id="lblBenvenuto" style="-fx-font-size: 22px; -fx-font-weight: bold; -fx-text-fill: #1e293b;" text="Bentornato, Cristian! 👋" wrapText="true" />
-                                <Label style="-fx-font-size: 13px; -fx-text-fill: #64748b;" text="Gestisci le tue patenti, i tuoi veicoli e consulta il materiale teorico." wrapText="true" />
+                                <Label fx:id="lblBenvenuto" styleClass="dashboard-banner-title" text="Bentornato, Cristian! 👋" wrapText="true" />
+                                <Label styleClass="dashboard-banner-subtitle" text="Gestisci le tue patenti, i tuoi veicoli e consulta il materiale teorico." wrapText="true" />
                             </children>
                         </VBox>
 
                         <!-- Immagine car_license.png posizionata in alto a destra -->
-                        <ImageView fitHeight="90.0" preserveRatio="true">
-                            <image>
-                                <Image url="@../images/car_license.png"/>
-                            </image>
-                        </ImageView>
+                        <StackPane styleClass="header-deco-box">
+                            <children>
+                                <ImageView fitHeight="75.0" preserveRatio="true">
+                                    <image>
+                                        <Image url="@../images/dashboard/car_license.png"/>
+                                    </image>
+                                </ImageView>
+                            </children>
+                        </StackPane>
                     </children>
+                    <padding>
+                        <Insets top="14.0" bottom="14.0" left="24.0" right="24.0" />
+                    </padding>
                 </HBox>
 
                 <!--
@@ -196,7 +183,7 @@
                                                     <children>
                                                         <ImageView fitHeight="36.0" fitWidth="36.0" preserveRatio="true">
                                                             <image>
-                                                                <Image url="@../images/drivers-license_dashboard.png" />
+                                                                <Image url="@../images/dashboard/drivers-license_dashboard.png" />
                                                             </image>
                                                         </ImageView>
                                                     </children>
@@ -239,7 +226,7 @@
                                                     <children>
                                                         <ImageView fitHeight="36.0" fitWidth="36.0" preserveRatio="true">
                                                             <image>
-                                                                <Image url="@../images/car.png" />
+                                                                <Image url="@../images/dashboard/car.png" />
                                                             </image>
                                                         </ImageView>
                                                     </children>
@@ -282,7 +269,7 @@
                                                     <children>
                                                         <ImageView fitHeight="36.0" fitWidth="36.0" preserveRatio="true">
                                                             <image>
-                                                                <Image url="@../images/book_dashboard.png" />
+                                                                <Image url="@../images/dashboard/book_dashboard.png" />
                                                             </image>
                                                         </ImageView>
                                                     </children>
@@ -325,7 +312,7 @@
                                                     <children>
                                                         <ImageView fitHeight="36.0" fitWidth="36.0" preserveRatio="true">
                                                             <image>
-                                                                <Image url="@../images/quiz_dashboard.png" />
+                                                                <Image url="@../images/dashboard/quiz_dashboard.png" />
                                                             </image>
                                                         </ImageView>
                                                     </children>
@@ -382,7 +369,7 @@
                                     <children>
                                         <ImageView fitWidth="26.0" fitHeight="26.0" preserveRatio="true">
                                             <image>
-                                                <Image url="@../images/home_dashboard.png"/>
+                                                <Image url="@../images/dashboard/home_dashboard.png"/>
                                             </image>
                                         </ImageView>
                                         <Label style="-fx-text-fill: #ffffff; -fx-font-weight: bold; -fx-font-size: 12px;" text="Home" />
@@ -398,7 +385,7 @@
                                     <children>
                                         <ImageView fitWidth="26.0" fitHeight="26.0" preserveRatio="true">
                                             <image>
-                                                <Image url="@../images/drivers-license_dashboard.png"/>
+                                                <Image url="@../images/dashboard/drivers-license_dashboard.png"/>
                                             </image>
                                         </ImageView>
                                         <Label style="-fx-text-fill: #ffffff; -fx-font-weight: bold; -fx-font-size: 12px;" text="Patenti" />
@@ -414,7 +401,7 @@
                                     <children>
                                         <ImageView fitWidth="26.0" fitHeight="26.0" preserveRatio="true">
                                             <image>
-                                                <Image url="@../images/car.png"/>
+                                                <Image url="@../images/dashboard/car.png"/>
                                             </image>
                                         </ImageView>
                                         <Label style="-fx-text-fill: #ffffff; -fx-font-weight: bold; -fx-font-size: 12px;" text="Veicoli" />
@@ -430,7 +417,7 @@
                                     <children>
                                         <ImageView fitWidth="26.0" fitHeight="26.0" preserveRatio="true">
                                             <image>
-                                                <Image url="@../images/book_dashboard.png"/>
+                                                <Image url="@../images/dashboard/book_dashboard.png"/>
                                             </image>
                                         </ImageView>
                                         <Label style="-fx-text-fill: #ffffff; -fx-font-weight: bold; -fx-font-size: 12px;" text="Teoria" />
@@ -446,7 +433,7 @@
                                     <children>
                                         <ImageView fitWidth="26.0" fitHeight="26.0" preserveRatio="true">
                                             <image>
-                                                <Image url="@../images/quiz_dashboard.png"/>
+                                                <Image url="@../images/dashboard/quiz_dashboard.png"/>
                                             </image>
                                         </ImageView>
                                         <Label style="-fx-text-fill: #ffffff; -fx-font-weight: bold; -fx-font-size: 12px;" text="Quiz" />

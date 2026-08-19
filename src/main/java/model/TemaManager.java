@@ -100,30 +100,48 @@ public class TemaManager {
     // =====================================================================
 
     /**
-     * METODO: APPLICA IL TEMA ALLA SCENA
-     * Modifica lo stile CSS del nodo radice della Scena per applicare il tema corrente.
-     * Seleziona il colore di sfondo appropriato in base allo stato di temaScuro.
-     * 
-     * FUNZIONAMENTO:
-     * 1. Verifica che la Scena non sia null (per evitare eccezioni).
-     * 2. Estrae il nodo radice (Region) dalla Scena.
-     * 3. Applica lo stile CSS corrispondente al tema corrente.
+     * METODO: APPLICA IL TEMA GLOBALE ALLA SCENA
+     * Applica o rimuove la classe CSS 'dark-theme' al nodo radice della Scena
+     * e ne imposta il colore di sfondo coerente.
      * 
      * @param scene La Scena JavaFX su cui applicare il tema. Se null, nessuna azione.
      */
     public void applica(Scene scene) {
-        // Protezione: se la scena è null, non fare nulla
         if (scene == null) return;
-        
-        // Casting del nodo radice a Region (classe base per i nodi che supportano lo stile CSS)
-        javafx.scene.layout.Region root = (javafx.scene.layout.Region) scene.getRoot();
-        
-        // Applica il colore di sfondo appropriato in base al tema corrente
-        if (temaScuro) {
-            // TEMA SCURO: Usa il colore di sfondo scuro (blu-nero)
+        applicaTemaANodo((javafx.scene.layout.Region) scene.getRoot(), this.temaScuro);
+    }
+
+    /**
+     * METODO: APPLICA UN TEMA TEMPORANEO (Anteprima in tempo reale)
+     * Utilizzato nella schermata Impostazioni per visualizzare immediatamente
+     * le modifiche di stile prima che l'utente prema il pulsante Salva.
+     * 
+     * @param scene La Scena JavaFX su cui applicare l'anteprima.
+     * @param scuro true per visualizzare il tema Scuro, false per il tema Chiaro.
+     */
+    public void applicaTemaTemporaneo(Scene scene, boolean scuro) {
+        if (scene == null) return;
+        applicaTemaANodo((javafx.scene.layout.Region) scene.getRoot(), scuro);
+    }
+
+    /**
+     * METODO HELPER PRIVATO: APPLICAZIONE DELLO STILE E DELLE CLASSI CSS
+     * 
+     * @param root Il nodo radice (Region) della schermata.
+     * @param scuro true per attivare Dark Mode, false per Light Mode.
+     */
+    private void applicaTemaANodo(javafx.scene.layout.Region root, boolean scuro) {
+        if (root == null) return;
+
+        if (scuro) {
+            // TEMA SCURO: aggiunge la classe CSS per cascata su tutti i componenti
+            if (!root.getStyleClass().contains("dark-theme")) {
+                root.getStyleClass().add("dark-theme");
+            }
             root.setStyle("-fx-background-color: " + BG_SCURO + ";");
         } else {
-            // TEMA CHIARO: Usa il colore di sfondo chiaro (grigio molto chiaro)
+            // TEMA CHIARO: rimuove la classe CSS
+            root.getStyleClass().remove("dark-theme");
             root.setStyle("-fx-background-color: " + BG_CHIARO + ";");
         }
     }

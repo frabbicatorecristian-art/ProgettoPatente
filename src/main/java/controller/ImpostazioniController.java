@@ -1,5 +1,6 @@
 package controller;
 
+
 // =================================================================================
 // IMPORT DELLE CLASSI JAVAFX E JAVA STANDARD
 // =================================================================================
@@ -8,11 +9,8 @@ import model.SessioneUtente;                 // Mantiene in memoria l'utente aut
 import javafx.collections.FXCollections;    // Crea liste osservabili di dati per ComboBox
 import javafx.event.ActionEvent;             // Rappresenta un evento di azione (click pulsante)
 import javafx.fxml.FXML;                    // Annotazione per iniettare attributi e metodi dal file FXML
-import javafx.fxml.FXMLLoader;              // Carica e legge i file FXML della vista
 import javafx.geometry.Insets;              // Specifica i margini interni di un contenitore
-import javafx.scene.Parent;                // Nodo radice del layout della scena
 import javafx.scene.Scene;                 // Scena grafica principale JavaFX
-import javafx.scene.control.Alert;          // Finestra di dialogo/notifica per errori e conferme
 import javafx.scene.control.Button;         // Componente pulsante cliccabile
 import javafx.scene.control.ButtonBar;      // Classe per la gestione dei pulsanti nei dialoghi
 import javafx.scene.control.ButtonType;     // Tipo di pulsante nei dialoghi (OK, CANCEL, ecc.)
@@ -27,8 +25,8 @@ import javafx.scene.image.Image;            // Rappresenta un'immagine JavaFX in
 import javafx.scene.image.ImageView;        // Componente per visualizzare immagini (Icon, PNG, JPG, ecc.)
 import javafx.scene.layout.GridPane;        // Layout a griglia per posizionare componenti in righe e colonne
 import javafx.scene.layout.VBox;            // Layout verticale per impilare componenti verticalmente
-import javafx.stage.Stage;                 // Finestra principale gestita dal sistema operativo
-import java.io.IOException;                 // Gestione eccezioni di I/O per il caricamento delle viste
+import service.UtenteService;               // Service Layer per la logica di business e gestione credenziali
+import util.AlertPersonalizzato;            // Dialoghi fissi in stile MyPatenti
 
 /**
  * =================================================================================
@@ -44,7 +42,7 @@ import java.io.IOException;                 // Gestione eccezioni di I/O per il 
  * 5. Logout con finestra di conferma.
  * 6. Persistenza delle preferenze tramite TemaManager.
  */
-public class ImpostazioniController {
+public class ImpostazioniController extends BaseController {
 
     // =====================================================================
     // COMPONENTI GRAFICI INIETTATI DA FXML (Mappati tramite fx:id)
@@ -109,16 +107,37 @@ public class ImpostazioniController {
         numeroDomandeSalvato       = cmbNumeroDomande.getValue();
         spiegazioneErroriSalvata   = toggleSpiegazioneErrori.isSelected();
         cronometroSalvato          = toggleCronometro.isSelected();
+
+        // Inizializza la classe CSS toggle-on per i toggle button se sono già selezionati
+        if (spiegazioneErroriSalvata) toggleSpiegazioneErrori.getStyleClass().add("toggle-on");
+        if (cronometroSalvato) toggleCronometro.getStyleClass().add("toggle-on");
+
+        // Aggiunge un listener per cambiare classe dinamicamente e far funzionare il CSS senza pseudoclassi non standard
+        toggleSpiegazioneErrori.selectedProperty().addListener((obs, oldVal, newVal) -> {
+            if (newVal) {
+                toggleSpiegazioneErrori.getStyleClass().add("toggle-on");
+            } else {
+                toggleSpiegazioneErrori.getStyleClass().remove("toggle-on");
+            }
+        });
+
+        toggleCronometro.selectedProperty().addListener((obs, oldVal, newVal) -> {
+            if (newVal) {
+                toggleCronometro.getStyleClass().add("toggle-on");
+            } else {
+                toggleCronometro.getStyleClass().remove("toggle-on");
+            }
+        });
         
         // Ripristina il tema salvato e aggiorna l'icona della luna/sole
         if (temaSalvato) {
             // Se il tema salvato è SCURO: seleziona il radio button e mostra l'icona della luna
             rbScuro.setSelected(true);
-            imgIconaTema.setImage(new Image(getClass().getResourceAsStream("/images/moon.png")));
+            imgIconaTema.setImage(new Image(getClass().getResourceAsStream("/images/theme/moon.png")));
         } else {
             // Se il tema salvato è CHIARO: seleziona il radio button e mostra l'icona del sole
             rbChiaro.setSelected(true);
-            imgIconaTema.setImage(new Image(getClass().getResourceAsStream("/images/light.png")));
+            imgIconaTema.setImage(new Image(getClass().getResourceAsStream("/images/theme/light.png")));
         }
 
         // Applica il tema alla schermata corrente usando Platform.runLater per evitare race conditions
@@ -141,19 +160,22 @@ public class ImpostazioniController {
      */
     @FXML
     void applicaTema(ActionEvent event) {
-        // Recupera il nodo radice (VBox) della schermata corrente per modificare lo stile CSS
-        VBox root = (VBox) btnTornaDashboard.getScene().getRoot();
+        boolean scuro = rbScuro.isSelected();
         
-        if (rbScuro.isSelected()) {
-            // SE TEMA SCURO: Applica il colore di sfondo scuro
-            root.setStyle("-fx-background-color: " + TemaManager.BG_SCURO + ";");
-            // Mostra l'icona della luna (rappresentazione visiva del tema scuro)
-            imgIconaTema.setImage(new Image(getClass().getResourceAsStream("/images/moon.png")));
+        // Applica l'anteprima temporanea alla Scena (background + classi CSS per tutte le card)
+        if (btnTornaDashboard.getScene() != null) {
+            TemaManager.getInstance().applicaTemaTemporaneo(btnTornaDashboard.getScene(), scuro);
+        }
+        
+        // AUTO-SAVE: Salva immediatamente la preferenza del tema per migliorare la UX
+        TemaManager.getInstance().setTemaScuro(scuro);
+        temaSalvato = scuro;
+        
+        // Aggiorna l'icona del tema (Sole / Luna)
+        if (scuro) {
+            imgIconaTema.setImage(new Image(getClass().getResourceAsStream("/images/theme/moon.png")));
         } else {
-            // SE TEMA CHIARO: Applica il colore di sfondo chiaro
-            root.setStyle("-fx-background-color: " + TemaManager.BG_CHIARO + ";");
-            // Mostra l'icona del sole (rappresentazione visiva del tema chiaro)
-            imgIconaTema.setImage(new Image(getClass().getResourceAsStream("/images/light.png")));
+            imgIconaTema.setImage(new Image(getClass().getResourceAsStream("/images/theme/light.png")));
         }
     }
 
@@ -187,19 +209,9 @@ public class ImpostazioniController {
         System.out.println("[Impostazioni] Salvate. Tema: " + (scuro ? "Scuro" : "Chiaro")
                 + " | Domande: " + cmbNumeroDomande.getValue());
 
-        // Mostra un alert di conferma all'utente
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle("Impostazioni");
-        alert.setHeaderText(null);
-        alert.setContentText("Impostazioni salvate con successo");
-        // Associa l'alert alla finestra corrente (opzionale)
-        try {
-            Stage stage = (Stage) btnSalvaGlobale.getScene().getWindow();
-            alert.initOwner(stage);
-        } catch (Exception e) {
-            // Se non è possibile associare la stage, prosegui comunque
-        }
-        alert.showAndWait();
+        AlertPersonalizzato.mostraInfo(
+                "Impostazioni salvate",
+                "Le impostazioni sono state aggiornate correttamente.");
     }
 
     // =====================================================================
@@ -220,18 +232,16 @@ public class ImpostazioniController {
         // Ripristina lo stato dei radio button al tema salvato precedentemente
         if (temaSalvato) {
             rbScuro.setSelected(true);
-            imgIconaTema.setImage(new Image(getClass().getResourceAsStream("/images/moon.png")));
+            imgIconaTema.setImage(new Image(getClass().getResourceAsStream("/images/theme/moon.png")));
         } else {
             rbChiaro.setSelected(true);
-            imgIconaTema.setImage(new Image(getClass().getResourceAsStream("/images/light.png")));
+            imgIconaTema.setImage(new Image(getClass().getResourceAsStream("/images/theme/light.png")));
         }
         
-        // Recupera il nodo radice (VBox) per ripristinare lo stile CSS dello sfondo
-        VBox root = (VBox) btnTornaDashboard.getScene().getRoot();
-        
-        // Ripristina il colore di sfondo secondo il tema salvato
-        root.setStyle("-fx-background-color: "
-                + (temaSalvato ? TemaManager.BG_SCURO : TemaManager.BG_CHIARO) + ";");
+        // Ripristina il tema salvato sulla scena
+        if (btnTornaDashboard.getScene() != null) {
+            TemaManager.getInstance().applicaTemaTemporaneo(btnTornaDashboard.getScene(), temaSalvato);
+        }
 
         // --- RIPRISTINO QUIZ ---
         // Ripristina il numero di domande al valore dell'ultimo salvataggio
@@ -360,26 +370,25 @@ public class ImpostazioniController {
         // --- GESTIONE DELLA RISPOSTA DELL'UTENTE ---
         dialog.showAndWait().ifPresent(risposta -> {
             if (risposta == btnConferma) {
-                // L'utente ha cliccato "Conferma": procedi con la validazione e il salvataggio
+                // L'utente ha cliccato "Conferma": procedi con la validazione e il salvataggio tramite Service Layer
                 String nuova     = pfNuova.getText().trim();
                 String conferma  = pfConferma.getText().trim();
 
-                // Validazione 1: Controlla che la password sia lunga almeno 6 caratteri
-                if (nuova.length() < 6) {
-                    mostraErrore("Password troppo corta", "La password deve contenere almeno 6 caratteri.");
-                } 
-                // Validazione 2: Controlla che i due campi coincidano
-                else if (!nuova.equals(conferma)) {
-                    mostraErrore("Password non coincidono", "La nuova password e la conferma non corrispondono.\nRiprova.");
-                } 
-                // Validazioni superate: salva la nuova password
-                else {
-                    // In produzione: saltare questo step e inviare la password al database backend
-                    Alert ok = new Alert(Alert.AlertType.INFORMATION);
-                    ok.setTitle("Password aggiornata");
-                    ok.setHeaderText(null);
-                    ok.setContentText("✅ La tua password è stata aggiornata con successo!");
-                    ok.showAndWait();
+                if (!SessioneUtente.getInstance().isLoggato()) {
+                    mostraErrore("Sessione scaduta", "Effettua nuovamente il login per modificare la password.");
+                    return;
+                }
+
+                String cf = SessioneUtente.getInstance().getUtente().getCodiceFiscale();
+                UtenteService service = new UtenteService();
+                String errore = service.cambiaPassword(cf, nuova, conferma);
+
+                if (errore != null) {
+                    mostraErrore("Cambio password non riuscito", errore);
+                } else {
+                    AlertPersonalizzato.mostraInfo(
+                            "Password aggiornata",
+                            "La tua password è stata aggiornata con successo.");
                 }
             }
             // Se l'utente clicca "Annulla", il dialogo si chiude e nessuna modifica viene effettuata
@@ -394,11 +403,7 @@ public class ImpostazioniController {
      * @param msg Il testo descrittivo dell'errore.
      */
     private void mostraErrore(String titolo, String msg) {
-        Alert err = new Alert(Alert.AlertType.ERROR);
-        err.setTitle(titolo);
-        err.setHeaderText(null);
-        err.setContentText(msg);
-        err.showAndWait();
+        AlertPersonalizzato.mostraErrore(titolo, msg);
     }
 
     // =====================================================================
@@ -408,29 +413,35 @@ public class ImpostazioniController {
     /**
      * GESTORE EVENTO: CLICK SUL PULSANTE "ELIMINA ACCOUNT"
      * Mostra una finestra di conferma per avvertire l'utente che l'operazione è IRREVERSIBILE.
-     * Se l'utente conferma, naviga alla Schermata Iniziale (simula una disconnessione).
-     * In produzione: dovrebbe inviare una richiesta al backend per eliminare i dati dal database.
+     * Se l'utente conferma, elimina i dati dal DB tramite UtenteService e torna alla schermata iniziale.
      * 
      * @param event L'evento di azione scatenato dal click del pulsante "Elimina Account".
      */
     @FXML
     void eliminaAccount(ActionEvent event) {
         // Crea un Alert di conferma con icona di avvertimento
-        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-        alert.setTitle("Elimina Account");
-        alert.setHeaderText("⚠️ Operazione irreversibile");
-        alert.setContentText("Sei sicuro di voler eliminare definitivamente il tuo account?\nTutti i dati verranno persi.");
+        AlertPersonalizzato.mostraConfermaDistruttiva(
+                "Elimina account",
+                "Sei sicuro di voler eliminare definitivamente il tuo account? Tutti i dati verranno persi.",
+                "Sì, elimina").ifPresent(r -> {
+            if (r == ButtonType.OK) {
+                if (!SessioneUtente.getInstance().isLoggato()) {
+                    mostraErrore("Sessione scaduta", "Nessuna sessione attiva.");
+                    return;
+                }
 
-        // Personalizza i pulsanti del dialogo
-        ButtonType annulla = new ButtonType("Annulla", ButtonBar.ButtonData.CANCEL_CLOSE);
-        ButtonType elimina = new ButtonType("Sì, elimina", ButtonBar.ButtonData.OK_DONE);
-        alert.getButtonTypes().setAll(annulla, elimina);
-
-        // Mostra il dialogo e gestisce la risposta
-        alert.showAndWait().ifPresent(r -> {
-            if (r == elimina) {
-                // L'utente ha confermato: naviga alla Schermata Iniziale
-                naviga("/view/SchermataIniziale.fxml", "MyPatenti - Benvenuto");
+                // Elimina dal database tramite il Service Layer
+                String cf = SessioneUtente.getInstance().getUtente().getCodiceFiscale();
+                UtenteService service = new UtenteService();
+                boolean successo = service.eliminaAccount(cf);
+                
+                if (successo) {
+                    // Pulisce la sessione locale e torna alla home
+                    SessioneUtente.getInstance().logout();
+                    naviga("/view/Home.fxml", "MyPatenti - Benvenuto", btnTornaDashboard.getScene());
+                } else {
+                    mostraErrore("Errore Database", "Impossibile eliminare l'account in questo momento.");
+                }
             }
             // Se l'utente clicca "Annulla", rimane nella schermata Impostazioni
         });
@@ -450,25 +461,7 @@ public class ImpostazioniController {
      */
     @FXML
     void gestisciLogout(ActionEvent event) {
-        // Crea un Alert di tipo CONFIRMATION (con pulsanti Sì/No)
-        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-        alert.setTitle("Conferma Uscita");
-        alert.setHeaderText("Disconnessione dall'Aula Virtuale");
-        alert.setContentText("Sei sicuro di voler effettuare il logout?");
-
-        // Personalizza i pulsanti del dialogo con etichette in italiano
-        ButtonType annulla = new ButtonType("Annulla", ButtonBar.ButtonData.CANCEL_CLOSE);
-        ButtonType esci    = new ButtonType("Sì, esci", ButtonBar.ButtonData.OK_DONE);
-        alert.getButtonTypes().setAll(annulla, esci);
-
-        // Mostra il dialogo e gestisce la risposta dell'allievo
-        alert.showAndWait().ifPresent(r -> {
-            if (r == esci) {
-                // L'utente ha confermato: naviga alla Schermata Iniziale
-                naviga("/view/SchermataIniziale.fxml", "MyPatenti - Benvenuto");
-            }
-            // Se l'utente clicca "Annulla", rimane nella schermata Impostazioni
-        });
+        eseguiLogoutConConferma(menuProfilo.getScene());
     }
 
     // =====================================================================
@@ -484,7 +477,7 @@ public class ImpostazioniController {
     @FXML
     void tornaAllaDashboard(ActionEvent event) {
         // Invoca il metodo helper passando il percorso FXML e il nuovo titolo dello Stage
-        naviga("/view/SchermataDashboard.fxml", "MyPatenti - Dashboard");
+        naviga("/view/Dashboard.fxml", "MyPatenti - Dashboard", btnTornaDashboard.getScene());
     }
 
     /**
@@ -496,7 +489,7 @@ public class ImpostazioniController {
      */
     @FXML
     void apriProfilo(ActionEvent event) {
-        naviga("/view/SchermataProfilo.fxml", "MyPatenti - Il mio profilo");
+        naviga("/view/Profilo.fxml", "MyPatenti - Il mio profilo", btnTornaDashboard.getScene());
     }
 
     /**
@@ -510,37 +503,5 @@ public class ImpostazioniController {
     @FXML
     void apriImpostazioniMenu(ActionEvent event) {
         // Nessuna navigazione: la schermata corrente è già Impostazioni.
-    }
-
-    /**
-     * METODO HELPER: CAMBIO DI SCHERMATA SENZA FLICKERING
-     * Carica il nuovo file FXML e sostituisce il nodo radice (root) della Scena già esistente.
-     * Questo approccio evita di chiudere e riaprire lo Stage (finestra), garantendo una transizione istantanea.
-     * Applica il tema corrente alla nuova schermata usando TemaManager.
-     * 
-     * @param fxml Il percorso relativo del file .fxml da caricare (es. "/view/SchermataDashboard.fxml").
-     * @param titolo Il nuovo testo da visualizzare sulla barra del titolo della finestra.
-     */
-    private void naviga(String fxml, String titolo) {
-        try {
-            // Carica il file FXML e costruisce la gerarchia visiva dei componenti
-            Parent root = FXMLLoader.load(getClass().getResource(fxml));
-            
-            // Recupera la Scena corrente dal pulsante "Torna Dashboard"
-            Scene scena = btnTornaDashboard.getScene();
-            
-            // Sostituisce il nodo radice della Scena con il nuovo layout
-            scena.setRoot(root);
-            
-            // Applica il tema attualmente attivo alla nuova schermata
-            TemaManager.getInstance().applica(scena);
-            
-            // Aggiorna il titolo della finestra (Stage) per riflettere la pagina attuale
-            ((Stage) scena.getWindow()).setTitle(titolo);
-        } catch (IOException e) {
-            // Segnala nel log di errore se il caricamento del file FXML fallisce
-            System.err.println("Errore navigazione: " + fxml);
-            e.printStackTrace();
-        }
     }
 }

@@ -39,8 +39,8 @@ public class MainApp extends Application {
         // -------------------------------------------------------------------------
         // FXMLLoader: Oggetto che legge il file FXML specificato e converte i suoi tag XML
         // in istanze di oggetti JavaFX reali (VBox, Button, Label, ecc.).
-        // getClass().getResource("/view/SchermataIniziale.fxml") individua il file FXML nella cartella 'resources'.
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/SchermataIniziale.fxml"));
+        // getClass().getResource("/view/Home.fxml") individua il file FXML nella cartella 'resources'.
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/Home.fxml"));
         
         // loader.load(): Esegue la lettura del file FXML e restituisce il nodo radice dell'interfaccia (in questo caso un VBox).
         Parent root = loader.load();
@@ -51,8 +51,8 @@ public class MainApp extends Application {
         // La 'Scene' è il contenitore intermedio tra lo 'Stage' (finestra) e i nodi grafici (root).
         Scene scene = new Scene(root);
         
-        // Collega il foglio di stile CSS globale (style.css) alla scena per applicare colori, font e bordi.
-        scene.getStylesheets().add(getClass().getResource("/css/style.css").toExternalForm());
+        // Collega il foglio di stile CSS globale (global.css) alla scena per applicare colori, font e bordi.
+        scene.getStylesheets().add(getClass().getResource("/css/global.css").toExternalForm());
 
         // -------------------------------------------------------------------------
         // PASSAGGIO 3: CONFIGURAZIONE DELLA FINESTRA (Stage) E VISUALIZZIONE
@@ -61,7 +61,7 @@ public class MainApp extends Application {
         primaryStage.setTitle("MyPatenti - Quiz Patente");
         
         // Imposta l'icona personalizzata della finestra dell'applicazione (automobile sport-car.png)
-        primaryStage.getIcons().add(new Image(getClass().getResourceAsStream("/images/sport-car.png")));
+        primaryStage.getIcons().add(new Image(getClass().getResourceAsStream("/images/icons/sport-car.png")));
         
         // Assegna la scena creata alla finestra principale.
         primaryStage.setScene(scene);

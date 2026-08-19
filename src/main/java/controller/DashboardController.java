@@ -1,26 +1,18 @@
 package controller;
 
+
 // =================================================================================
 // IMPORT DELLE CLASSI JAVAFX E JAVA STANDARD
 // =================================================================================
-import javafx.event.ActionEvent;
-import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.ButtonBar;
-import javafx.scene.control.ButtonType;
-import javafx.scene.control.Label;
-import javafx.scene.control.MenuButton;
-import javafx.scene.control.MenuItem;
-import javafx.scene.layout.VBox;
-import javafx.stage.Stage;
-import model.SessioneUtente;
-import model.TemaManager;
-import java.io.IOException;
-import java.util.Optional;
+import javafx.event.ActionEvent;              // Gestione degli eventi di azione (click)
+import javafx.fxml.FXML;                     // Annotazione per iniettare attributi e metodi dal file FXML
+import javafx.scene.control.Button;          // Componente pulsante cliccabile
+import javafx.scene.control.ButtonType;      // Tipo di pulsante nei dialoghi (OK, CANCEL, ecc.)
+import javafx.scene.control.Label;           // Componente di testo statico visualizzato a schermo
+import javafx.scene.control.MenuButton;      // Componente menu a tendina posizionabile nei layout
+import javafx.scene.layout.VBox;             // Layout verticale per impilare componenti verticalmente
+import model.SessioneUtente;                 // Singleton che mantiene l'utente loggato in memoria
+import model.TemaManager;                    // Gestisce il tema Chiaro/Scuro (usato nell'initialize)
 
 /**
  * =================================================================================
@@ -35,7 +27,7 @@ import java.util.Optional;
  * 4. Barra di navigazione inferiore (Tab Bar) con evidenziazione dello stato attivo.
  * 5. Procedura di Logout con finestra di conferma (Alert CONFIRMATION) e ritorno sicuro alla Schermata Iniziale.
  */
-public class DashboardController {
+public class DashboardController extends BaseController {
 
     // -----------------------------------------------------------------------------
     // COMPONENTI GRAFICI INIETTATI DA FXML (Mappati tramite fx:id)
@@ -108,32 +100,17 @@ public class DashboardController {
     // -----------------------------------------------------------------------------
 
     @FXML
-    void apriProfilo(ActionEvent event) {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/SchermataProfilo.fxml"));
-            Parent root = loader.load();
-            Scene scenaAttuale = menuProfilo.getScene();
-            scenaAttuale.setRoot(root);
-            Stage stage = (Stage) scenaAttuale.getWindow();
-            stage.setTitle("MyPatenti - Il mio profilo");
-        } catch (IOException e) {
-            System.err.println("Errore durante l'apertura del profilo!");
-            e.printStackTrace();
-        }
+    void apriImpostazioni(ActionEvent event) {
+        naviga("/view/Impostazioni.fxml", "MyPatenti - Impostazioni", menuProfilo.getScene());
     }
 
+    /**
+     * GESTORE EVENTO: CLICK SU "IL MIO PROFILO"
+     * Naviga alla pagina del profilo utente per visualizzare e modificare le informazioni personali.
+     */
     @FXML
-    void apriImpostazioni(ActionEvent event) {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/SchermataImpostazioni.fxml"));
-            Parent root = loader.load();
-            Scene scenaAttuale = menuProfilo.getScene();
-            scenaAttuale.setRoot(root);
-            ((Stage) scenaAttuale.getWindow()).setTitle("MyPatenti - Impostazioni");
-        } catch (IOException e) {
-            System.err.println("Errore durante l'apertura delle Impostazioni!");
-            e.printStackTrace();
-        }
+    void apriProfilo(ActionEvent event) {
+        naviga("/view/Profilo.fxml", "MyPatenti - Il mio profilo", menuProfilo.getScene());
     }
 
     // -----------------------------------------------------------------------------
@@ -207,41 +184,6 @@ public class DashboardController {
      */
     @FXML
     void gestisciLogout(ActionEvent event) {
-        // Inizializza una finestra popup di conferma
-        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-        alert.setTitle("Conferma Uscita");
-        alert.setHeaderText("Disconnessione dall'Aula Virtuale");
-        alert.setContentText("Sei sicuro di voler effettuare il logout e tornare alla pagina iniziale?");
-
-        // Personalizza i pulsanti del dialogo con testo italiano chiaro
-        ButtonType btnAnnulla = new ButtonType("Annulla", ButtonBar.ButtonData.CANCEL_CLOSE);
-        ButtonType btnSiEsci = new ButtonType("Sì, esci", ButtonBar.ButtonData.OK_DONE);
-        alert.getButtonTypes().setAll(btnAnnulla, btnSiEsci);
-
-        // Mostra la finestra di dialogo e gestisce il pulsante premuto dall'utente
-        Optional<ButtonType> risultato = alert.showAndWait();
-        if (risultato.isPresent() && risultato.get() == btnSiEsci) {
-            try {
-                // Pulisce la sessione utente
-                SessioneUtente.getInstance().logout();
-
-                // Carica la vista iniziale di benvenuto
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/SchermataIniziale.fxml"));
-                Parent root = loader.load();
-
-                // Recupera la Scena corrente partendo dal MenuButton 'menuProfilo'
-                Scene scenaAttuale = menuProfilo.getScene();
-                scenaAttuale.setRoot(root); // Sostituisce il layout grafico
-
-                // Aggiorna il titolo dello Stage
-                Stage stage = (Stage) scenaAttuale.getWindow();
-                stage.setTitle("MyPatenti - Benvenuto");
-
-                System.out.println("Logout completato con successo. Ritornati alla Schermata Iniziale.");
-            } catch (IOException e) {
-                System.err.println("Errore critico durante il logout: impossibile caricare SchermataIniziale.fxml");
-                e.printStackTrace();
-            }
-        }
+        eseguiLogoutConConferma(menuProfilo.getScene());
     }
 }

@@ -1,5 +1,6 @@
 package controller;
 
+
 // =================================================================================
 // IMPORT DELLE CLASSI JAVAFX E JAVA STANDARD
 // =================================================================================
@@ -19,7 +20,7 @@ import java.io.IOException;     // Eccezione lanciata nel caso in cui un file FX
  * Questa classe gestisce la prima schermata presentata all'allievo, permettendogli
  * di scegliere se accedere (Login) o registrarsi come nuovo utente (Registrazione).
  */
-public class SceltaInizialeController {
+public class HomeController {
 
     // -----------------------------------------------------------------------------
     // VARIABILI INIETTATE DAL FILE FXML (Mappate tramite fx:id)
@@ -40,7 +41,7 @@ public class SceltaInizialeController {
     @FXML
     void gestisciAccedi(ActionEvent event) {
         // Invoca il metodo helper per sostituire il layout della finestra con la Schermata di Login
-        caricaSchermata("/view/SchermataLogin.fxml", "Applicazione - Accedi");
+        caricaSchermata("/view/Login.fxml", "Applicazione - Accedi");
     }
 
     /**
@@ -52,7 +53,7 @@ public class SceltaInizialeController {
     @FXML
     void gestisciRegistrati(ActionEvent event) {
         // Invoca il metodo helper per sostituire il layout della finestra con la Schermata di Registrazione
-        caricaSchermata("/view/SchermataRegistrazione.fxml", "Applicazione - Registrati");
+        caricaSchermata("/view/Registrazione.fxml", "Applicazione - Registrati");
     }
 
     /**
@@ -63,7 +64,7 @@ public class SceltaInizialeController {
      * già esistente. Questo approccio evita di chiudere e riaprire lo Stage (finestra),
      * garantendo una transizione visiva istantanea e senza sfarfallio.
      * 
-     * @param percorsoFxml Il percorso relativo del file .fxml da caricare (es. "/view/SchermataLogin.fxml").
+     * @param percorsoFxml Il percorso relativo del file .fxml da caricare (es. "/view/Login.fxml").
      * @param titoloFinestra Il nuovo testo da visualizzare sulla barra del titolo della finestra.
      */
     private void caricaSchermata(String percorsoFxml, String titoloFinestra) {

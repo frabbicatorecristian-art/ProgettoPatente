@@ -1,0 +1,17 @@
+@import url('auth.css');
+@import url('app.css');
+
+/* =================================================================================
+   FOGLIO DI STILE CSS GLOBALE (style.css) - JAVAFX STYLING
+   =================================================================================
+   Questo foglio di stile gestisce l'aspetto estetico dell'applicazione MyPatenti.
+   Nota per JavaFX CSS:
+   Tutte le proprietà CSS specifiche di JavaFX sono precedute dal prefisso '-fx-'.
+   ================================================================================= */
+
+/* 
+   ---------------------------------------------------------------------------------
+   1. SCHERMATE E FORMS (SFONDI E CONTENITORI RADICE)
+   ---------------------------------------------------------------------------------
+*/
+

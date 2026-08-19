@@ -40,41 +40,16 @@
 -->
 <VBox alignment="TOP_CENTER" prefHeight="800.0" prefWidth="900.0"
       stylesheets="@../css/style.css"
-      style="-fx-background-color: #f1f5f9;"
       xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1"
       fx:controller="controller.ImpostazioniController">
-    <children>
-
-        <!--
-             NAVBAR BLU SUPERIORE (HBox)
-             - HBox: affianca pulsante di ritorno, spaziatore e menu profilo.
-             - prefHeight="60.0": mantiene l'altezza della barra costante.
-             - style: imposta lo sfondo blu #0284c7, coerente con la navigazione.
-        -->
-        <HBox alignment="CENTER_LEFT" prefHeight="60.0" spacing="15.0"
-              style="-fx-background-color: #0284c7;">
+    <children>        <!-- NAVBAR BLU SUPERIORE (HBox) -->
+        <HBox alignment="CENTER_LEFT" prefHeight="60.0" spacing="15.0" styleClass="app-navbar">
             <children>
-                <!--
-                    PULSANTE TORNA ALLA DASHBOARD
-                    - fx:id="btnTornaDashboard": riferimento al pulsante nel controller.
-                    - onAction="#tornaAllaDashboard": richiama il metodo Java di navigazione.
-                    - style: sfondo trasparente, testo bianco e cursore cliccabile.
-                -->
                 <Button fx:id="btnTornaDashboard" onAction="#tornaAllaDashboard"
                         style="-fx-background-color: transparent; -fx-text-fill: white; -fx-font-size: 14px; -fx-cursor: hand;"
                         text="← Torna alla Dashboard" />
                 <Region HBox.hgrow="ALWAYS" />
-                <!--
-                    MENU PROFILO UTENTE (MenuButton)
-                    - fx:id="menuProfilo": consente al controller di accedere al menu della navbar.
-                    - text="👤 Ciao, Utente": mantiene la stessa etichetta usata nella schermata Profilo.
-                    - onAction="#apriProfilo": apre la schermata con i dati personali dell'utente.
-                    - onAction="#apriImpostazioniMenu": non cambia schermata perché l'utente è già nelle impostazioni.
-                    - onAction="#gestisciLogout": mostra la conferma e, se accettata, chiude la sessione.
-                -->
-                <MenuButton fx:id="menuProfilo"
-                            style="-fx-background-color: #0369a1; -fx-text-fill: white; -fx-font-size: 14px; -fx-font-weight: bold;"
-                            text="👤 Ciao, Utente">
+                <MenuButton fx:id="menuProfilo" styleClass="app-nav-button" text="👤 Ciao, Utente">
                     <items>
                         <MenuItem onAction="#apriProfilo" text="👤 Il mio profilo" />
                         <MenuItem onAction="#apriImpostazioniMenu" text="⚙️ Impostazioni" />
@@ -88,15 +63,14 @@
         <!-- =====================================================================
              HEADER: settings.png + titolo + sottotitolo + settings_icon.png
              ===================================================================== -->
-        <HBox alignment="CENTER_LEFT" spacing="16.0"
-              style="-fx-background-color: white; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.05), 6, 0, 0, 2);">
+        <HBox alignment="CENTER_LEFT" spacing="16.0" styleClass="content-header">
             <children>
                 <!-- Icona blu con settings.png -->
                 <StackPane maxHeight="48.0" maxWidth="48.0" prefHeight="48.0" prefWidth="48.0"
                            style="-fx-background-color: #1d4ed8; -fx-background-radius: 12px;">
                     <children>
                         <ImageView fitHeight="26.0" fitWidth="26.0" preserveRatio="true">
-                            <image><Image url="@../images/settings.png" /></image>
+                            <image><Image url="@../images/icons/settings.png" /></image>
                         </ImageView>
                     </children>
                 </StackPane>
@@ -104,17 +78,19 @@
                 <!-- Titolo + Sottotitolo -->
                 <VBox alignment="CENTER_LEFT" spacing="4.0" HBox.hgrow="ALWAYS">
                     <children>
-                        <Label style="-fx-font-size: 22px; -fx-font-weight: bold; -fx-text-fill: #1e293b;"
-                               text="Impostazioni" />
-                        <Label style="-fx-font-size: 12px; -fx-text-fill: #64748b;"
-                               text="Personalizza l'app in base alle tue preferenze." />
+                        <Label styleClass="content-header-title" text="Impostazioni" />
+                        <Label styleClass="content-header-subtitle" text="Personalizza l'app in base alle tue preferenze." />
                     </children>
                 </VBox>
 
                 <!-- Immagine decorativa settings_icon.png in alto a destra -->
-                <ImageView fitHeight="68.0" preserveRatio="true">
-                    <image><Image url="@../images/settings_icon.png" /></image>
-                </ImageView>
+                <StackPane styleClass="header-deco-box">
+                    <children>
+                        <ImageView fitHeight="52.0" preserveRatio="true">
+                            <image><Image url="@../images/icons/settings_icon.png" /></image>
+                        </ImageView>
+                    </children>
+                </StackPane>
             </children>
             <padding><Insets left="40.0" right="30.0" top="16.0" bottom="16.0" /></padding>
         </HBox>
@@ -132,7 +108,7 @@
                         <!-- =================================================
                              SEZIONE: ASPETTO (viola tenue)
                              ================================================= -->
-                        <VBox style="-fx-background-color: #f5f3ff; -fx-background-radius: 14px;">
+                        <VBox styleClass="settings-section, settings-section-aspetto">
                             <children>
                                 <!-- Intestazione -->
                                 <HBox alignment="CENTER_LEFT" spacing="12.0">
@@ -143,8 +119,7 @@
                                                 <Label style="-fx-font-size: 19px;" text="🎨" />
                                             </children>
                                         </StackPane>
-                                        <Label style="-fx-font-size: 15px; -fx-font-weight: bold; -fx-text-fill: #1e293b;"
-                                               text="Aspetto" />
+                                        <Label styleClass="settings-section-header" text="Aspetto" />
                                     </children>
                                     <padding><Insets top="16.0" bottom="10.0" left="18.0" right="18.0" /></padding>
                                 </HBox>
@@ -154,16 +129,7 @@
                                     <children>
                                         <VBox alignment="CENTER_LEFT" spacing="10.0" HBox.hgrow="ALWAYS">
                                             <children>
-                                                <Label style="-fx-font-size: 13px; -fx-font-weight: bold; -fx-text-fill: #334155;"
-                                                       text="Tema dell'app" />
-                                                <!--
-                                                    RadioButton per la selezione del tema
-                                                    fx:id="rbChiaro" → ID per il collegamento con il controller Java
-                                                    text="Chiaro" → Etichetta visibile accanto al pulsante
-                                                    selected="true" → Pre-selezionato di default (tema chiaro attivo all'avvio)
-                                                    onAction="#applicaTema" → Chiama il metodo applicaTema() del controller quando selezionato
-                                                    <toggleGroup><ToggleGroup fx:id="tgTema" /></toggleGroup> → Crea un gruppo di selezione esclusiva (solo uno può essere selezionato)
-                                                -->
+                                                <Label styleClass="settings-row-label" text="Tema dell'app" />
                                                 <HBox alignment="CENTER_LEFT" spacing="20.0">
                                                     <children>
                                                         <RadioButton fx:id="rbChiaro" styleClass="settings-radio"
@@ -171,12 +137,6 @@
                                                                      onAction="#applicaTema">
                                                             <toggleGroup><ToggleGroup fx:id="tgTema" /></toggleGroup>
                                                         </RadioButton>
-                                                        <!--
-                                                            RadioButton per tema scuro
-                                                            fx:id="rbScuro" → ID per il collegamento con il controller
-                                                            toggleGroup="$tgTema" → Usa la stessa ToggleGroup creata sopra ($ prefix referenzia il fx:id)
-                                                            onAction="#applicaTema" → Chiama lo stesso metodo quando selezionato
-                                                        -->
                                                         <RadioButton fx:id="rbScuro" styleClass="settings-radio"
                                                                      text="Scuro" toggleGroup="$tgTema"
                                                                      onAction="#applicaTema" />
@@ -184,17 +144,12 @@
                                                 </HBox>
                                             </children>
                                         </VBox>
-                                        <!--
-                                            Icona del tema (ImageView dinamica)
-                                            fx:id="imgIconaTema" → ID per il collegamento con il controller
-                                            Nel controller: imgIconaTema.setImage(new Image(...)) cambia l'immagine in base al tema selezionato
-                                            Mostra il sole (#fef9c3 background giallo) quando tema chiaro, la luna (#fef9c3 background) quando scuro
-                                        -->
+                                        <!-- Icona del tema (ImageView dinamica) -->
                                         <StackPane maxHeight="52.0" maxWidth="52.0" prefHeight="52.0" prefWidth="52.0"
                                                    style="-fx-background-color: #fef9c3; -fx-background-radius: 12px;">
                                             <children>
                                                 <ImageView fx:id="imgIconaTema" fitHeight="32.0" fitWidth="32.0" preserveRatio="true">
-                                                    <image><Image url="@../images/light.png" /></image>
+                                                    <image><Image url="@../images/theme/light.png" /></image>
                                                 </ImageView>
                                             </children>
                                         </StackPane>
@@ -207,7 +162,7 @@
                         <!-- =================================================
                              SEZIONE: QUIZ (verde tenue)
                              ================================================= -->
-                        <VBox style="-fx-background-color: #f0fdf4; -fx-background-radius: 14px;">
+                        <VBox styleClass="settings-section, settings-section-quiz">
                             <children>
                                 <HBox alignment="CENTER_LEFT" spacing="12.0">
                                     <children>
@@ -215,12 +170,11 @@
                                                    style="-fx-background-color: #16a34a; -fx-background-radius: 10px;">
                                             <children>
                                                 <ImageView fitHeight="20.0" fitWidth="20.0" preserveRatio="true">
-                                                    <image><Image url="@../images/quiz_dashboard.png" /></image>
+                                                    <image><Image url="@../images/dashboard/quiz_dashboard.png" /></image>
                                                 </ImageView>
                                             </children>
                                         </StackPane>
-                                        <Label style="-fx-font-size: 15px; -fx-font-weight: bold; -fx-text-fill: #1e293b;"
-                                               text="Quiz" />
+                                        <Label styleClass="settings-section-header" text="Quiz" />
                                     </children>
                                     <padding><Insets top="16.0" bottom="10.0" left="18.0" right="18.0" /></padding>
                                 </HBox>
@@ -232,15 +186,7 @@
                                                 <!-- Numero domande -->
                                                 <HBox alignment="CENTER_LEFT" spacing="12.0">
                                                     <children>
-                                                        <Label style="-fx-font-size: 13px; -fx-text-fill: #334155;"
-                                                               text="Numero domande predefinito" HBox.hgrow="ALWAYS" />
-                                                        <!--
-                                                            ComboBox per la selezione del numero di domande
-                                                            fx:id="cmbNumeroDomande" → ID per il collegamento con il controller Java
-                                                            prefWidth="82.0" → Larghezza preferita in pixel
-                                                            Nel controller initialize(), vengono aggiunti i valori [10, 20, 30, 40]
-                                                            tramite FXCollections.observableArrayList()
-                                                        -->
+                                                        <Label styleClass="settings-row-label" text="Numero domande predefinito" HBox.hgrow="ALWAYS" />
                                                         <ComboBox fx:id="cmbNumeroDomande" prefWidth="82.0"
                                                                   style="-fx-font-size: 13px; -fx-background-radius: 8px;" />
                                                     </children>
@@ -248,15 +194,7 @@
                                                 <!-- Spiegazione errori -->
                                                 <HBox alignment="CENTER_LEFT" spacing="12.0">
                                                     <children>
-                                                        <Label style="-fx-font-size: 13px; -fx-text-fill: #334155;"
-                                                               text="Mostra spiegazione errori" HBox.hgrow="ALWAYS" />
-                                                        <!--
-                                                            ToggleButton per attivare/disattivare spiegazioni errori
-                                                            fx:id="toggleSpiegazioneErrori" → ID per il collegamento con il controller
-                                                            selected="true" → Pre-selezionato (attivo di default)
-                                                            onAction="#onToggleSpiegazioneErrori" → Chiama il metodo del controller quando togglato
-                                                            styleClass="toggle-switch" → Applica stile personalizzato dal CSS (style.css)
-                                                        -->
+                                                        <Label styleClass="settings-row-label" text="Mostra spiegazione errori" HBox.hgrow="ALWAYS" />
                                                         <ToggleButton fx:id="toggleSpiegazioneErrori"
                                                                       styleClass="toggle-switch" selected="true"
                                                                       onAction="#onToggleSpiegazioneErrori" />
@@ -265,15 +203,7 @@
                                                 <!-- Cronometro -->
                                                 <HBox alignment="CENTER_LEFT" spacing="12.0">
                                                     <children>
-                                                        <Label style="-fx-font-size: 13px; -fx-text-fill: #334155;"
-                                                               text="Abilita cronometro" HBox.hgrow="ALWAYS" />
-                                                        <!--
-                                                            ToggleButton per attivare/disattivare il cronometro nei quiz
-                                                            fx:id="toggleCronometro" → ID per il collegamento con il controller
-                                                            selected="true" → Pre-selezionato (cronometro attivo di default)
-                                                            onAction="#onToggleCronometro" → Chiama il metodo del controller quando togglato
-                                                            styleClass="toggle-switch" → Applica stile personalizzato dal CSS (style.css)
-                                                        -->
+                                                        <Label styleClass="settings-row-label" text="Abilita cronometro" HBox.hgrow="ALWAYS" />
                                                         <ToggleButton fx:id="toggleCronometro"
                                                                       styleClass="toggle-switch" selected="true"
                                                                       onAction="#onToggleCronometro" />
@@ -286,7 +216,7 @@
                                                    style="-fx-background-color: #dcfce7; -fx-background-radius: 12px;">
                                             <children>
                                                 <ImageView fitHeight="34.0" fitWidth="34.0" preserveRatio="true">
-                                                    <image><Image url="@../images/quiz_dashboard.png" /></image>
+                                                    <image><Image url="@../images/dashboard/quiz_dashboard.png" /></image>
                                                 </ImageView>
                                             </children>
                                         </StackPane>
@@ -299,7 +229,7 @@
                         <!-- =================================================
                              SEZIONE: ACCOUNT (rosso tenue)
                              ================================================= -->
-                        <VBox style="-fx-background-color: #fff1f2; -fx-background-radius: 14px;">
+                        <VBox styleClass="settings-section, settings-section-account">
                             <children>
                                 <HBox alignment="CENTER_LEFT" spacing="12.0">
                                     <children>
@@ -309,8 +239,7 @@
                                                 <Label style="-fx-font-size: 19px;" text="🛡" />
                                             </children>
                                         </StackPane>
-                                        <Label style="-fx-font-size: 15px; -fx-font-weight: bold; -fx-text-fill: #1e293b;"
-                                               text="Account" />
+                                        <Label styleClass="settings-section-header" text="Account" />
                                     </children>
                                     <padding><Insets top="16.0" bottom="10.0" left="18.0" right="18.0" /></padding>
                                 </HBox>
@@ -319,12 +248,6 @@
                                 <!-- Cambia password -->
                                 <HBox alignment="CENTER_LEFT">
                                     <children>
-                                        <!--
-                                            Button "Cambia password"
-                                            onAction="#cambiaPassword" → Chiama il metodo cambiaPassword() del controller quando clicato
-                                            styleClass="settings-account-btn" → Applica stile personalizzato dal CSS
-                                            maxWidth="Infinity" e HBox.hgrow="ALWAYS" → Fa espandere il pulsante orizzontalmente occupando tutto lo spazio disponibile
-                                        -->
                                         <Button styleClass="settings-account-btn-small" prefWidth="160"
                                                 onAction="#cambiaPassword" text="Cambia password" />
                                         <Label style="-fx-text-fill: #94a3b8; -fx-font-size: 18px;" text="›" />
@@ -336,12 +259,6 @@
                                 <!-- Elimina account -->
                                 <HBox alignment="CENTER_LEFT" spacing="18.0">
                                     <children>
-                                        <!--
-                                            Button "Elimina account" - Operazione irreversibile
-                                            onAction="#eliminaAccount" → Chiama il metodo eliminaAccount() del controller quando clicato
-                                            styleClass="settings-logout-link" → Applica stile personalizzato in rosso per avvertenza
-                                            maxWidth="Infinity" e HBox.hgrow="ALWAYS" → Fa espandere il pulsante orizzontalmente
-                                        -->
                                         <Button styleClass="settings-logout-link-small" prefWidth="160"
                                                 onAction="#eliminaAccount" text="Elimina account" />
                                         <Label style="-fx-text-fill: #ef4444; -fx-font-size: 20px;" text="🗑" />
@@ -357,35 +274,14 @@
             </content>
         </ScrollPane>
 
-        <!--
-            =============================================================================
-            SEZIONE 4: PULSANTI GLOBALI - SALVA E ANNULLA (Footer)
-            =============================================================================
-            HBox orizzontale posizionato in fondo alla pagina per le azioni globali.
-            - alignment="CENTER_RIGHT" → Allinea i pulsanti a destra
-            - style="-fx-effect: dropshadow(...)" → Aggiunge un'ombra delicata
-            Contiene:
-            1. Button "Annulla" (fx:id="btnAnnullaGlobale") con onAction="#annullaImpostazioni"
-            2. Button "✓ Salva impostazioni" (fx:id="btnSalvaGlobale") con onAction="#salvaImpostazioni"
-        -->
-        <HBox alignment="CENTER_RIGHT" spacing="14.0"
-              style="-fx-background-color: white; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.05), 6, 0, -2, 0);">
+        <!-- =============================================================================
+             SEZIONE 4: PULSANTI GLOBALI - SALVA E ANNULLA (Footer)
+             ============================================================================= -->
+        <HBox alignment="CENTER_RIGHT" spacing="14.0" styleClass="settings-footer">
             <children>
-                <!--
-                    Button "Annulla"
-                    fx:id="btnAnnullaGlobale" → ID per il collegamento con il controller
-                    onAction="#annullaImpostazioni" → Chiama il metodo annullaImpostazioni() del controller quando clicato
-                    style="..." → CSS inline per sfondo bianco, bordo grigio, testo grigio scuro
-                -->
                 <Button fx:id="btnAnnullaGlobale" onAction="#annullaImpostazioni"
-                        style="-fx-background-color: white; -fx-border-color: #cbd5e1; -fx-border-radius: 8px; -fx-background-radius: 8px; -fx-text-fill: #475569; -fx-font-size: 14px; -fx-font-weight: bold; -fx-cursor: hand; -fx-padding: 10px 30px;"
+                        styleClass="settings-footer-btn-cancel"
                         text="Annulla" />
-                <!--
-                    Button "✓ Salva impostazioni" (principale)
-                    fx:id="btnSalvaGlobale" → ID per il collegamento con il controller
-                    onAction="#salvaImpostazioni" → Chiama il metodo salvaImpostazioni() del controller quando clicato
-                    style="..." → CSS inline per sfondo blu (#0284c7), testo bianco, font bold
-                -->
                 <Button fx:id="btnSalvaGlobale" onAction="#salvaImpostazioni"
                         style="-fx-background-color: #0284c7; -fx-background-radius: 8px; -fx-text-fill: white; -fx-font-size: 14px; -fx-font-weight: bold; -fx-cursor: hand; -fx-padding: 10px 30px;"
                         text="✓ Salva impostazioni" />

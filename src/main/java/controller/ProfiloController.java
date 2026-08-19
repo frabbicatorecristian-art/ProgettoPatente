@@ -1,25 +1,22 @@
 package controller;
 
+
 // =================================================================================
 // IMPORT DELLE CLASSI JAVAFX E JAVA STANDARD
 // =================================================================================
 import javafx.event.ActionEvent;              // Gestione degli eventi di azione (click)
 import javafx.fxml.FXML;                     // Annotazione per iniettare attributi e metodi dal file FXML
-import javafx.fxml.FXMLLoader;               // Carica e legge i file FXML della vista
-import javafx.scene.Parent;                 // Nodo radice del layout della scena
-import javafx.scene.Scene;                  // Scena grafica principale JavaFX
-import javafx.scene.control.Alert;           // Finestra di dialogo/notifica per errori e conferme
 import javafx.scene.control.Button;          // Componente pulsante cliccabile
-import javafx.scene.control.ButtonBar;       // Classe per la gestione dei pulsanti nei dialoghi
 import javafx.scene.control.ButtonType;      // Tipo di pulsante nei dialoghi (OK, CANCEL, ecc.)
 import javafx.scene.control.Label;           // Componente di testo statico visualizzato a schermo
 import javafx.scene.control.MenuButton;      // Componente menu a tendina posizionabile nei layout
 import javafx.scene.control.TextInputDialog; // Dialogo specializzato per l'input di testo singolo
-import javafx.stage.Stage;                  // Finestra principale gestita dal sistema operativo
-import java.io.IOException;                  // Gestione eccezioni di I/O per il caricamento delle viste
 import java.util.Optional;                   // Classe per gestire valori opzionali (null-safe)
 import model.SessioneUtente;                 // Singleton che mantiene l'utente loggato in memoria
+import model.TemaManager;                    // Singleton per la gestione globale del tema
 import model.Utente;                         // POJO con i dati anagrafici dell'utente
+import service.UtenteService;                // Service Layer per validazione email
+import util.AlertPersonalizzato;             // Dialoghi fissi in stile MyPatenti
 
 /**
  * =================================================================================
@@ -31,7 +28,7 @@ import model.Utente;                         // POJO con i dati anagrafici dell'
  * Fornisce accesso al menu profilo con opzioni per Impostazioni e Logout.
  * I dati attuali sono statici; in futuro verranno letti dal database backend.
  */
-public class ProfiloController {
+public class ProfiloController extends BaseController {
 
     // =====================================================================
     // COMPONENTI GRAFICI INIETTATI DA FXML (Mappati tramite fx:id)
@@ -61,6 +58,13 @@ public class ProfiloController {
     public void initialize() {
         // Popola tutti i campi del profilo con i dati utente salvati
         aggiornaDatiVista();
+
+        // Applica il tema globale salvato (Chiaro/Scuro)
+        javafx.application.Platform.runLater(() -> {
+            if (btnTornaDashboard != null && btnTornaDashboard.getScene() != null) {
+                TemaManager.getInstance().applica(btnTornaDashboard.getScene());
+            }
+        });
     }
 
     /**
@@ -104,24 +108,7 @@ public class ProfiloController {
      */
     @FXML
     void tornaAllaDashboard(ActionEvent event) {
-        try {
-            // Inizializza un caricatore per il file FXML della Dashboard
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/SchermataDashboard.fxml"));
-            
-            // Parsa il file FXML e costruisce la gerarchia visiva dei componenti
-            Parent root = loader.load();
-            
-            // Recupera la Scena corrente dal pulsante e sostituisce il nodo radice
-            Scene scena = btnTornaDashboard.getScene();
-            scena.setRoot(root);
-            
-            // Aggiorna il titolo della finestra (Stage) per riflettere la pagina attuale
-            ((Stage) scena.getWindow()).setTitle("MyPatenti - Dashboard");
-        } catch (IOException e) {
-            // Segnala nel log di errore se il caricamento della Dashboard fallisce
-            System.err.println("Errore durante il ritorno alla Dashboard!");
-            e.printStackTrace();
-        }
+        naviga("/view/Dashboard.fxml", "MyPatenti - Dashboard", btnTornaDashboard.getScene());
     }
 
     /**
@@ -171,28 +158,23 @@ public class ProfiloController {
             // Rimuove gli spazi bianchi di inizio e fine
             String trimmed = nuovaEmail.trim();
             
-            // Controlla che l'email non sia vuota e contenga i simboli richiesti
-            if (!trimmed.isEmpty() && trimmed.contains("@") && trimmed.contains(".")) {
-                // Aggiorna la sessione con il nuovo valore (in futuro: anche UPDATE al DB)
-                // TODO DB: DBService.aggiornaEmail(u.getCodiceFiscale(), trimmed);
+            // Controlla che l'email rispetti la validazione regex formale
+            if (UtenteService.validaEmail(trimmed)) {
+                // Aggiorna la sessione con il nuovo valore
                 u.setEmail(trimmed);
                 
                 // Sincronizza tutte le Label della vista con il nuovo valore
                 aggiornaDatiVista();
 
                 // Mostra un Alert di conferma dell'avvenuta modifica
-                Alert ok = new Alert(Alert.AlertType.INFORMATION);
-                ok.setTitle("Profilo aggiornato");
-                ok.setHeaderText(null);
-                ok.setContentText("Email aggiornata con successo!");
-                ok.showAndWait();
+                AlertPersonalizzato.mostraInfo(
+                        "Profilo aggiornato",
+                        "L'email è stata aggiornata con successo.");
             } else if (!trimmed.isEmpty()) {
                 // Se l'email non è vuota ma non è valida, mostra un Alert di errore
-                Alert err = new Alert(Alert.AlertType.ERROR);
-                err.setTitle("Email non valida");
-                err.setHeaderText("Formato email non corretto");
-                err.setContentText("Inserisci un'email valida (es. nome@dominio.it).");
-                err.showAndWait();
+                AlertPersonalizzato.mostraErrore(
+                        "Email non valida",
+                        "Inserisci un'email valida, ad esempio nome@dominio.it.");
             }
             // Se l'email è vuota, non mostra alcun messaggio (l'utente ha cancellato)
         });
@@ -211,21 +193,7 @@ public class ProfiloController {
      */
     @FXML
     void apriImpostazioni(ActionEvent event) {
-        try {
-            // Carica il file FXML della schermata Impostazioni
-            Parent root = FXMLLoader.load(getClass().getResource("/view/SchermataImpostazioni.fxml"));
-            
-            // Recupera la Scena corrente e sostituisce il nodo radice
-            Scene scena = btnTornaDashboard.getScene();
-            scena.setRoot(root);
-            
-            // Aggiorna il titolo della finestra (Stage)
-            ((Stage) scena.getWindow()).setTitle("MyPatenti - Impostazioni");
-        } catch (IOException e) {
-            // Segnala l'errore nel log di console se il caricamento fallisce
-            System.err.println("Errore apertura Impostazioni!");
-            e.printStackTrace();
-        }
+        naviga("/view/Impostazioni.fxml", "MyPatenti - Impostazioni", btnTornaDashboard.getScene());
     }
 
     /**
@@ -234,42 +202,11 @@ public class ProfiloController {
      * Se l'allievo conferma (pulsante "Sì, esci"), ricarica la Schermata Iniziale di benvenuto.
      * Se l'allievo annulla, rimane nella schermata del profilo.
      * 
-     * @param event L'evento di azione scatenato dalla selezione di "Logout" nel menu.
+     * @param event L'evento di azione scatenato dalla selezione di "Logout"
      */
     @FXML
     void gestisciLogout(ActionEvent event) {
-        // Crea un Alert di tipo CONFIRMATION (con pulsanti Sì/No)
-        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-        alert.setTitle("Conferma Uscita");
-        alert.setHeaderText("Disconnessione dall'Aula Virtuale");
-        alert.setContentText("Sei sicuro di voler effettuare il logout?");
-
-        // Personalizza i pulsanti del dialogo con etichette in italiano
-        ButtonType annulla = new ButtonType("Annulla", ButtonBar.ButtonData.CANCEL_CLOSE);
-        ButtonType esci = new ButtonType("Sì, esci", ButtonBar.ButtonData.OK_DONE);
-        alert.getButtonTypes().setAll(annulla, esci);
-
-        // Mostra il dialogo e gestisce la risposta dell'allievo
-        alert.showAndWait().ifPresent(risposta -> {
-            if (risposta == esci) {
-                try {
-                    // Carica la Schermata Iniziale di benvenuto
-                    FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/SchermataIniziale.fxml"));
-                    Parent root = loader.load();
-                    
-                    // Recupera la Scena e sostituisce il nodo radice
-                    Scene scena = menuProfilo.getScene();
-                    scena.setRoot(root);
-                    
-                    // Aggiorna il titolo della finestra per riflettere il cambio di pagina
-                    ((Stage) scena.getWindow()).setTitle("MyPatenti - Benvenuto");
-                } catch (IOException e) {
-                    // Segnala nel log se il logout fallisce
-                    System.err.println("Errore durante il logout!");
-                    e.printStackTrace();
-                }
-            }
-            // Se l'allievo clicca "Annulla", il dialogo si chiude e rimane nella schermata del profilo
-        });
+        eseguiLogoutConConferma(menuProfilo.getScene());
     }
+
 }

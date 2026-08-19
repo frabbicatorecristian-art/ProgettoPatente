@@ -41,12 +41,12 @@
     - spacing="20.0": Spaziatura verticale costante di 20 pixel tra gli elementi del form.
     - prefWidth="600.0" e prefHeight="400.0": Dimensioni di riferimento (larghezza x altezza in pixel).
     - xmlns e xmlns:fx: Dichiarazione dei namespace ufficiali JavaFX e FXML.
-    - fx:controller="controller.SchermataLoginController": Associa la vista alla classe controller Java che gestisce il login.
+    - fx:controller="controller.LoginController": Associa la vista alla classe controller Java che gestisce il login.
     - styleClass="root-form": Applica lo stile grafico di sfondo definito nel foglio di stile CSS.
 -->
 <VBox alignment="CENTER" spacing="20.0" prefWidth="600.0" prefHeight="400.0"
       xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
-      fx:controller="controller.SchermataLoginController"
+      fx:controller="controller.LoginController"
       styleClass="root-form">
 
     <!-- 
@@ -161,7 +161,7 @@
                     <graphic>
                         <ImageView fitWidth="18.0" fitHeight="18.0" preserveRatio="true">
                             <image>
-                                <Image url="@../images/enter.png"/>
+                                <Image url="@../images/icons/enter.png"/>
                             </image>
                         </ImageView>
                     </graphic>

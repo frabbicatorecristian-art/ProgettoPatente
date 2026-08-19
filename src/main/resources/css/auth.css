@@ -1,16 +1,4 @@
-/* =================================================================================
-   FOGLIO DI STILE CSS GLOBALE (style.css) - JAVAFX STYLING
-   =================================================================================
-   Questo foglio di stile gestisce l'aspetto estetico dell'applicazione MyPatenti.
-   Nota per JavaFX CSS:
-   Tutte le proprietà CSS specifiche di JavaFX sono precedute dal prefisso '-fx-'.
-   ================================================================================= */
-
-/* 
-   ---------------------------------------------------------------------------------
-   1. SCHERMATE E FORMS (SFONDI E CONTENITORI RADICE)
-   ---------------------------------------------------------------------------------
-*/
+/* STILI SPECIFICI PER LE SCHERMATE DI AUTENTICAZIONE E HOME */
 
 /* Sfondo della schermata iniziale di benvenuto (Colore blu primario MyPatenti) */
 .root-initial {
@@ -141,15 +129,15 @@
 }
 
 /* Colori Sfondo Cards */
-.card-patenti { -fx-background-color: #ffedd5; }
-.card-veicoli { -fx-background-color: #dcfce7; }
-.card-teoria  { -fx-background-color: #f3e8ff; }
-.card-quiz    { -fx-background-color: #ffe4e6; }
+.card-patenti { -fx-background-color: #fed7aa; }
+.card-veicoli { -fx-background-color: #bbf7d0; }
+.card-teoria  { -fx-background-color: #e9d5ff; }
+.card-quiz    { -fx-background-color: #fecdd3; }
 
-.card-patenti:hover { -fx-background-color: #fed7aa; }
-.card-veicoli:hover { -fx-background-color: #bbf7d0; }
-.card-teoria:hover  { -fx-background-color: #e9d5ff; }
-.card-quiz:hover    { -fx-background-color: #fecdd3; }
+.card-patenti:hover { -fx-background-color: #fdba74; }
+.card-veicoli:hover { -fx-background-color: #86efac; }
+.card-teoria:hover  { -fx-background-color: #d8b4fe; }
+.card-quiz:hover    { -fx-background-color: #fda4af; }
 
 /* Squircles Icone */
 .icon-squircle {
@@ -246,10 +234,10 @@
 }
 
 /* Toggle ON */
-.toggle-switch:selected {
+.toggle-on {
     -fx-background-color: #0284c7;
 }
-.toggle-switch:selected:hover {
+.toggle-on:hover {
     -fx-background-color: #0369a1;
 }
 
@@ -346,3 +334,337 @@
     -fx-background-color: #fff1f2;
     -fx-border-color: #fca5a5;
 }
+
+/* 
+   ---------------------------------------------------------------------------------
+   8. COMPONENTI COMUNI CONDIVISI (NAVBAR, HEADER, CARD, BANNER)
+   ---------------------------------------------------------------------------------
+*/
+
+/* Navbar superiore */
+.app-navbar {
+    -fx-background-color: #0284c7;
+}
+
+.app-nav-button {
+    -fx-background-color: #0369a1;
+    -fx-text-fill: white;
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+}
+
+/* Header pagine interne (Profilo, Impostazioni) */
+.content-header {
+    -fx-background-color: #ffffff;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.05), 6, 0, 0, 2);
+}
+
+.content-header-title {
+    -fx-font-size: 22px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #1e293b;
+}
+
+.content-header-subtitle {
+    -fx-font-size: 12px;
+    -fx-text-fill: #64748b;
+}
+
+/* Banner Benvenuto Dashboard */
+.dashboard-banner {
+    -fx-background-color: #ffffff;
+    -fx-background-radius: 16px;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.05), 8, 0, 0, 2);
+}
+
+.dashboard-banner-title {
+    -fx-font-size: 22px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #1e293b;
+}
+
+.dashboard-banner-subtitle {
+    -fx-font-size: 13px;
+    -fx-text-fill: #64748b;
+}
+
+/* Card Profilo */
+.profile-card {
+    -fx-background-color: #ffffff;
+    -fx-background-radius: 16px;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.07), 14, 0, 0, 3);
+}
+
+.profile-name {
+    -fx-font-size: 20px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #1e293b;
+}
+
+.profile-field-label {
+    -fx-font-size: 11px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #64748b;
+}
+
+.profile-field-value {
+    -fx-font-size: 14px;
+    -fx-text-fill: #1e293b;
+}
+
+.profile-icon-box {
+    -fx-background-color: #eff6ff;
+    -fx-background-radius: 10px;
+}
+
+.profile-row-divider {
+    -fx-border-color: transparent transparent #e2e8f0 transparent;
+    -fx-border-width: 0 0 1 0;
+}
+
+.profile-btn-modifica {
+    -fx-background-color: #ffffff;
+    -fx-border-color: #0284c7;
+    -fx-border-radius: 8px;
+    -fx-background-radius: 8px;
+    -fx-text-fill: #0284c7;
+    -fx-font-size: 13px;
+    -fx-font-weight: bold;
+    -fx-cursor: hand;
+    -fx-padding: 12px;
+}
+
+.profile-btn-indietro {
+    -fx-background-color: #ffffff;
+    -fx-border-color: #cbd5e1;
+    -fx-border-radius: 8px;
+    -fx-background-radius: 8px;
+    -fx-text-fill: #475569;
+    -fx-font-size: 13px;
+    -fx-font-weight: bold;
+    -fx-cursor: hand;
+    -fx-padding: 12px;
+}
+
+/* Footer Impostazioni */
+.settings-footer {
+    -fx-background-color: #ffffff;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.05), 6, 0, -2, 0);
+}
+
+.settings-footer-btn-cancel {
+    -fx-background-color: #ffffff;
+    -fx-border-color: #cbd5e1;
+    -fx-border-radius: 8px;
+    -fx-background-radius: 8px;
+    -fx-text-fill: #475569;
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-cursor: hand;
+    -fx-padding: 10px 30px;
+}
+
+/* 
+   =================================================================================
+   9. TEMA SCURO GLOBALE (.dark-theme)
+   =================================================================================
+   Stili applicati quando l'utente attiva il tema scuro.
+   Colori basati sulla palette Tailwind Slate-800 (#1e293b) e Slate-900 (#0f172a).
+   =================================================================================
+*/
+
+/* Sfondo della finestra */
+.dark-theme {
+    -fx-background-color: #0f172a;
+}
+
+/* Navbar scura */
+.dark-theme .app-navbar {
+    -fx-background-color: #0f172a;
+    -fx-border-color: #1e293b;
+    -fx-border-width: 0 0 1 0;
+}
+
+
+
+/* Header pagine interne in dark mode */
+.dark-theme .content-header {
+    -fx-background-color: #1e293b;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.35), 8, 0, 0, 2);
+}
+
+.dark-theme .content-header-title {
+    -fx-text-fill: #f8fafc;
+}
+
+.dark-theme .content-header-subtitle {
+    -fx-text-fill: #94a3b8;
+}
+
+/* Banner Benvenuto Dashboard in dark mode */
+.dark-theme .dashboard-banner {
+    -fx-background-color: #1e293b;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.35), 10, 0, 0, 3);
+}
+
+.dark-theme .dashboard-banner-title {
+    -fx-text-fill: #f8fafc;
+}
+
+.dark-theme .dashboard-banner-subtitle {
+    -fx-text-fill: #cbd5e1;
+}
+
+/* 4 Cards Dashboard in dark mode */
+.dark-theme .card-patenti { -fx-background-color: linear-gradient(to bottom right, #431407, #7c2d12); }
+.dark-theme .card-veicoli { -fx-background-color: linear-gradient(to bottom right, #052e16, #14532d); }
+.dark-theme .card-teoria  { -fx-background-color: linear-gradient(to bottom right, #3b0764, #581c87); }
+.dark-theme .card-quiz    { -fx-background-color: linear-gradient(to bottom right, #450a0a, #7f1d1d); }
+
+.dark-theme .card-patenti:hover { -fx-background-color: linear-gradient(to bottom right, #7c2d12, #9a3412); }
+.dark-theme .card-veicoli:hover { -fx-background-color: linear-gradient(to bottom right, #14532d, #166534); }
+.dark-theme .card-teoria:hover  { -fx-background-color: linear-gradient(to bottom right, #581c87, #6b21a8); }
+.dark-theme .card-quiz:hover    { -fx-background-color: linear-gradient(to bottom right, #7f1d1d, #991b1b); }
+
+.dark-theme .card-title {
+    -fx-text-fill: #f8fafc;
+}
+
+.dark-theme .card-subtitle {
+    -fx-text-fill: #cbd5e1;
+}
+
+.dark-theme .arrow-circle {
+    -fx-background-color: #e2e8f0;
+}
+
+.dark-theme .arrow-text {
+    -fx-text-fill: #f1f5f9;
+}
+
+/* Card Profilo in dark mode */
+.dark-theme .profile-card {
+    -fx-background-color: #1e293b;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.35), 14, 0, 0, 3);
+}
+
+.dark-theme .profile-name {
+    -fx-text-fill: #f8fafc;
+}
+
+.dark-theme .profile-field-label {
+    -fx-text-fill: #94a3b8;
+}
+
+.dark-theme .profile-field-value {
+    -fx-text-fill: #f8fafc;
+}
+
+.dark-theme .profile-icon-box {
+    -fx-background-color: #e2e8f0;
+}
+
+.dark-theme .profile-row-divider {
+    -fx-border-color: transparent transparent #465163 transparent;
+    -fx-border-width: 0 0 1 0;
+}
+
+.dark-theme .profile-btn-modifica {
+    -fx-background-color: #1e293b;
+    -fx-border-color: #38bdf8;
+    -fx-text-fill: #38bdf8;
+}
+
+.dark-theme .profile-btn-indietro {
+    -fx-background-color: #1e293b;
+    -fx-border-color: #475569;
+    -fx-text-fill: #cbd5e1;
+}
+
+/* Sezioni Impostazioni in dark mode */
+.dark-theme .settings-section {
+    -fx-background-color: #1e293b;
+    -fx-border-color: #334155;
+    -fx-border-width: 1px;
+    -fx-border-radius: 14px;
+}
+
+.dark-theme .settings-section-aspetto   { -fx-background-color: #1e293b; }
+.dark-theme .settings-section-notifiche { -fx-background-color: #1e293b; }
+.dark-theme .settings-section-quiz      { -fx-background-color: #1e293b; }
+.dark-theme .settings-section-account   { -fx-background-color: #1e293b; }
+
+.dark-theme .settings-section-header {
+    -fx-text-fill: #f8fafc;
+}
+
+.dark-theme .settings-row-label {
+    -fx-text-fill: #cbd5e1;
+}
+
+.dark-theme .settings-radio {
+    -fx-text-fill: #cbd5e1;
+}
+
+.dark-theme .settings-account-btn-small {
+    -fx-background-color: #1e293b;
+    -fx-border-color: #475569;
+    -fx-text-fill: #e2e8f0;
+}
+
+.dark-theme .settings-account-btn-small:hover {
+    -fx-background-color: #e2e8f0;
+    -fx-border-color: #60a5fa;
+}
+
+.dark-theme .settings-footer {
+    -fx-background-color: #1e293b;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.35), 6, 0, -2, 0);
+}
+
+.dark-theme .settings-footer-btn-cancel {
+    -fx-background-color: #1e293b;
+    -fx-border-color: #475569;
+    -fx-text-fill: #cbd5e1;
+}
+
+.dark-theme .separator .line {
+    -fx-border-color: #334155;
+}
+
+
+/* ===========================
+   FIX CONTRASTO ICONE SCURE
+   =========================== */
+.dark-theme .invert-icon {
+    -fx-effect: dropshadow(three-pass-box, rgba(255,255,255,0.6), 12, 0.6, 0, 0);
+}
+
+.dark-theme .settings-logout-link-small {
+    -fx-border-color: #7f1d1d;
+    -fx-text-fill: #fca5a5;
+}
+
+
+.dark-theme .header-deco-box {
+    -fx-background-color: #f1f5f9;
+    -fx-background-radius: 12px;
+    -fx-padding: 8px;
+}
+
+.dark-theme .navbar-logo-box {
+    -fx-background-color: #f1f5f9;
+    -fx-background-radius: 8px;
+    -fx-padding: 4px;
+}
+
+
+.dark-theme .app-nav-button {
+    -fx-background-color: #1e293b;
+}
+
+
+.dark-theme .app-nav-button > .label {
+    -fx-text-fill: #f8fafc;
+}
+
