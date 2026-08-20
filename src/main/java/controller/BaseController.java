@@ -37,7 +37,7 @@ public abstract class BaseController {
             
             // Applica il tema solo se NON siamo nelle schermate iniziali/di login.
             // Queste schermate hanno un loro sfondo CSS fisso (blu sfumato) e testi bianchi.
-            if (!percorsoFxml.contains("Iniziale") && 
+            if (!percorsoFxml.contains("Home") && 
                 !percorsoFxml.contains("Login") && 
                 !percorsoFxml.contains("Registrazione")) {
                 TemaManager.getInstance().applica(scenaAttuale);
