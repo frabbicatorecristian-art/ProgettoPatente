@@ -1,4 +1,4 @@
-package main.example;
+package org.example;
 
 // =================================================================================
 // IMPORTAZIONI JAVAFX
