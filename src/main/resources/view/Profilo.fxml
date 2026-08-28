@@ -43,9 +43,27 @@
                 <Region HBox.hgrow="ALWAYS" />
                 <MenuButton fx:id="menuProfilo" styleClass="app-nav-button" text="👤 Ciao, Utente">
                     <items>
-                        <MenuItem onAction="#apriProfiloMenu" text="👤 Il mio profilo" />
-                        <MenuItem onAction="#apriImpostazioni" text="⚙️ Impostazioni" />
-                        <MenuItem onAction="#gestisciLogout" text="🚪 Esci" />
+                                                <MenuItem onAction="#apriProfiloMenu" text=" Il mio profilo">
+                            <graphic>
+                                <ImageView fitHeight="14.0" fitWidth="14.0" preserveRatio="true">
+                                    <image><Image url="@../images/icons/user-account.png" /></image>
+                                </ImageView>
+                            </graphic>
+                        </MenuItem>
+                        <MenuItem onAction="#apriImpostazioni" text=" Impostazioni">
+                            <graphic>
+                                <ImageView fitHeight="14.0" fitWidth="14.0" preserveRatio="true">
+                                    <image><Image url="@../images/icons/settings.png" /></image>
+                                </ImageView>
+                            </graphic>
+                        </MenuItem>
+                        <MenuItem onAction="#gestisciLogout" text=" Esci">
+                            <graphic>
+                                <ImageView fitHeight="14.0" fitWidth="14.0" preserveRatio="true">
+                                    <image><Image url="@../images/icons/enter.png" /></image>
+                                </ImageView>
+                            </graphic>
+                        </MenuItem>
                     </items>
                 </MenuButton>
             </children>
@@ -215,3 +233,4 @@
 
     </children>
 </VBox>
+

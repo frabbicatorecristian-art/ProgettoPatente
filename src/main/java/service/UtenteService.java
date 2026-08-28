@@ -33,6 +33,7 @@ public class UtenteService {
      * Espressione regolare (Regex) conforme allo standard RFC 5322 per la validazione delle email.
      * Verifica la presenza di un prefisso valido, del carattere '@', del dominio e del TLD (es. .it, .com).
      */
+    public static final String REGEX_CODICE_FISCALE = "^[A-Za-z]{6}[0-9]{2}[A-Za-z]{1}[0-9]{2}[A-Za-z]{1}[0-9]{3}[A-Za-z]{1}$";
     public static final String REGEX_EMAIL = "^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}$";
 
     // Istanza del Data Access Object
@@ -223,3 +224,4 @@ public class UtenteService {
         return null; // Password valida
     }
 }
+

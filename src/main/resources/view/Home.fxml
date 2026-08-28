@@ -49,12 +49,12 @@
               * fitWidth="80.0" e fitHeight="80.0": Ridimensionano l'immagine a una dimensione di 80x80 pixel.
               * preserveRatio="true": Mantiene le proporzioni originali dell'immagine (evita che venga distorta o allungata).
             - <image>: Proprietà contenitore che racchiude l'oggetto Image.
-            - <Image url="@../images/icons/car-icon.png"/>: Carica il file immagine dal percorso relativo al file FXML.
+            - <Image url="@../images/theme/license_car_home.png"/>: Carica il file immagine dal percorso relativo al file FXML.
               * Il simbolo '@' indica a JavaFX che il percorso è relativo alla cartella delle risorse (resources).
         -->
-        <ImageView fitWidth="80.0" fitHeight="80.0" preserveRatio="true">
+        <ImageView fitWidth="320.0" preserveRatio="true">
             <image>
-                <Image url="@../images/icons/car-icon.png"/>
+                <Image url="@../images/theme/license_car_home.png"/>
             </image>
         </ImageView>
 
@@ -131,3 +131,4 @@
     </padding>
 
 </VBox>
+
