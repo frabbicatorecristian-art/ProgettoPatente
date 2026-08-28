@@ -2,7 +2,11 @@
 
 /* Sfondo della schermata iniziale di benvenuto (Colore blu primario MyPatenti) */
 .root-initial {
-    -fx-background-color: #0284c7; /* Colore di sfondo azzurro/blu primario */
+    -fx-background-color: #0284c7;
+    -fx-background-image: url("../images/theme/blue_city_bg.jpg");
+    -fx-background-size: 100% auto;
+    -fx-background-position: center bottom;
+    -fx-background-repeat: no-repeat;
 }
 
 /* Sfondo delle schermate dei moduli di Login e Registrazione (Colore rosa tenue) */
@@ -682,6 +686,8 @@
 .btn-hero:hover {
     -fx-background-color: #f1f5f9;
 }
+
+
 
 
 
