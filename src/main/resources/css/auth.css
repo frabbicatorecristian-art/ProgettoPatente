@@ -535,7 +535,7 @@
 }
 
 .dark-theme .arrow-circle {
-    -fx-background-color: #e2e8f0;
+    -fx-background-color: #1e293b;
 }
 
 .dark-theme .arrow-text {
@@ -613,7 +613,7 @@
 }
 
 .dark-theme .settings-account-btn-small:hover {
-    -fx-background-color: #e2e8f0;
+    -fx-background-color: #334155;
     -fx-border-color: #60a5fa;
 }
 
@@ -667,4 +667,21 @@
 .dark-theme .app-nav-button > .label {
     -fx-text-fill: #f8fafc;
 }
+
+
+.btn-hero {
+    -fx-background-color: white;
+    -fx-text-fill: #0284c7;
+    -fx-font-size: 15px;
+    -fx-font-weight: bold;
+    -fx-background-radius: 25px;
+    -fx-padding: 12px 20px;
+    -fx-cursor: hand;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.15), 10, 0, 0, 4);
+}
+.btn-hero:hover {
+    -fx-background-color: #f1f5f9;
+}
+
+
 
