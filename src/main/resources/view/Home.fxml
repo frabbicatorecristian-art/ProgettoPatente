@@ -10,7 +10,8 @@
 <?import javafx.geometry.Insets?>       <!-- Classe JavaFX per definire i margini interni (padding) -->
 <?import javafx.scene.control.Button?>   <!-- Classe JavaFX per i pulsanti interattivi -->
 <?import javafx.scene.control.Label?>    <!-- Classe JavaFX per le etichette di testo non modificabili -->
-<?import javafx.scene.layout.VBox?>      <!-- Layout manager che impila i componenti verticalmente -->
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.StackPane?>      <!-- Layout manager che impila i componenti verticalmente -->
 <?import javafx.scene.image.ImageView?>  <!-- Nodo grafico per visualizzare le immagini nell'interfaccia -->
 <?import javafx.scene.image.Image?>      <!-- Oggetto che rappresenta l'immagine caricata da un file o URL -->
 
@@ -30,10 +31,9 @@
     - fx:controller="controller.HomeController": Collega questa vista FXML alla classe Controller Java che gestirà la logica e gli eventi.
     - styleClass="root-initial": Assegna la classe di stile CSS per applicare lo sfondo sfumato o personalizzato definito nel file style.css.
 -->
-<VBox alignment="CENTER" spacing="20.0" prefWidth="600.0" prefHeight="400.0"
-      xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
-      fx:controller="controller.HomeController"
-      styleClass="root-initial">
+<StackPane prefWidth="600.0" prefHeight="400.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.HomeController" styleClass="root-initial">
+    <children>
+        <VBox alignment="CENTER" spacing="20.0">
 
     <!-- 
         =============================================================================
@@ -131,4 +131,6 @@
     </padding>
 
 </VBox>
+    </children>
+</StackPane>
 
