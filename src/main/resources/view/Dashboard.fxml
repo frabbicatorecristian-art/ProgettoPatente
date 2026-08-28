@@ -41,7 +41,7 @@
     - fx:controller="controller.DashboardController": Collega la vista FXML alla classe Controller Java per la gestione dell'aula virtuale.
 -->
 <VBox alignment="TOP_CENTER" prefHeight="800.0" prefWidth="900.0" 
-      stylesheets="@../css/style.css"
+      stylesheets="@../css/app.css"
       xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" 
       fx:controller="controller.DashboardController">
 
@@ -457,3 +457,4 @@
 
     </children>
 </VBox>
+

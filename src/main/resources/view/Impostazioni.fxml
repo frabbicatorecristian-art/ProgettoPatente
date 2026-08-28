@@ -33,13 +33,13 @@
     CONTENITORE PRINCIPALE (VBox)
     - alignment="TOP_CENTER": dispone le sezioni partendo dall'alto e centrate.
     - prefWidth="900.0" e prefHeight="800.0": dimensioni di riferimento della vista.
-    - stylesheets="@../css/style.css": collega il foglio CSS condiviso.
+    - stylesheets="@../css/app.css": collega il foglio CSS condiviso.
     - fx:controller="controller.ImpostazioniController": collega fx:id e onAction
       ai campi e ai metodi del controller Java.
     - style: applica lo sfondo grigio chiaro dell'area di lavoro.
 -->
 <VBox alignment="TOP_CENTER" prefHeight="800.0" prefWidth="900.0"
-      stylesheets="@../css/style.css"
+      stylesheets="@../css/app.css"
       xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1"
       fx:controller="controller.ImpostazioniController">
     <children>        <!-- NAVBAR BLU SUPERIORE (HBox) -->
@@ -309,4 +309,5 @@
 
     </children>
 </VBox>
+
 
