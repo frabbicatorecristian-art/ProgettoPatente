@@ -51,8 +51,8 @@ public class MainApp extends Application {
         // La 'Scene' è il contenitore intermedio tra lo 'Stage' (finestra) e i nodi grafici (root).
         Scene scene = new Scene(root);
         
-        // Collega il foglio di stile CSS globale (global.css) alla scena per applicare colori, font e bordi.
-        scene.getStylesheets().add(getClass().getResource("/css/global.css").toExternalForm());
+        // Collega il foglio di stile CSS globale (style.css) alla scena per applicare colori, font e bordi.
+        scene.getStylesheets().add(getClass().getResource("/css/style.css").toExternalForm());
 
         // -------------------------------------------------------------------------
         // PASSAGGIO 3: CONFIGURAZIONE DELLA FINESTRA (Stage) E VISUALIZZIONE
@@ -71,3 +71,4 @@ public class MainApp extends Application {
     }
 
 }
+

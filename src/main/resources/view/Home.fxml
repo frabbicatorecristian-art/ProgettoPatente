@@ -29,7 +29,7 @@
     - xmlns="http://javafx.com/javafx/21": Namespace XML predefinito per tutti i tag JavaFX standard.
     - xmlns:fx="http://javafx.com/fxml/1": Namespace XML per gli attributi specifici di FXML (es. fx:id, fx:controller).
     - fx:controller="controller.HomeController": Collega questa vista FXML alla classe Controller Java che gestirà la logica e gli eventi.
-    - styleClass="root-initial": Assegna la classe di stile CSS per applicare lo sfondo sfumato o personalizzato definito nel file app.css.
+    - styleClass="root-initial": Assegna la classe di stile CSS per applicare lo sfondo sfumato o personalizzato definito nel file style.css.
 -->
 <StackPane prefWidth="600.0" prefHeight="400.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.HomeController" styleClass="root-initial">
     <children>
@@ -133,5 +133,6 @@
 </VBox>
     </children>
 </StackPane>
+
 
 

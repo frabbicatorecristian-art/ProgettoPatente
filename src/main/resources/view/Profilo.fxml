@@ -29,7 +29,7 @@
     5. Footer con dettagli aggiuntivi e separatori
 -->
 <VBox alignment="TOP_CENTER" prefHeight="800.0" prefWidth="900.0"
-      stylesheets="@../css/app.css"
+      stylesheets="@../css/style.css"
       xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1"
       fx:controller="controller.ProfiloController">
     <children>
@@ -233,5 +233,6 @@
 
     </children>
 </VBox>
+
 
 
