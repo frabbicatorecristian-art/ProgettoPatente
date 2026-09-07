@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Arc?>
+
+<StackPane xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.QuizController">
+    <children>
+        <VBox spacing="15.0">
+            <!-- BANNER -->
+            <HBox alignment="CENTER_LEFT" prefHeight="90.0" spacing="20.0" styleClass="dashboard-banner">
+                <children>
+                    <VBox alignment="CENTER_LEFT" spacing="4.0" HBox.hgrow="ALWAYS">
+                        <children>
+                            <Label styleClass="dashboard-banner-title" text="QUIZ - Mettiti alla prova" wrapText="true" />
+                            <Label styleClass="dashboard-banner-subtitle" text="Esercitati con il simulatore d'esame ufficiale e analizza i tuoi risultati." wrapText="true" />
+                        </children>
+                    </VBox>
+                    <StackPane styleClass="header-deco-box">
+                        <children>
+                            <ImageView fitHeight="75.0" preserveRatio="true">
+                                <image>
+                                    <Image url="@../images/dashboard/quiz_dashboard.png"/>
+                                </image>
+                            </ImageView>
+                        </children>
+                    </StackPane>
+                </children>
+                <padding>
+                    <Insets top="14.0" right="24.0" bottom="14.0" left="24.0" />
+                </padding>
+            </HBox>
+
+            <!-- CONTENUTO PRINCIPALE -->
+            <ScrollPane fitToWidth="true" style="-fx-background: transparent; -fx-background-color: transparent;" VBox.vgrow="ALWAYS">
+                <content>
+                    <VBox alignment="TOP_CENTER" style="-fx-background-color: transparent;">
+                        <VBox spacing="20.0" maxWidth="900" alignment="TOP_CENTER">
+                            <padding>
+                                <Insets top="10.0" right="20.0" bottom="20.0" left="20.0"/>
+                            </padding>
+                            <children>
+                                
+                                <!-- STATISTICHE -->
+                                <VBox styleClass="profile-card" spacing="20.0">
+                                    <padding><Insets top="30" right="40" bottom="30" left="40"/></padding>
+                                    <children>
+                                        <Label text="ANALISI PREPARAZIONE TEORICA" styleClass="section-title" />
+                                        <HBox alignment="CENTER_LEFT" spacing="40.0">
+                                            <children>
+                                                <!-- GRAFICO SEMICERCHIO -->
+                                                <VBox alignment="CENTER" spacing="10.0" minWidth="260.0" prefWidth="260.0">
+                                                    <children>
+                                                        <Pane minWidth="260.0" minHeight="145.0" maxWidth="260.0" maxHeight="145.0">
+                                                            <children>
+                                                                <!-- Sfondo grigio -->
+                                                                <Arc centerX="130.0" centerY="130.0" radiusX="115.0" radiusY="115.0" startAngle="0" length="180" fill="transparent" stroke="#e2e8f0" strokeWidth="24.0" strokeLineCap="ROUND" />
+                                                                <!-- Progress (Verde) -->
+                                                                <Arc fx:id="arcProgress" centerX="130.0" centerY="130.0" radiusX="115.0" radiusY="115.0" startAngle="180" length="0" fill="transparent" stroke="#4ade80" strokeWidth="24.0" strokeLineCap="ROUND" />
+                                                                
+                                                                <!-- Testo centrale -->
+                                                                <Label fx:id="lblProgress" layoutX="30.0" layoutY="60.0" prefWidth="200.0" alignment="CENTER" text="0%" styleClass="profile-name" style="-fx-font-size: 46px; -fx-font-weight: bold;" />
+                                                                <Label layoutX="30.0" layoutY="115.0" prefWidth="200.0" alignment="CENTER" text="Quiz Passati" styleClass="form-label" style="-fx-font-size: 14px;" />
+                                                            </children>
+                                                        </Pane>
+                                                    </children>
+                                                </VBox>
+                                                
+                                                <Region HBox.hgrow="ALWAYS" />
+                                                
+                                                <!-- DATI (Griglia come nell'immagine) -->
+                                                <VBox spacing="15.0">
+                                                    <HBox spacing="15.0">
+                                                        <VBox alignment="CENTER" styleClass="stat-box" minWidth="120">
+                                                            <Label text="Quiz Svolti" styleClass="form-label" style="-fx-font-size: 12px;"/>
+                                                            <Label fx:id="lblTotali" text="0" styleClass="profile-name" style="-fx-font-size: 20px; -fx-font-weight: bold;"/>
+                                                        </VBox>
+                                                        <VBox alignment="CENTER" styleClass="stat-box" minWidth="120">
+                                                            <Label text="Idonei" styleClass="form-label" style="-fx-font-size: 12px;"/>
+                                                            <Label fx:id="lblIdonei" text="0" styleClass="profile-name" style="-fx-font-size: 20px; -fx-font-weight: bold; -fx-text-fill: #16a34a;"/>
+                                                        </VBox>
+                                                    </HBox>
+                                                    <HBox spacing="15.0">
+                                                        <VBox alignment="CENTER" styleClass="stat-box" minWidth="120">
+                                                            <Label text="Respinti" styleClass="form-label" style="-fx-font-size: 12px;"/>
+                                                            <Label fx:id="lblRespinti" text="0" styleClass="profile-name" style="-fx-font-size: 20px; -fx-font-weight: bold; -fx-text-fill: #dc2626;"/>
+                                                        </VBox>
+                                                        <VBox alignment="CENTER" styleClass="stat-box" minWidth="120">
+                                                            <Label text="Media Errori" styleClass="form-label" style="-fx-font-size: 12px;"/>
+                                                            <Label fx:id="lblMediaBox" text="0.0" styleClass="profile-name" style="-fx-font-size: 20px; -fx-font-weight: bold; -fx-text-fill: #16a34a;"/>
+                                                        </VBox>
+                                                    </HBox>
+                                                </VBox>
+                                            </children>
+                                        </HBox>
+                                    </children>
+                                </VBox>
+                                
+                                <!-- STORICO -->
+                                <VBox styleClass="profile-card" spacing="15.0">
+                                    <padding><Insets top="20" right="20" bottom="20" left="20"/></padding>
+                                    <children>
+                                        <Label text="STORICO QUIZ SVOLTI" styleClass="section-title" />
+                                        <VBox fx:id="storicoVBox" spacing="10.0" />
+                                    </children>
+                                </VBox>
+
+                            </children>
+                        </VBox>
+                    </VBox>
+                </content>
+            </ScrollPane>
+        </VBox>
+        
+        <!-- FAB AGGIUNGI (PLAY) -->
+        <Button styleClass="fab-button" text="▶" style="-fx-padding: 2 0 0 5;" StackPane.alignment="BOTTOM_RIGHT" onAction="#iniziaQuiz">
+            <StackPane.margin>
+                <Insets bottom="10.0" right="30.0" />
+            </StackPane.margin>
+        </Button>
+    </children>
+</StackPane>

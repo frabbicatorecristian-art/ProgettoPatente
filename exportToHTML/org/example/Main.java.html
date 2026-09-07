@@ -1,0 +1,69 @@
+<html>
+<head>
+<title>Main.java</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.s0 { color: #cf8e6d;}
+.s1 { color: #bcbec4;}
+.s2 { color: #bcbec4;}
+.s3 { color: #7a7e85;}
+.s4 { color: #5f826b; font-style: italic;}
+.s5 { color: #67a37c; font-style: italic;}
+.s6 { color: #6aab73;}
+</style>
+</head>
+<body bgcolor="#191a1c">
+<table CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#606060" >
+<tr><td><center>
+<font face="Arial, Helvetica" color="#000000">
+Main.java</font>
+</center></td></tr></table>
+<pre><span class="s0">package </span><span class="s1">org</span><span class="s2">.</span><span class="s1">example</span><span class="s2">;</span>
+
+<span class="s3">// =================================================================================</span>
+<span class="s3">// IMPORTAZIONI JAVAFX</span>
+<span class="s3">// =================================================================================</span>
+<span class="s0">import </span><span class="s1">javafx</span><span class="s2">.</span><span class="s1">application</span><span class="s2">.</span><span class="s1">Application</span><span class="s2">; </span><span class="s3">// Classe astratta fondamentale che definisce il ciclo di vita di un'applicazione JavaFX.</span>
+
+<span class="s4">/**</span>
+ <span class="s4">* =================================================================================</span>
+ <span class="s4">* CLASSE DI AVVIO PRINCIPALE (Main)</span>
+ <span class="s4">* =================================================================================</span>
+ <span class="s4">* Questa classe è l'unico punto d'ingresso (Entry Point) dell'applicazione.</span>
+ <span class="s4">* </span>
+ <span class="s4">* PERCHÉ QUESTA CLASSE È NECESSARIA?</span>
+ <span class="s4">* Nei progetti JavaFX moderni (da Java 11+ in poi), se la classe che contiene il metodo main()</span>
+ <span class="s4">* estende direttamente 'Application', la Java Virtual Machine (JVM) controlla la presenza dei</span>
+ <span class="s4">* moduli JavaFX prima dell'esecuzione. Se le librerie JavaFX non sono nel classpath dei moduli,</span>
+ <span class="s4">* la JVM lancia l'errore: &quot;JavaFX runtime components are missing, and are required to run this application&quot;.</span>
+ <span class="s4">* </span>
+ <span class="s4">* Creando una classe 'Main' separata che NON estende 'Application', si aggira questo controllo</span>
+ <span class="s4">* permettendo l'avvio corretto dell'applicazione sia da IDE (es. IntelliJ, Eclipse, VS Code) </span>
+ <span class="s4">* che da file JAR o Maven senza configurazioni complesse.</span>
+ <span class="s4">*</span>
+ <span class="s4">* CONFIGURAZIONE DI AVVIO:</span>
+ <span class="s4">* In IntelliJ deve essere selezionata una sola configurazione di tipo Application</span>
+ <span class="s4">* con classe principale &quot;org.example.Main&quot;. La classe MainApp non viene avviata</span>
+ <span class="s4">* direttamente: JavaFX la istanzia tramite Application.launch().</span>
+ <span class="s4">*/</span>
+<span class="s0">public class </span><span class="s1">Main </span><span class="s2">{</span>
+
+    <span class="s4">/**</span>
+     <span class="s4">* Metodo main() standard richiesto dal linguaggio Java per avviare l'applicazione.</span>
+     <span class="s4">* </span>
+     <span class="s4">* </span><span class="s5">@param </span><span class="s4">args Array di stringhe contenente gli eventuali argomenti passati da riga di comando.</span>
+     <span class="s4">*/</span>
+    <span class="s0">public static void </span><span class="s1">main</span><span class="s2">(</span><span class="s1">String</span><span class="s2">[] </span><span class="s1">args</span><span class="s2">) {</span>
+        <span class="s1">System</span><span class="s2">.</span><span class="s1">out</span><span class="s2">.</span><span class="s1">println</span><span class="s2">(</span><span class="s6">&quot;⏳ Test connessione al database in corso...&quot;</span><span class="s2">);</span>
+        <span class="s3">// Richiama getConnection() per testare se i dati inseriti sono corretti</span>
+        <span class="s1">util</span><span class="s2">.</span><span class="s1">DatabaseConnection</span><span class="s2">.</span><span class="s1">getConnection</span><span class="s2">();</span>
+
+        <span class="s3">// Application.launch(): Metodo statico fornito da JavaFX.</span>
+        <span class="s3">// Inizializza il runtime grafico di JavaFX, crea un'istanza della classe specificata (MainApp.class)</span>
+        <span class="s3">// e invoca il suo metodo start(Stage primaryStage) sul Thread grafico dedicato (JavaFX Application Thread).</span>
+        <span class="s1">Application</span><span class="s2">.</span><span class="s1">launch</span><span class="s2">(</span><span class="s1">MainApp</span><span class="s2">.</span><span class="s0">class</span><span class="s2">, </span><span class="s1">args</span><span class="s2">);</span>
+    <span class="s2">}</span>
+<span class="s2">}</span>
+</pre>
+</body>
+</html>

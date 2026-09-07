@@ -29,7 +29,7 @@
     5. Footer con dettagli aggiuntivi e separatori
 -->
 <VBox alignment="TOP_CENTER" prefHeight="800.0" prefWidth="900.0"
-      stylesheets="@../css/style.css"
+      stylesheets="@../css/global.css"
       xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1"
       fx:controller="controller.ProfiloController">
     <children>
@@ -39,7 +39,7 @@
             <children>
                 <Button fx:id="btnTornaDashboard" onAction="#tornaAllaDashboard"
                         style="-fx-background-color: transparent; -fx-text-fill: white; -fx-font-size: 14px; -fx-cursor: hand;"
-                        text="← Torna alla Dashboard" />
+                        text="← Torna Indietro" />
                 <Region HBox.hgrow="ALWAYS" />
                 <MenuButton fx:id="menuProfilo" styleClass="app-nav-button" text="👤 Ciao, Utente">
                     <items>
@@ -47,13 +47,6 @@
                             <graphic>
                                 <ImageView fitHeight="14.0" fitWidth="14.0" preserveRatio="true">
                                     <image><Image url="@../images/icons/user-account.png" /></image>
-                                </ImageView>
-                            </graphic>
-                        </MenuItem>
-                        <MenuItem onAction="#apriImpostazioni" text=" Impostazioni">
-                            <graphic>
-                                <ImageView fitHeight="14.0" fitWidth="14.0" preserveRatio="true">
-                                    <image><Image url="@../images/icons/settings.png" /></image>
                                 </ImageView>
                             </graphic>
                         </MenuItem>
@@ -218,9 +211,9 @@
                                 <Button fx:id="btnModifica" maxWidth="Infinity" onAction="#gestisciModificaProfilo"
                                         styleClass="profile-btn-modifica"
                                         text="✏  MODIFICA DATI" />
-                                <Button fx:id="btnTornaIndietro" maxWidth="Infinity" onAction="#tornaAllaDashboard"
+                                <Button fx:id="btnTema" maxWidth="Infinity" onAction="#cambiaTema"
                                         styleClass="profile-btn-indietro"
-                                        text="← TORNA INDIETRO" />
+                                        text="🌙 CAMBIA TEMA" />
                             </children>
                             <padding><Insets top="22.0" bottom="28.0" left="28.0" right="28.0" /></padding>
                         </VBox>

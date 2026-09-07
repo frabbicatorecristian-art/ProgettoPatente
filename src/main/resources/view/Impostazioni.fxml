@@ -33,13 +33,13 @@
     CONTENITORE PRINCIPALE (VBox)
     - alignment="TOP_CENTER": dispone le sezioni partendo dall'alto e centrate.
     - prefWidth="900.0" e prefHeight="800.0": dimensioni di riferimento della vista.
-    - stylesheets="@../css/style.css": collega il foglio CSS condiviso.
+    - stylesheets="@../css/app.css": collega il foglio CSS condiviso.
     - fx:controller="controller.ImpostazioniController": collega fx:id e onAction
       ai campi e ai metodi del controller Java.
     - style: applica lo sfondo grigio chiaro dell'area di lavoro.
 -->
 <VBox alignment="TOP_CENTER" prefHeight="800.0" prefWidth="900.0"
-      stylesheets="@../css/style.css"
+      stylesheets="@../css/app.css"
       xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1"
       fx:controller="controller.ImpostazioniController">
     <children>        <!-- NAVBAR BLU SUPERIORE (HBox) -->
@@ -47,7 +47,7 @@
             <children>
                 <Button fx:id="btnTornaDashboard" onAction="#tornaAllaDashboard"
                         style="-fx-background-color: transparent; -fx-text-fill: white; -fx-font-size: 14px; -fx-cursor: hand;"
-                        text="← Torna alla Dashboard" />
+                        text="← Torna Indietro" />
                 <Region HBox.hgrow="ALWAYS" />
                 <MenuButton fx:id="menuProfilo" styleClass="app-nav-button" text="👤 Ciao, Utente">
                     <items>
@@ -168,73 +168,6 @@
                                             <children>
                                                 <ImageView fx:id="imgIconaTema" fitHeight="32.0" fitWidth="32.0" preserveRatio="true">
                                                     <image><Image url="@../images/theme/light.png" /></image>
-                                                </ImageView>
-                                            </children>
-                                        </StackPane>
-                                    </children>
-                                    <padding><Insets top="12.0" bottom="16.0" left="18.0" right="18.0" /></padding>
-                                </HBox>
-                            </children>
-                        </VBox>
-
-                        <!-- =================================================
-                             SEZIONE: QUIZ (verde tenue)
-                             ================================================= -->
-                        <VBox styleClass="settings-section, settings-section-quiz">
-                            <children>
-                                <HBox alignment="CENTER_LEFT" spacing="12.0">
-                                    <children>
-                                        <StackPane maxHeight="36.0" maxWidth="36.0" prefHeight="36.0" prefWidth="36.0"
-                                                   style="-fx-background-color: #16a34a; -fx-background-radius: 10px;">
-                                            <children>
-                                                <ImageView fitHeight="20.0" fitWidth="20.0" preserveRatio="true">
-                                                    <image><Image url="@../images/dashboard/quiz_dashboard.png" /></image>
-                                                </ImageView>
-                                            </children>
-                                        </StackPane>
-                                        <Label styleClass="settings-section-header" text="Quiz" />
-                                    </children>
-                                    <padding><Insets top="16.0" bottom="10.0" left="18.0" right="18.0" /></padding>
-                                </HBox>
-                                <Separator />
-                                <HBox alignment="CENTER" spacing="16.0">
-                                    <children>
-                                        <VBox spacing="14.0" HBox.hgrow="ALWAYS">
-                                            <children>
-                                                <!-- Numero domande -->
-                                                <HBox alignment="CENTER_LEFT" spacing="12.0">
-                                                    <children>
-                                                        <Label styleClass="settings-row-label" text="Numero domande predefinito" HBox.hgrow="ALWAYS" />
-                                                        <ComboBox fx:id="cmbNumeroDomande" prefWidth="82.0"
-                                                                  style="-fx-font-size: 13px; -fx-background-radius: 8px;" />
-                                                    </children>
-                                                </HBox>
-                                                <!-- Spiegazione errori -->
-                                                <HBox alignment="CENTER_LEFT" spacing="12.0">
-                                                    <children>
-                                                        <Label styleClass="settings-row-label" text="Mostra spiegazione errori" HBox.hgrow="ALWAYS" />
-                                                        <ToggleButton fx:id="toggleSpiegazioneErrori"
-                                                                      styleClass="toggle-switch" selected="true"
-                                                                      onAction="#onToggleSpiegazioneErrori" />
-                                                    </children>
-                                                </HBox>
-                                                <!-- Cronometro -->
-                                                <HBox alignment="CENTER_LEFT" spacing="12.0">
-                                                    <children>
-                                                        <Label styleClass="settings-row-label" text="Abilita cronometro" HBox.hgrow="ALWAYS" />
-                                                        <ToggleButton fx:id="toggleCronometro"
-                                                                      styleClass="toggle-switch" selected="true"
-                                                                      onAction="#onToggleCronometro" />
-                                                    </children>
-                                                </HBox>
-                                            </children>
-                                        </VBox>
-                                        <!-- Icona appunti -->
-                                        <StackPane maxHeight="58.0" maxWidth="58.0" prefHeight="58.0" prefWidth="58.0"
-                                                   style="-fx-background-color: #dcfce7; -fx-background-radius: 12px;">
-                                            <children>
-                                                <ImageView fitHeight="34.0" fitWidth="34.0" preserveRatio="true">
-                                                    <image><Image url="@../images/dashboard/quiz_dashboard.png" /></image>
                                                 </ImageView>
                                             </children>
                                         </StackPane>

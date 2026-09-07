@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+
+<ScrollPane fitToWidth="true" fitToHeight="true" style="-fx-background: transparent; -fx-background-color: transparent;" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.TeoriaController">
+    <content>
+        <VBox spacing="15.0" style="-fx-background-color: transparent;" xmlns="http://javafx.com/javafx/17.0.12"  >
+    <!-- BANNER TEORIA -->
+    <HBox alignment="CENTER_LEFT" prefHeight="90.0" spacing="20.0" styleClass="dashboard-banner">
+        <children>
+            <VBox alignment="CENTER_LEFT" spacing="4.0" HBox.hgrow="ALWAYS">
+                <children>
+                    <Label styleClass="dashboard-banner-title" text="TEORIA - Il tuo manuale interattivo" wrapText="true" />
+                    <Label styleClass="dashboard-banner-subtitle" text="Consulta e approfondisci i macro-argomenti per l'esame. Clicca su un modulo per visualizzare il materiale dedicato." wrapText="true" />
+                </children>
+            </VBox>
+            <!-- Icona con quadrato decorativo -->
+            <StackPane styleClass="header-deco-box">
+                <children>
+                    <ImageView fitHeight="75.0" preserveRatio="true">
+                        <image>
+                            <Image url="@../images/vehicle/driver-license.png" />
+                        </image>
+                    </ImageView>
+                </children>
+            </StackPane>
+        </children>
+        <padding>
+            <Insets top="14.0" right="24.0" bottom="14.0" left="24.0" />
+        </padding>
+    </HBox>
+
+    <!-- MAIN CONTAINER CARD -->
+    <VBox VBox.vgrow="ALWAYS" styleClass="profile-card" spacing="20.0">
+        <padding>
+            <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+        </padding>
+        <children>
+            <!-- 
+                GridPane configurato per dividere lo spazio esattamente in 6 colonne (16.66% ciascuna)
+                e 3 righe (33.33% ciascuna), forzando i figli ad occupare tutto lo spazio rettangolare a disposizione.
+            -->
+            <GridPane hgap="15.0" vgap="15.0" VBox.vgrow="ALWAYS">
+                <columnConstraints>
+                    <ColumnConstraints percentWidth="33.33" hgrow="ALWAYS" />
+                    <ColumnConstraints percentWidth="33.33" hgrow="ALWAYS" />
+                    <ColumnConstraints percentWidth="33.33" hgrow="ALWAYS" />
+                </columnConstraints>
+                <rowConstraints>
+                    <RowConstraints percentHeight="50.0" vgrow="ALWAYS" />
+                    <RowConstraints percentHeight="50.0" vgrow="ALWAYS" />
+                </rowConstraints>
+                <children>
+                    <VBox styleClass="teoria-module-btn" GridPane.columnIndex="0" GridPane.rowIndex="0" maxWidth="Infinity" maxHeight="Infinity" onMouseClicked="#apriModulo1">
+                        <Label text="Ã°Å¸â€ºâ€˜" styleClass="teoria-module-emoji"/>
+                        <Label text="SEGNALETICA VERTICALE E ORIZZONTALE" styleClass="teoria-module-text"/>
+                    </VBox>
+                    <VBox styleClass="teoria-module-btn" GridPane.columnIndex="1" GridPane.rowIndex="0" maxWidth="Infinity" maxHeight="Infinity">
+                        <Label text="Ã°Å¸â€ºÂ£Ã¯Â¸Â" styleClass="teoria-module-emoji"/>
+                        <Label text="NORME DI COMPORTAMENTO E SICUREZZA" styleClass="teoria-module-text"/>
+                    </VBox>
+                    <VBox styleClass="teoria-module-btn" GridPane.columnIndex="2" GridPane.rowIndex="0" maxWidth="Infinity" maxHeight="Infinity">
+                        <Label text="Ã°Å¸â€â‚¬" styleClass="teoria-module-emoji"/>
+                        <Label text="PRECEDENZE E INCROCI" styleClass="teoria-module-text"/>
+                    </VBox>
+                    <VBox styleClass="teoria-module-btn" GridPane.columnIndex="0" GridPane.rowIndex="1" maxWidth="Infinity" maxHeight="Infinity">
+                        <Label text="Ã°Å¸Å¡â€˜" styleClass="teoria-module-emoji"/>
+                        <Label text="MANOVRE DI EMERGENZA E PRIMO SOCCORSO" styleClass="teoria-module-text"/>
+                    </VBox>
+                    <VBox styleClass="teoria-module-btn" GridPane.columnIndex="1" GridPane.rowIndex="1" maxWidth="Infinity" maxHeight="Infinity">
+                        <Label text="Ã°Å¸â€œâ€ž" styleClass="teoria-module-emoji"/>
+                        <Label text="TIPI DI PATENTE E DOCUMENTI" styleClass="teoria-module-text"/>
+                    </VBox>
+                    <VBox styleClass="teoria-module-btn" GridPane.columnIndex="2" GridPane.rowIndex="1" maxWidth="Infinity" maxHeight="Infinity">
+                        <Label text="Ã¢Å¡â„¢Ã¯Â¸Â" styleClass="teoria-module-emoji"/>
+                        <Label text="MECCANICA E FUNZIONAMENTO MEZZO" styleClass="teoria-module-text"/>
+                    </VBox>
+                </children>
+            </GridPane>
+        </children>
+    </VBox>
+</VBox>
+    </content>
+</ScrollPane>

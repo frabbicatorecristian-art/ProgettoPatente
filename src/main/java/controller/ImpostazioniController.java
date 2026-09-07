@@ -56,25 +56,18 @@ public class ImpostazioniController extends BaseController {
     // SEZIONE ASPETTO - Personalizzazione del tema
     // =====================================================================
     @FXML private RadioButton rbChiaro;             // Radio button per selezionare il tema chiaro (light mode)
-    @FXML private RadioButton rbScuro;              // Radio button per selezionare il tema scuro (dark mode)
+    @FXML private RadioButton rbScuro;
+    @FXML private javafx.scene.control.ToggleGroup tgTema;              // Radio button per selezionare il tema scuro (dark mode)
     @FXML private ImageView   imgIconaTema;         // Icona visiva che cambia in base al tema selezionato (sole/luna)
 
     // =====================================================================
-    // SEZIONE QUIZ - Impostazioni per i quiz e le simulazioni
-    // =====================================================================
-    @FXML private ComboBox<Integer> cmbNumeroDomande;       // ComboBox per selezionare il numero di domande (10, 20, 30, 40)
-    @FXML private ToggleButton toggleSpiegazioneErrori;     // Toggle per attivare/disattivare le spiegazioni degli errori
-    @FXML private ToggleButton toggleCronometro;            // Toggle per attivare/disattivare il cronometro nelle quiz
+    // Toggle per attivare/disattivare il cronometro nelle quiz
 
     // =====================================================================
     // VARIABILI DI ISTANZA - Stato temporaneo dell'applicazione
     // =====================================================================
     private boolean temaSalvato;                    // Memorizza lo stato del tema all'ultimo salvataggio (per la funzione "Annulla")
-    private int     numeroDomandeSalvato;           // Memorizza il numero di domande all'ultimo salvataggio
-    private boolean spiegazioneErroriSalvata;       // Memorizza lo stato del toggle "Spiegazione Errori" all'ultimo salvataggio
-    private boolean cronometroSalvato;              // Memorizza lo stato del toggle "Cronometro" all'ultimo salvataggio
-
-    // =====================================================================
+        // =====================================================================
     // INIZIALIZZAZIONE AUTOMATICA DELLA SCHERMATA
     // =====================================================================
 
@@ -94,40 +87,16 @@ public class ImpostazioniController extends BaseController {
         }
         menuProfilo.setText("👤 Ciao, " + nomeUtenteLoggato);
 
-        // Popola il ComboBox con le opzioni per il numero di domande (10, 20, 30, 40)
-        cmbNumeroDomande.setItems(FXCollections.observableArrayList(10, 20, 30, 40));
-        
-        // Imposta il valore di default a 30 domande
-        cmbNumeroDomande.setValue(30);
-
         // Recupera lo stato del tema salvato da TemaManager (true = scuro, false = chiaro)
         temaSalvato = TemaManager.getInstance().isTemaScuro();
 
         // Salva i valori iniziali di TUTTE le impostazioni (snapshot per la funzione "Annulla")
-        numeroDomandeSalvato       = cmbNumeroDomande.getValue();
-        spiegazioneErroriSalvata   = toggleSpiegazioneErrori.isSelected();
-        cronometroSalvato          = toggleCronometro.isSelected();
-
         // Inizializza la classe CSS toggle-on per i toggle button se sono già selezionati
-        if (spiegazioneErroriSalvata) toggleSpiegazioneErrori.getStyleClass().add("toggle-on");
-        if (cronometroSalvato) toggleCronometro.getStyleClass().add("toggle-on");
-
+                
         // Aggiunge un listener per cambiare classe dinamicamente e far funzionare il CSS senza pseudoclassi non standard
-        toggleSpiegazioneErrori.selectedProperty().addListener((obs, oldVal, newVal) -> {
-            if (newVal) {
-                toggleSpiegazioneErrori.getStyleClass().add("toggle-on");
-            } else {
-                toggleSpiegazioneErrori.getStyleClass().remove("toggle-on");
-            }
-        });
+        
 
-        toggleCronometro.selectedProperty().addListener((obs, oldVal, newVal) -> {
-            if (newVal) {
-                toggleCronometro.getStyleClass().add("toggle-on");
-            } else {
-                toggleCronometro.getStyleClass().remove("toggle-on");
-            }
-        });
+        
         
         // Ripristina il tema salvato e aggiorna l'icona della luna/sole
         if (temaSalvato) {
@@ -167,9 +136,7 @@ public class ImpostazioniController extends BaseController {
             TemaManager.getInstance().applicaTemaTemporaneo(btnTornaDashboard.getScene(), scuro);
         }
         
-        // AUTO-SAVE: Salva immediatamente la preferenza del tema per migliorare la UX
-        TemaManager.getInstance().setTemaScuro(scuro);
-        temaSalvato = scuro;
+        // AUTO-SAVE rimosso: il tema viene applicato temporaneamente e salvato solo su click di "Salva"
         
         // Aggiorna l'icona del tema (Sole / Luna)
         if (scuro) {
@@ -201,13 +168,9 @@ public class ImpostazioniController extends BaseController {
         
         // Aggiorna lo snapshot di TUTTE le impostazioni per la funzione "Annulla" futura
         temaSalvato                = scuro;
-        numeroDomandeSalvato       = cmbNumeroDomande.getValue();
-        spiegazioneErroriSalvata   = toggleSpiegazioneErrori.isSelected();
-        cronometroSalvato          = toggleCronometro.isSelected();
-        
         // Stampa un messaggio di debug nella console per confermare il salvataggio
         System.out.println("[Impostazioni] Salvate. Tema: " + (scuro ? "Scuro" : "Chiaro")
-                + " | Domande: " + cmbNumeroDomande.getValue());
+                );
 
         AlertPersonalizzato.mostraInfo(
                 "Impostazioni salvate",
@@ -243,14 +206,7 @@ public class ImpostazioniController extends BaseController {
             TemaManager.getInstance().applicaTemaTemporaneo(btnTornaDashboard.getScene(), temaSalvato);
         }
 
-        // --- RIPRISTINO QUIZ ---
-        // Ripristina il numero di domande al valore dell'ultimo salvataggio
-        cmbNumeroDomande.setValue(numeroDomandeSalvato);
-        
-        // Ripristina i toggle al valore dell'ultimo salvataggio
-        toggleSpiegazioneErrori.setSelected(spiegazioneErroriSalvata);
-        toggleCronometro.setSelected(cronometroSalvato);
-    }
+        }
 
     // =====================================================================
     // IMPOSTAZIONI QUIZ - Toggle e Opzioni
@@ -263,11 +219,7 @@ public class ImpostazioniController extends BaseController {
      * 
      * @param e L'evento di azione scatenato dal toggle button.
      */
-    @FXML 
-    void onToggleSpiegazioneErrori(ActionEvent e) { 
-        // Chiama il metodo helper per registrare lo stato nel log
-        log("Spiegazione errori", toggleSpiegazioneErrori); 
-    }
+    
 
     /**
      * GESTORE EVENTO: TOGGLE PER "CRONOMETRO"
@@ -276,11 +228,7 @@ public class ImpostazioniController extends BaseController {
      * 
      * @param e L'evento di azione scatenato dal toggle button.
      */
-    @FXML 
-    void onToggleCronometro(ActionEvent e) { 
-        // Chiama il metodo helper per registrare lo stato nel log
-        log("Cronometro", toggleCronometro); 
-    }
+    
 
     /**
      * METODO HELPER: REGISTRAZIONE NEL LOG
@@ -290,9 +238,7 @@ public class ImpostazioniController extends BaseController {
      * @param nome La descrizione della funzione (es. "Cronometro", "Spiegazione errori").
      * @param t Il ToggleButton da cui leggere lo stato (isSelected = ON, altrimenti OFF).
      */
-    private void log(String nome, ToggleButton t) {
-        System.out.println("[Impostazioni] " + nome + ": " + (t.isSelected() ? "ON" : "OFF"));
-    }
+    
 
     // =====================================================================
     // CAMBIO PASSWORD - Dialog personalizzato
@@ -477,7 +423,7 @@ public class ImpostazioniController extends BaseController {
     @FXML
     void tornaAllaDashboard(ActionEvent event) {
         // Invoca il metodo helper passando il percorso FXML e il nuovo titolo dello Stage
-        naviga("/view/Dashboard.fxml", "MyPatenti - Dashboard", btnTornaDashboard.getScene());
+        tornaIndietro(btnTornaDashboard.getScene());
     }
 
     /**

@@ -25,6 +25,31 @@ public abstract class BaseController {
      * @param titoloFinestra Il nuovo titolo da applicare alla finestra
      * @param scenaAttuale La scena attualmente visibile (necessaria per fare il setRoot)
      */
+    
+    public static javafx.scene.Parent rootPrecedente;
+    public static String titoloPrecedente;
+    
+    protected void salvaStatoAttuale(Scene scenaAttuale) {
+        if (scenaAttuale != null) {
+            rootPrecedente = scenaAttuale.getRoot();
+            Stage stage = (Stage) scenaAttuale.getWindow();
+            if (stage != null) titoloPrecedente = stage.getTitle();
+        }
+    }
+    
+    protected void tornaIndietro(Scene scenaAttuale) {
+        if (rootPrecedente != null && scenaAttuale != null) {
+            scenaAttuale.setRoot(rootPrecedente);
+            Stage stage = (Stage) scenaAttuale.getWindow();
+            if (stage != null && titoloPrecedente != null) {
+                stage.setTitle(titoloPrecedente);
+            }
+            model.TemaManager.getInstance().applica(scenaAttuale);
+        } else {
+            naviga("/view/Dashboard.fxml", "MyPatenti - Dashboard", scenaAttuale);
+        }
+    }
+
     protected void naviga(String percorsoFxml, String titoloFinestra, Scene scenaAttuale) {
         if (scenaAttuale == null) {
             System.err.println("Errore: Impossibile navigare, scena attuale è null.");
@@ -43,10 +68,19 @@ public abstract class BaseController {
                 TemaManager.getInstance().applica(scenaAttuale);
             }
             
-            // Aggiorna il titolo
+            // Aggiorna il titolo e la dimensione della finestra
             Stage stage = (Stage) scenaAttuale.getWindow();
             if (stage != null) {
                 stage.setTitle(titoloFinestra);
+                
+                // Gestione automatica della dimensione finestra
+                if (percorsoFxml.contains("Dashboard")) {
+                    stage.setMaximized(true);
+                } else if (percorsoFxml.contains("Home") || 
+                           percorsoFxml.contains("Login") || 
+                           percorsoFxml.contains("Registrazione")) {
+                    stage.setMaximized(false);
+                }
             }
         } catch (IOException e) {
             System.err.println("Errore critico navigazione verso: " + percorsoFxml);

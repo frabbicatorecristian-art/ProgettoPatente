@@ -157,6 +157,24 @@ public class UtenteDAO {
      * @param nuovaPasswordInChiaro La nuova password scelta (verrà criptata)
      * @return true se l'aggiornamento ha successo
      */
+    
+    public boolean aggiornaDatiUtente(model.Utente u) {
+        String sql = "UPDATE utenti SET nome = ?, cognome = ?, email = ? WHERE codice_fiscale = ?";
+        java.sql.Connection conn = util.DatabaseConnection.getConnection();
+        if (conn == null) return false;
+        
+        try (java.sql.PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setString(1, u.getNome());
+            stmt.setString(2, u.getCognome());
+            stmt.setString(3, u.getEmail());
+            stmt.setString(4, u.getCodiceFiscale());
+            return stmt.executeUpdate() > 0;
+        } catch (java.sql.SQLException e) {
+            System.err.println("Errore durante l'aggiornamento dati utente: " + e.getMessage());
+            return false;
+        }
+    }
+
     public boolean cambiaPassword(String codiceFiscale, String nuovaPasswordInChiaro) {
         
         // Comando UPDATE: "Aggiorna la tabella utenti, IMPOSTA la password a (?), DOVE il codice fiscale è (?)"

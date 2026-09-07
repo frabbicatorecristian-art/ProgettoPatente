@@ -139,6 +139,17 @@ public class UtenteService {
      * @param confermaPassword La conferma della nuova password.
      * @return Stringa di errore se la validazione fallisce, oppure null se l'aggiornamento ha successo.
      */
+    
+    public String aggiornaDatiUtente(model.Utente u) {
+        if (u == null || u.getCodiceFiscale() == null) return "Utente non valido";
+        if (u.getNome() == null || u.getNome().isBlank()) return "Nome obbligatorio";
+        if (u.getCognome() == null || u.getCognome().isBlank()) return "Cognome obbligatorio";
+        if (u.getEmail() == null || u.getEmail().isBlank() || !validaEmail(u.getEmail())) return "Email non valida";
+        
+        boolean successo = utenteDAO.aggiornaDatiUtente(u);
+        return successo ? null : "Errore durante il salvataggio dei dati nel database";
+    }
+
     public String cambiaPassword(String codiceFiscale, String nuovaPassword, String confermaPassword) {
         if (codiceFiscale == null || codiceFiscale.isBlank()) {
             return "Sessione non valida.";

@@ -1,0 +1,329 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Spinner?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Circle?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.FlowPane?>
+<?import javafx.scene.shape.Arc?>
+<?import javafx.scene.layout.Region?>
+
+<StackPane xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.PatentiController">
+    <children>
+        <!-- VISTA PRINCIPALE (Banner + Empty State / Dati) -->
+        <ScrollPane fitToWidth="true" fitToHeight="true" style="-fx-background: transparent; -fx-background-color: transparent;">
+            <content>
+        <VBox fx:id="patentiView" spacing="15.0">
+            <children>
+                <!-- BANNER INTESTAZIONE PATENTI -->
+                <HBox alignment="CENTER_LEFT" prefHeight="90.0" spacing="20.0" styleClass="dashboard-banner">
+                    <children>
+                        <VBox alignment="CENTER_LEFT" spacing="4.0" HBox.hgrow="ALWAYS">
+                            <children>
+                                <Label styleClass="dashboard-banner-title" text="PATENTI - Tutti i tuoi documenti in un solo posto." wrapText="true" />
+                                <Label styleClass="dashboard-banner-subtitle" text="Configura le tue patenti e monitora saldo punti e categorie abilitate." wrapText="true" />
+                            </children>
+                        </VBox>
+                        <StackPane styleClass="header-deco-box">
+                            <children>
+                                <ImageView fitHeight="75.0" preserveRatio="true">
+                                    <image>
+                                        <Image url="@../images/dashboard/drivers-license_dashboard.png"/>
+                                    </image>
+                                </ImageView>
+                            </children>
+                        </StackPane>
+                    </children>
+                    <padding>
+                        <Insets top="14.0" bottom="14.0" left="24.0" right="24.0" />
+                    </padding>
+                </HBox>
+
+                <!-- CONTENUTO DINAMICO -->
+                <StackPane VBox.vgrow="ALWAYS">
+                    <children>
+                        <!-- EMPTY STATE PATENTI -->
+                        <VBox fx:id="emptyStateBox" alignment="CENTER" spacing="15.0">
+                            <children>
+                                <ImageView fitHeight="300.0" preserveRatio="true" translateX="-15.0">
+                                    <image>
+                                        <Image url="@../images/vehicle/driver-license.png" />
+                                    </image>
+                                </ImageView>
+                                <VBox alignment="CENTER" spacing="5.0">
+                                    <children>
+                                        <Label styleClass="empty-state-title" text="Nessuna patente configurata." />
+                                        <Label styleClass="empty-state-subtitle" text="Inserisci i dati del tuo documento per monitorare il saldo punti, i rinnovi e le categorie abilitate." textAlignment="CENTER" />
+                                    </children>
+                                </VBox>
+                                <Button styleClass="btn-blue" text="Configura la tua Patente" style="-fx-font-size: 16px; -fx-padding: 10 20; -fx-font-weight: bold;" onAction="#mostraFormConfigurazione">
+                                    <VBox.margin>
+                                        <Insets top="15.0" />
+                                    </VBox.margin>
+                                </Button>
+                            </children>
+                            <padding>
+                                <Insets bottom="50.0" />
+                            </padding>
+                        </VBox>
+                        
+                        <!-- FILLED STATE PATENTI (Nascosta di default) -->
+                        <StackPane fx:id="patenteConfigurataView" visible="false">
+                            <children>
+                                <ScrollPane fitToWidth="true" style="-fx-background: transparent; -fx-background-color: transparent;">
+                                    <content>
+                                        <VBox alignment="TOP_CENTER" style="-fx-background-color: transparent;">
+                                            <VBox spacing="20.0" maxWidth="900" alignment="TOP_CENTER">
+                                                <padding>
+                                                    <Insets top="10.0" right="20.0" bottom="20.0" left="20.0"/>
+                                                </padding>
+                                                <children>
+                                                    <!-- TOP CARD: Dati Master e Punti -->
+                                                    <VBox styleClass="profile-card" spacing="20.0">
+                                                        <padding>
+                                                            <Insets top="25.0" right="30.0" bottom="25.0" left="25.0"/>
+                                                        </padding>
+                                                        <children>
+                                                            <Label text="DATI LICENZA DI GUIDA" styleClass="section-title" />
+                                                            <HBox spacing="30.0" alignment="CENTER">
+                                                                <children>
+                                                                    <!-- SINISTRA: Punteggio -->
+                                                                    <VBox alignment="CENTER" spacing="10.0" minWidth="200.0" prefWidth="200.0" maxWidth="200.0" translateX="-10.0">
+                                                                        <children>
+                                                                            <StackPane onMouseClicked="#modificaPunti" style="-fx-cursor: hand;">
+                                                                                <children>
+                                                                                    <Pane minWidth="168.0" minHeight="168.0" maxWidth="168.0" maxHeight="168.0">
+                                                                                        <children>
+                                                                                            <Circle centerX="84.0" centerY="84.0" radius="75.0" fill="transparent" stroke="#e2e8f0" strokeWidth="18.0" />
+                                                                                            <Arc fx:id="arcPunti" centerX="84.0" centerY="84.0" radiusX="75.0" radiusY="75.0" startAngle="90.0" length="0.0" fill="transparent" stroke="#4ade80" strokeWidth="18.0" strokeLineCap="ROUND" />
+                                                                                        </children>
+                                                                                    </Pane>
+                                                                                    <Label fx:id="lblPuntiCentro" text="20/30" styleClass="profile-name" style="-fx-font-size: 40px;" alignment="CENTER" textAlignment="CENTER" />
+                                                                                </children>
+                                                                            </StackPane>
+                                                                            <Label text="SALDO PUNTI" styleClass="form-label" style="-fx-font-size: 15px; -fx-font-weight: bold;"/>
+                                                                        </children>
+                                                                    </VBox>
+                                                                    
+                                                                    <Region HBox.hgrow="ALWAYS" />
+                                                                    
+                                                                    <!-- DESTRA: Dati anagrafici e documento -->
+                                                                    <GridPane hgap="15.0" vgap="15.0">
+                                                                        <columnConstraints>
+                                                                            <ColumnConstraints />
+                                                                            <ColumnConstraints />
+                                                                        </columnConstraints>
+                                                                        <rowConstraints>
+                                                                            <RowConstraints />
+                                                                            <RowConstraints />
+                                                                        </rowConstraints>
+                                                                        <children>
+                                                                            <VBox GridPane.columnIndex="0" GridPane.rowIndex="0" styleClass="stat-box" alignment="CENTER_LEFT" minWidth="160.0">
+                                                                                <Label text="Intestatario" styleClass="form-label" style="-fx-font-size: 12px;"/>
+                                                                                <Label fx:id="lblIntestatario" text="Nome Cognome" styleClass="profile-name" style="-fx-font-size: 16px;" />
+                                                                            </VBox>
+                                                                            <VBox GridPane.columnIndex="1" GridPane.rowIndex="0" styleClass="stat-box" alignment="CENTER_LEFT" minWidth="160.0">
+                                                                                <Label text="Data di Scadenza" styleClass="form-label" style="-fx-font-size: 12px;"/>
+                                                                                <Label fx:id="lblScadenzaCard" text="01 Gen 2030" styleClass="profile-name" style="-fx-font-size: 16px;" />
+                                                                            </VBox>
+                                                                            <VBox GridPane.columnIndex="0" GridPane.rowIndex="1" styleClass="stat-box" alignment="CENTER_LEFT" minWidth="160.0">
+                                                                                <Label text="Numero Patente" styleClass="form-label" style="-fx-font-size: 12px;"/>
+                                                                                <Label fx:id="lblNumeroPatente" text="A12345678B" styleClass="profile-name" style="-fx-font-size: 16px; -fx-text-fill: #38bdf8;" />
+                                                                            </VBox>
+                                                                            <VBox GridPane.columnIndex="1" GridPane.rowIndex="1" styleClass="stat-box" alignment="CENTER_LEFT" minWidth="160.0">
+                                                                                <Label text="Ente di Rilascio" styleClass="form-label" style="-fx-font-size: 12px;"/>
+                                                                                <Label fx:id="lblEnteRilascio" text="MIT-UCO" styleClass="profile-name" style="-fx-font-size: 16px;" />
+                                                                            </VBox>
+                                                                        </children>
+                                                                    </GridPane>
+                                                                </children>
+                                                            </HBox>
+                                                        </children>
+                                                    </VBox>
+                                                    
+                                                    <!-- CATEGORIE POSSEDUTE (in una card ombreggiata) -->
+                                                    <VBox styleClass="profile-card" spacing="15.0">
+                                                        <padding>
+                                                            <Insets top="20.0" right="20.0" bottom="20.0" left="20.0"/>
+                                                        </padding>
+                                                        <children>
+                                                            <Label text="CATEGORIE ABILITATE" styleClass="section-title" />
+                                                            <FlowPane fx:id="categorieFlowPane" hgap="15.0" vgap="15.0" alignment="CENTER" />
+                                                        </children>
+                                                    </VBox>
+                                                    
+                                                </children>
+                                            </VBox>
+                                        </VBox>
+                                    </content>
+                                </ScrollPane>
+                                
+                                <!-- FAB AGGIUNGI CATEGORIA -->
+                                <Button styleClass="fab-button" text="+" StackPane.alignment="BOTTOM_RIGHT" onAction="#aggiungiCategoria">
+                                    <StackPane.margin>
+                                        <Insets bottom="10.0" right="30.0" />
+                                    </StackPane.margin>
+                                </Button>
+                            </children>
+                        </StackPane>
+                        
+                        <!-- ADD CATEGORY VIEW (Nascosta di default) -->
+                        <VBox fx:id="aggiungiCategoriaView" visible="false" spacing="20.0" alignment="TOP_CENTER" style="-fx-background-color: transparent;">
+                            <HBox alignment="CENTER_LEFT">
+                                <Label text="Aggiungi Nuova Categoria Patente" styleClass="section-main-title" />
+                            </HBox>
+                            
+                            <!-- Card centrale -->
+                            <VBox styleClass="profile-card" spacing="20.0" maxWidth="700">
+                                <padding><Insets top="30" right="40" bottom="30" left="40"/></padding>
+                                
+                                <!-- Intestazione Card -->
+                                <HBox spacing="10" alignment="CENTER_LEFT">
+                                    <ImageView fitHeight="24" preserveRatio="true">
+                                        <image><Image url="@../images/icons/settings.png"/></image>
+                                    </ImageView>
+                                    <Label text="NUOVA ABILITAZIONE" style="-fx-font-weight: bold; -fx-text-fill: #0284c7;"/>
+                                </HBox>
+                                
+                                <!-- Due colonne -->
+                                <GridPane hgap="40" vgap="20">
+                                    <columnConstraints>
+                                        <ColumnConstraints percentWidth="50"/>
+                                        <ColumnConstraints percentWidth="50"/>
+                                    </columnConstraints>
+                                    <rowConstraints>
+                                        <RowConstraints />
+                                    </rowConstraints>
+                                    <children>
+                                        <VBox GridPane.columnIndex="0" spacing="10">
+                                            <Label text="Categoria" styleClass="form-label"/>
+                                            <ComboBox fx:id="cmbNuovaCategoria" promptText="Seleziona..." maxWidth="Infinity" styleClass="input-field"/>
+                                        </VBox>
+                                        
+                                        <VBox GridPane.columnIndex="1" spacing="10">
+                                            <Label text="Data di Ottenimento" styleClass="form-label"/>
+                                            <DatePicker fx:id="dpNuovaDataRilascio" promptText="Seleziona data" maxWidth="Infinity" styleClass="input-field"/>
+                                            
+                                            <!-- Feedback -->
+                                            <HBox style="-fx-background-color: #a7f3d0; -fx-background-radius: 8; -fx-padding: 15;" alignment="CENTER_LEFT" spacing="10">
+                                                <VBox>
+                                                    <Label text="SCADENZA PREVISTA:" style="-fx-font-weight: bold; -fx-font-size: 11px; -fx-text-fill: #064e3b;"/>
+                                                    <Label fx:id="lblNuovaScadenzaCalcolata" text="--/--/----" style="-fx-font-size: 20px; -fx-font-weight: bold; -fx-text-fill: #064e3b;"/>
+                                                </VBox>
+                                            </HBox>
+                                        </VBox>
+                                    </children>
+                                </GridPane>
+                                
+                                <!-- Pulsanti in basso -->
+                                <HBox alignment="BOTTOM_RIGHT" spacing="15.0">
+                                    <padding><Insets top="20.0"/></padding>
+                                    <Button text="Annulla" styleClass="btn-secondary" onAction="#annullaAggiungiCategoria" />
+                                    <Button text="Aggiungi Categoria" styleClass="btn-blue" onAction="#salvaNuovaCategoria" />
+                                </HBox>
+                            </VBox>
+                        </VBox>
+                                </children>
+                            </StackPane>
+            </children>
+        </VBox>
+            </content>
+        </ScrollPane>
+        <!-- VISTA FORM CONFIGURA PATENTE (Nascosta di default) -->
+        <VBox fx:id="formView" visible="false" spacing="20.0" style="-fx-background-color: transparent;">
+            <children>
+                <HBox alignment="CENTER_LEFT">
+                    <Label text="Configura la tua Patente" styleClass="section-main-title" />
+                </HBox>
+                
+                <!-- CARD CENTRALE CON I CAMPI -->
+                <VBox styleClass="profile-card" spacing="25.0" style="-fx-background-radius: 12;" alignment="CENTER" maxWidth="Infinity">
+                    <padding>
+                        <Insets top="30.0" right="40.0" bottom="30.0" left="40.0"/>
+                    </padding>
+                    <children>
+                        <HBox alignment="CENTER_LEFT" spacing="10.0">
+                            <ImageView fitHeight="24.0" preserveRatio="true">
+                                <image>
+                                    <Image url="@../images/dashboard/drivers-license_dashboard.png"/>
+                                </image>
+                            </ImageView>
+                            <Label text="DATI LICENZA" styleClass="section-title" />
+                        </HBox>
+                        
+                        <GridPane hgap="40.0" vgap="20.0" VBox.vgrow="ALWAYS">
+                            <columnConstraints>
+                                <ColumnConstraints percentWidth="50.0" hgrow="ALWAYS" />
+                                <ColumnConstraints percentWidth="50.0" hgrow="ALWAYS" />
+                            </columnConstraints>
+                            <rowConstraints>
+                                <RowConstraints minHeight="60.0" />
+                                <RowConstraints minHeight="60.0" />
+                                <RowConstraints minHeight="60.0" />
+                            </rowConstraints>
+                            
+                            <!-- COLONNA SINISTRA -->
+                            <!-- Data di Nascita -->
+                            <VBox spacing="5" GridPane.columnIndex="0" GridPane.rowIndex="0">
+                                <Label text="Data di Nascita" styleClass="form-label"/>
+                                <DatePicker fx:id="dpDataNascita" maxWidth="Infinity" styleClass="input-field" promptText="Seleziona data" />
+                            </VBox>
+                            
+                            <!-- Data di Rilascio -->
+                            <VBox spacing="5" GridPane.columnIndex="0" GridPane.rowIndex="1">
+                                <Label text="Data di Rilascio" styleClass="form-label"/>
+                                <DatePicker fx:id="dpDataRilascio" maxWidth="Infinity" styleClass="input-field" promptText="Seleziona data" />
+                            </VBox>
+                            
+                            <!-- Categoria Ottenuta -->
+                            <VBox spacing="5" GridPane.columnIndex="0" GridPane.rowIndex="2">
+                                <Label text="Categoria Ottenuta" styleClass="form-label"/>
+                                <ComboBox fx:id="cmbCategoria" maxWidth="Infinity" styleClass="input-field" promptText="Seleziona categoria" />
+                            </VBox>
+
+                            <!-- COLONNA DESTRA -->
+                            <!-- Numero Patente -->
+                            <VBox spacing="5" GridPane.columnIndex="1" GridPane.rowIndex="0">
+                                <Label text="Numero Patente" styleClass="form-label"/>
+                                <TextField fx:id="txtNumeroPatente" maxWidth="Infinity" styleClass="input-field" promptText="Es. A12345678B" />
+                            </VBox>
+                            
+                            <!-- Ente di Rilascio -->
+                            <VBox spacing="5" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                                <Label text="Ente di Rilascio" styleClass="form-label"/>
+                                <ComboBox fx:id="cmbEnteRilascio" maxWidth="Infinity" styleClass="input-field" promptText="Seleziona ente" />
+                            </VBox>
+                            
+                            <!-- Saldo Punti -->
+                            <VBox spacing="5" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                                <Label text="Saldo Punti" styleClass="form-label"/>
+                                <Spinner fx:id="spnPunti" maxWidth="Infinity" styleClass="input-field" />
+                            </VBox>
+                        </GridPane>
+                    </children>
+                </VBox>
+                
+                <!-- BOTTONI AZIONE -->
+                <HBox alignment="BOTTOM_RIGHT" spacing="15.0" VBox.vgrow="ALWAYS" maxWidth="Infinity">
+                    <children>
+                        <Button text="Annulla" styleClass="btn-outline" onAction="#nascondiFormConfigurazione" style="-fx-background-radius: 8; -fx-background-color: transparent; -fx-padding: 8 16;" />
+                        <Button text="✓ Salva Dati" styleClass="btn-blue" onAction="#salvaDatiPatente" style="-fx-padding: 8 16;" />
+                    </children>
+                </HBox>
+            </children>
+        </VBox>
+                                </children>
+                            </StackPane>

@@ -11,7 +11,7 @@
 
 /* Sfondo delle schermate dei moduli di Login e Registrazione (Colore rosa tenue) */
 .root-form {
-    -fx-background-color: #f3b0c3; /* Sfondo pastel rosa tenue per contrasto visivo */
+    -fx-background-color: #0284c7; /* Sfondo pastel rosa tenue per contrasto visivo */
 }
 
 /* 
@@ -22,7 +22,7 @@
 
 /* Titolo grande della Schermata Iniziale */
 .title-label {
-    -fx-text-fill: white;      /* Colore del testo bianco per leggibilità sul blu */
+    -fx-text-fill: white;      /* Colore del testo bianco per leggibilitÃƒÆ’Ã‚Â  sul blu */
     -fx-font-size: 32px;       /* Dimensione del font (32 pixel) */
     -fx-font-weight: bold;     /* Testo in grassetto */
 }
@@ -71,7 +71,7 @@
 
 /* Effetto al passaggio del mouse (hover) sul pulsante primario */
 .btn-primary:hover {
-    -fx-background-color: #d1344e; /* Sfondo leggermente più scuro al passaggio del mouse */
+    -fx-background-color: #d1344e; /* Sfondo leggermente piÃƒÆ’Ã‚Â¹ scuro al passaggio del mouse */
 }
 
 /* Pulsante secondario (es. "ANNULLA") con sfondo trasparente e bordo visibile */
@@ -177,46 +177,39 @@
     -fx-text-fill: #64748b;
 }
 
-/* 
-   ---------------------------------------------------------------------------------
-   6. BARRA DI NAVIGAZIONE INFERIORE (TAB BAR)
-   ---------------------------------------------------------------------------------
-*/
+/* ---------------------------------------------------------------------------------
+   6. BARRA DI NAVIGAZIONE INFERIORE (FLOATING DOCK GLASS EFFECT)
+   --------------------------------------------------------------------------------- */
 
-/* Barra di navigazione fissa in basso */
 .bottom-navigation-bar {
-    -fx-background-color: #ffffff;    /* Sfondo bianco pulito */
-    -fx-border-color: #e2e8f0;        /* Bordo grigio chiaro */
-    -fx-border-width: 1px 0 0 0;      /* Bordo applicato solo sul lato superiore (1px) */
+    -fx-background-radius: 35px;
+    -fx-border-radius: 35px;
+    -fx-background-color: #0284c7;
+    -fx-border-color: #0369a1;
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.2), 25, 0, 0, 10);
 }
 
-/* Pulsanti trasparenti nella barra di navigazione */
 .btn-nav-mini {
-    -fx-background-color: transparent; /* Sfondo trasparente */
-    -fx-text-fill: #64748b;           /* Testo grigio ardesia */
-    -fx-font-weight: bold;            /* Grassetto */
-    -fx-font-size: 13px;              /* Dimensione 13px */
-    -fx-cursor: hand;                 /* Cursore a manina */
+    -fx-background-color: transparent;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-font-size: 12px;
+    -fx-cursor: hand;
+    -fx-background-radius: 20px;
 }
 
-/* Effetto hover sui pulsanti della barra inferiore */
-.btn-nav-mini:hover {
-    -fx-text-fill: #0284c7;           /* Cambia colore in blu brillante al passaggio del mouse */
-}
+.btn-nav-mini > .label { -fx-text-fill: white; }
 
-/* Pulsante Home attivo nella barra inferiore */
-.btn-nav-home {
-    -fx-background-color: #e0f2fe;    /* Sfondo azzurro tenue attivo */
-    -fx-text-fill: #0369a1;           /* Testo blu scuro */
-    -fx-font-weight: bold;            /* Grassetto */
-    -fx-background-radius: 8;         /* Angoli arrotondati a 8px */
-}
+.btn-nav-mini:hover { -fx-background-color: rgba(255,255,255,0.1); -fx-text-fill: white; }
+.btn-nav-mini:hover > .label { -fx-text-fill: white; }
 
-/* Testo informativo secondario scuro */
-.info-text-dark {
-    -fx-text-fill: #475569;
-    -fx-font-size: 13px;
+/* Stato Attivo (es: quando ti trovi in "Quiz") */
+.btn-nav-active {
+    -fx-text-fill: #0284c7;
+    -fx-background-color: white;
+    -fx-background-radius: 20px;
 }
+.btn-nav-active > .label { -fx-text-fill: #0284c7; }
 
 /* ---------------------------------------------------------------------------------
    7. IMPOSTAZIONI - TOGGLE SWITCH
@@ -345,16 +338,32 @@
    ---------------------------------------------------------------------------------
 */
 
+/* Struttura base: fissa il padding per evitare salti di layout */
+.header-deco-box {
+    -fx-padding: 8px;
+    -fx-background-radius: 12px;
+    -fx-background-color: transparent; /* Nessuno sfondo nel tema chiaro */
+}
+
 /* Navbar superiore */
 .app-navbar {
     -fx-background-color: #0284c7;
 }
 
+/* 1. RIPRISTINA LO STILE DEL BOTTONE ORIGINALE */
 .app-nav-button {
-    -fx-background-color: #0369a1;
-    -fx-text-fill: white;
+    -fx-background-color: #0369a1; /* Fondo trasparente sul navbar */
+    -fx-background-radius: 8px;        /* Mantiene gli angoli arrotondati */
     -fx-font-size: 14px;
     -fx-font-weight: bold;
+    -fx-cursor: hand;
+    -fx-padding: 0 10 0 10;
+}
+
+/* 2. FORZA IL TESTO BIANCO NELLA LABEL INTERNA */
+/* In questo modo la forma e il background non cambiano */
+.app-nav-button > .label {
+    -fx-text-fill: #ffffff;
 }
 
 /* Header pagine interne (Profilo, Impostazioni) */
@@ -575,8 +584,8 @@
 
 .dark-theme .profile-btn-modifica {
     -fx-background-color: #1e293b;
-    -fx-border-color: #38bdf8;
-    -fx-text-fill: #38bdf8;
+    -fx-border-color: #0284c7;
+    -fx-text-fill: #0284c7;
 }
 
 .dark-theme .profile-btn-indietro {
@@ -652,8 +661,6 @@
 
 .dark-theme .header-deco-box {
     -fx-background-color: #f1f5f9;
-    -fx-background-radius: 12px;
-    -fx-padding: 8px;
 }
 
 .dark-theme .navbar-logo-box {
@@ -669,9 +676,40 @@
 
 
 .dark-theme .app-nav-button > .label {
-    -fx-text-fill: #f8fafc;
+    -fx-text-fill: #ffffff;
 }
 
+/* ---------------------------------------------------------------------------------
+   INVERSIONE TEMA SCURO PER IL DOCK
+   --------------------------------------------------------------------------------- */
+
+.dark-theme .bottom-navigation-bar {
+    -fx-background-radius: 35px;
+    -fx-border-radius: 35px;
+    -fx-background-color: #0284c7;
+    -fx-border-color: #0369a1;
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.2), 25, 0, 0, 10);
+}
+
+.dark-theme .btn-nav-mini {
+    -fx-background-color: transparent;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-font-size: 12px;
+    -fx-cursor: hand;
+    -fx-background-radius: 20px;
+}
+.dark-theme .btn-nav-mini > .label { -fx-text-fill: white; }
+
+.dark-theme .btn-nav-mini:hover { -fx-background-color: rgba(255,255,255,0.1); -fx-text-fill: white; }
+.dark-theme .btn-nav-mini:hover > .label { -fx-text-fill: white; }
+
+.dark-theme .btn-nav-active {
+    -fx-text-fill: #0284c7;
+    -fx-background-color: white;
+    -fx-background-radius: 20px;
+}
+.dark-theme .btn-nav-active > .label { -fx-text-fill: #0284c7; }
 
 .btn-hero {
     -fx-background-color: white;
@@ -691,3 +729,364 @@
 
 
 
+
+/* =================================================================================
+   SEZIONE VEICOLI - EMPTY STATE E FAB
+   ================================================================================= */
+.empty-state-title {
+    -fx-font-size: 20px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #1e293b;
+}
+
+.empty-state-subtitle {
+    -fx-font-size: 14px;
+    -fx-text-fill: #64748b;
+}
+
+.fab-button {
+    -fx-background-color: #0284c7;
+    -fx-text-fill: white;
+    -fx-font-size: 28px;
+    -fx-font-weight: bold;
+    -fx-background-radius: 50%; /* Cerchio */
+    -fx-min-width: 60px;
+    -fx-min-height: 60px;
+    -fx-max-width: 60px;
+    -fx-max-height: 60px;
+    -fx-cursor: hand;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.3), 10, 0, 0, 4);
+    -fx-padding: -5 0 0 0; /* Allineamento testo '+' */
+}
+.fab-button:hover {
+    -fx-background-color: #0369a1;
+}
+
+/* ModalitÃƒÂ  scura */
+.dark-theme .empty-state-title {
+    -fx-text-fill: #f8fafc;
+}
+.dark-theme .empty-state-subtitle {
+    -fx-text-fill: #cbd5e1;
+}
+.dark-theme .fab-button {
+    -fx-background-color: #0284c7;
+    -fx-text-fill: white;
+}
+.dark-theme .fab-button:hover {
+    -fx-background-color: #0369a1;
+}
+
+/* Pulsante azzurro (simile al primary ma blu) */
+.btn-blue {
+    -fx-background-color: #0284c7;
+    -fx-text-fill: white;
+    -fx-font-size: 15px;
+    -fx-font-weight: bold;
+    -fx-background-radius: 8;
+    -fx-cursor: hand;
+}
+.btn-blue:hover {
+    -fx-background-color: #0369a1;
+}
+
+.dark-theme .btn-blue {
+    -fx-background-color: #0284c7;
+    -fx-text-fill: white;
+}
+.dark-theme .btn-blue:hover {
+    -fx-background-color: #0369a1;
+}
+
+/* =================================================================================
+   TITOLI FORM VEICOLI E TESTI
+   ================================================================================= */
+.section-main-title {
+    -fx-font-size: 22px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #1e293b;
+}
+.section-title {
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #1e293b;
+}
+
+/* Fix Testi Scuri per Tema Scuro */
+.dark-theme .form-label {
+    -fx-text-fill: #f8fafc;
+}
+.dark-theme .section-main-title {
+    -fx-text-fill: #f8fafc;
+}
+.dark-theme .section-title {
+    -fx-text-fill: #f1f5f9;
+}
+
+/* Fix btn-outline per Tema Scuro */
+.dark-theme .btn-outline {
+    -fx-text-fill: #f8fafc;
+    -fx-border-color: #f8fafc;
+}
+.dark-theme .btn-outline:hover {
+    -fx-background-color: rgba(248, 250, 252, 0.1);
+}
+
+/* Stat Box (Quiz section) */
+.stat-box {
+    -fx-background-color: #f8fafc;
+    -fx-background-radius: 10px;
+    -fx-border-color: #e2e8f0;
+    -fx-border-radius: 10px;
+    -fx-padding: 15px;
+}
+.dark-theme .stat-box {
+    -fx-background-color: #0f172a;
+    -fx-border-color: #334155;
+}
+.dark-theme .stat-box .form-label,
+.dark-theme .stat-box .label {
+    -fx-text-fill: #f8fafc;
+    -fx-background-color: #0f172a;
+    -fx-border-color: #334155;
+}
+
+/* History Row in Quiz Dashboard */
+.history-row {
+    -fx-background-color: #ffffff;
+    -fx-border-color: #e2e8f0;
+    -fx-border-width: 1px;
+    -fx-border-radius: 8;
+    -fx-background-radius: 8;
+    -fx-padding: 12;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.06), 5, 0, 0, 2);
+}
+.dark-theme .history-row {
+    -fx-background-color: #1e293b;
+    -fx-border-color: #334155;
+    -fx-border-width: 1px;
+    -fx-border-radius: 8;
+    -fx-background-radius: 8;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.3), 6, 0, 0, 2);
+}
+.history-row-text {
+    -fx-text-fill: #1e293b;
+}
+.dark-theme .history-row-text {
+    -fx-text-fill: #f8fafc;
+}
+.history-row-date {
+    -fx-text-fill: #475569;
+}
+.dark-theme .history-row-date {
+    -fx-text-fill: #94a3b8;
+}
+
+/* Quiz Execution Box */
+.quiz-execution-box {
+    -fx-background-color: #ffffff;
+    -fx-background-radius: 12;
+    -fx-border-color: #e2e8f0;
+    -fx-border-radius: 12;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.05), 10, 0, 0, 2);
+}
+.dark-theme .quiz-execution-box {
+    -fx-background-color: #1e293b;
+    -fx-border-color: #334155;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.5), 10, 0, 0, 2);
+}
+.quiz-question-text {
+    -fx-text-fill: #1e293b;
+}
+.dark-theme .quiz-question-text {
+    -fx-text-fill: #f8fafc;
+}
+.quiz-id-text {
+    -fx-text-fill: #64748b;
+}
+.dark-theme .quiz-id-text {
+    -fx-text-fill: #94a3b8;
+}
+
+/* Quiz Choice Buttons */
+.quiz-choice-btn {
+    -fx-background-color: #ffffff;
+    -fx-border-color: #cbd5e1;
+    -fx-border-radius: 8;
+    -fx-background-radius: 8;
+    -fx-font-size: 18px;
+    -fx-padding: 10 40;
+    -fx-cursor: hand;
+    -fx-text-fill: #1e293b;
+}
+.dark-theme .quiz-choice-btn {
+    -fx-background-color: #0f172a;
+    -fx-border-color: #475569;
+    -fx-text-fill: #f8fafc;
+}
+.quiz-choice-btn-selected {
+    -fx-background-color: #dbeafe;
+    -fx-border-color: #3b82f6;
+    -fx-text-fill: #1d4ed8;
+    -fx-font-weight: bold;
+}
+.dark-theme .quiz-choice-btn-selected {
+    -fx-background-color: rgba(59, 130, 246, 0.2);
+    -fx-border-color: #60a5fa;
+    -fx-text-fill: #93c5fd;
+}
+
+/* Quiz Root Background */
+.quiz-root {
+    -fx-background-color: #f1f5f9;
+}
+.dark-theme .quiz-root {
+    -fx-background-color: #0f172a;
+}
+
+
+/* Teoria Module Buttons */
+.teoria-module-btn {
+    -fx-background-color: #ffffff;
+    -fx-background-radius: 12;
+    -fx-border-radius: 12;
+    -fx-border-color: #e2e8f0;
+    -fx-border-width: 1px;
+    -fx-padding: 20 10 10 10;
+    -fx-cursor: hand;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.05), 5, 0, 0, 2);
+    -fx-alignment: top-center;
+    -fx-spacing: 15;
+}
+.teoria-module-btn:hover {
+    -fx-background-color: #f8fafc;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 8, 0, 0, 3);
+}
+.dark-theme .teoria-module-btn {
+    -fx-background-color: #1e293b;
+    -fx-border-color: #334155;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.3), 5, 0, 0, 2);
+}
+.dark-theme .teoria-module-btn:hover {
+    -fx-background-color: #27344a;
+}
+.teoria-module-emoji {
+    -fx-font-size: 40px;
+}
+.teoria-module-text {
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-text-alignment: center;
+    -fx-wrap-text: true;
+    -fx-text-fill: #1e293b;
+}
+.dark-theme .teoria-module-text {
+    -fx-text-fill: #f8fafc;
+}
+/* Visualizzatore Teoria */
+.viewer-main-area {
+    -fx-background-color: #e2e8f0;
+    -fx-background-radius: 12;
+}
+.dark-theme .viewer-main-area {
+    -fx-background-color: #0f172a;
+}
+
+.viewer-nav-btn {
+    -fx-background-color: #ffffff;
+    -fx-background-radius: 20;
+    -fx-border-color: #cbd5e1;
+    -fx-border-radius: 20;
+    -fx-text-fill: #1e293b;
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-padding: 8 20 8 20;
+    -fx-cursor: hand;
+}
+.dark-theme .viewer-nav-btn {
+    -fx-background-color: #1e293b;
+    -fx-border-color: #334155;
+    -fx-text-fill: #f8fafc;
+}
+.viewer-nav-btn:hover {
+    -fx-background-color: #f8fafc;
+}
+.dark-theme .viewer-nav-btn:hover {
+    -fx-background-color: #334155;
+}
+.viewer-nav-btn:disabled {
+    -fx-opacity: 0.5;
+}
+
+.viewer-tracker-label {
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #1e293b;
+}
+.dark-theme .viewer-tracker-label {
+    -fx-text-fill: #f8fafc;
+}
+
+.viewer-close-btn {
+    -fx-font-size: 24px;
+    -fx-background-color: transparent;
+    -fx-cursor: hand;
+    -fx-font-weight: bold;
+    -fx-padding: 0 10 0 0;
+    -fx-text-fill: #1e293b;
+}
+.dark-theme .viewer-close-btn {
+    -fx-text-fill: #f8fafc;
+}
+
+.thumb-wrapper {
+    -fx-border-color: #cbd5e1;
+    -fx-border-width: 2;
+    -fx-border-radius: 8;
+    -fx-background-radius: 8;
+    -fx-padding: 2;
+    -fx-background-color: transparent;
+}
+.dark-theme .thumb-wrapper {
+    -fx-border-color: #334155;
+}
+
+.thumb-wrapper-active {
+    -fx-border-color: #3b82f6;
+    -fx-border-width: 3;
+    -fx-border-radius: 8;
+    -fx-background-radius: 8;
+    -fx-padding: 2;
+    -fx-background-color: #eff6ff;
+}
+.dark-theme .thumb-wrapper-active {
+    -fx-border-color: #60a5fa;
+    -fx-background-color: #1e3a8a;
+}
+
+/* Colori chiari quando usati dentro root-form (Sfondo blu) */
+.root-form .form-title {
+    -fx-text-fill: white;
+}
+.root-form .form-label {
+    -fx-text-fill: white;
+}
+
+.root-form .btn-outline {
+    -fx-border-color: white;
+    -fx-text-fill: white;
+}
+.root-form .btn-outline:hover {
+    -fx-background-color: rgba(255, 255, 255, 0.1);
+}
+
+/* Make inactive icons pure white */
+.bottom-navigation-bar .btn-nav-mini .image-view {
+    -fx-effect: colorAdjust(0, 0, 1, 0);
+}
+/* Restore original colored icons for the active button */
+.bottom-navigation-bar .btn-nav-active .image-view {
+    -fx-effect: null;
+}
+
+.dark-theme .label { -fx-text-fill: #f8fafc; }

@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.StackPane?>
+
+<VBox VBox.vgrow="ALWAYS" styleClass="profile-card" spacing="10.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.VisualizzatoreController">
+    <padding>
+        <Insets top="15" right="15" bottom="15" left="15"/>
+    </padding>
+
+    <!-- Top Bar for X -->
+    <HBox alignment="TOP_RIGHT">
+        <Button text="X" onAction="#chiudi" styleClass="viewer-close-btn" />
+    </HBox>
+
+    <!-- Content Split -->
+    <HBox VBox.vgrow="ALWAYS" spacing="20">
+        <!-- Thumbnails Column -->
+        <ScrollPane fitToWidth="true" style="-fx-background: transparent; -fx-background-color: transparent; -fx-border-color: transparent;" prefWidth="200" minWidth="200">
+            <VBox fx:id="boxThumbnails" spacing="10" alignment="TOP_CENTER" />
+        </ScrollPane>
+
+            <!-- Main Slide Area -->
+        <VBox HBox.hgrow="ALWAYS" alignment="CENTER" spacing="20" styleClass="viewer-main-area">
+            <padding>
+                <Insets top="20" right="20" bottom="20" left="20"/>
+            </padding>
+            <StackPane fx:id="imageContainer" VBox.vgrow="ALWAYS">
+                <ImageView fx:id="imgMainSlide" preserveRatio="true" smooth="true" />
+            </StackPane>
+            
+            <HBox alignment="CENTER" spacing="40">
+                <Button fx:id="btnIndietro" text="&#x2190; Indietro" onAction="#indietro" styleClass="viewer-nav-btn"/>
+                <Label fx:id="lblTracker" text="Slide 1 / 1" styleClass="viewer-tracker-label"/>
+                <Button fx:id="btnAvanti" text="Avanti &#x2192;" onAction="#avanti" styleClass="viewer-nav-btn"/>
+            </HBox>
+        </VBox>
+    </HBox>
+</VBox>
+
