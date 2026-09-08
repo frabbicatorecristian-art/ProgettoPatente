@@ -102,7 +102,7 @@
             - styleClass="btn-primary": Classe CSS per mantenere l'aspetto estetico primario del pulsante.
             - <graphic>: Inserisce l'icona grafica add.png all'interno del pulsante.
         -->
-        <Button fx:id="btnRegistrati" text="REGISTRATI" prefWidth="200.0" onAction="#gestisciRegistrati" styleClass="btn-primary">
+        <Button fx:id="btnRegistrati" text="banana" prefWidth="200.0" onAction="#gestisciRegistrati" styleClass="btn-primary">
             <graphic>
                 <ImageView fitWidth="20.0" fitHeight="20.0" preserveRatio="true">
                     <image>
