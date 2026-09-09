@@ -45,8 +45,7 @@ public class RegistrazioneController extends BaseController {
                 "(Facoltativa) Scegli domanda...",
                 "Qual è il cognome da nubile di tua madre?",
                 "In quale città sei nato/a?",
-                "Qual è la tua materia preferita a scuola?",
-                "Qual è il nome della tua prima scuola?"
+                "Qual è la tua materia preferita a scuola?"
             ));
             cmbDomandaSicurezza.getSelectionModel().selectFirst();
         }
