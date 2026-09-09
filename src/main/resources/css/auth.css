@@ -1089,4 +1089,13 @@
     -fx-effect: null;
 }
 
+.root-form .hyperlink {
+    -fx-text-fill: white;
+    -fx-border-color: transparent;
+    -fx-underline: true;
+}
+.root-form .hyperlink:hover {
+    -fx-text-fill: #e0f2fe;
+}
+
 .dark-theme .label { -fx-text-fill: #f8fafc; }

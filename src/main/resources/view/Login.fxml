@@ -129,7 +129,7 @@
                           GridPane.columnIndex="1" GridPane.rowIndex="2" styleClass="form-label"/>
 
                 <Hyperlink fx:id="linkPasswordDimenticata" text="Hai dimenticato la password?" onAction="#gestisciPasswordDimenticata"
-                           GridPane.columnIndex="1" GridPane.rowIndex="3" style="-fx-text-fill: #3b82f6; -fx-font-size: 13px; -fx-padding: 5 0 0 0;"/>
+                           GridPane.columnIndex="1" GridPane.rowIndex="3" style="-fx-text-fill: #ffffff; -fx-border-color: transparent; -fx-underline: true; -fx-font-size: 13px; -fx-font-weight: bold; -fx-padding: 5 0 0 0;"/>
 
             </children>
         </GridPane>
