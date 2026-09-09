@@ -44,9 +44,9 @@ public class RegistrazioneController extends BaseController {
             cmbDomandaSicurezza.setItems(FXCollections.observableArrayList(
                 "(Facoltativa) Scegli domanda...",
                 "Qual è il cognome da nubile di tua madre?",
-                "Qual è il nome del tuo primo animale domestico?",
                 "In quale città sei nato/a?",
-                "Qual è la tua materia preferita a scuola?"
+                "Qual è la tua materia preferita a scuola?",
+                "Qual è il nome della tua prima scuola?"
             ));
             cmbDomandaSicurezza.getSelectionModel().selectFirst();
         }

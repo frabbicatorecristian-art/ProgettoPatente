@@ -88,79 +88,170 @@ public class LoginController extends BaseController {
             return;
         }
 
-        String domanda = utenteDAO.recuperaDomandaSicurezza(cf);
-        if (domanda == null || domanda.trim().isEmpty()) {
-            AlertPersonalizzato.mostraErrore("Recupero non disponibile",
-                    "Nessun utente trovato con questo Codice Fiscale, oppure l'utente non ha impostato la domanda di sicurezza durante la registrazione.");
+        if (!utenteDAO.esisteUtente(cf)) {
+            AlertPersonalizzato.mostraErrore("Utente non trovato", "Nessun account trovato con il Codice Fiscale inserito.");
             return;
         }
 
-        // Dialogo Passo 2: Domanda, Risposta e Nuova Password
-        Dialog<ButtonType> recoveryDialog = new Dialog<>();
-        recoveryDialog.setTitle("Recupero Password");
-        recoveryDialog.setHeaderText("Passo 2: Rispondi alla domanda di sicurezza");
+        String domanda = utenteDAO.recuperaDomandaSicurezza(cf);
 
-        ButtonType btnConferma = new ButtonType("Reimposta Password", ButtonBar.ButtonData.OK_DONE);
-        ButtonType btnAnnulla = new ButtonType("Annulla", ButtonBar.ButtonData.CANCEL_CLOSE);
-        recoveryDialog.getDialogPane().getButtonTypes().addAll(btnConferma, btnAnnulla);
+        if (domanda != null && !domanda.trim().isEmpty()) {
+            // CASO A: L'utente ha impostato una domanda di sicurezza
+            Dialog<ButtonType> recoveryDialog = new Dialog<>();
+            recoveryDialog.setTitle("Recupero Password");
+            recoveryDialog.setHeaderText("Passo 2: Rispondi alla domanda di sicurezza");
 
-        VBox contentBox = new VBox(10);
-        contentBox.setPadding(new Insets(15));
+            ButtonType btnConferma = new ButtonType("Reimposta Password", ButtonBar.ButtonData.OK_DONE);
+            ButtonType btnAnnulla = new ButtonType("Annulla", ButtonBar.ButtonData.CANCEL_CLOSE);
+            recoveryDialog.getDialogPane().getButtonTypes().addAll(btnConferma, btnAnnulla);
 
-        Label lblDomandaTitle = new Label("Domanda di sicurezza:");
-        lblDomandaTitle.setStyle("-fx-font-weight: bold;");
+            VBox contentBox = new VBox(10);
+            contentBox.setPadding(new Insets(15));
 
-        Label lblDomandaText = new Label(domanda);
-        lblDomandaText.setStyle("-fx-text-fill: #0284c7; -fx-font-size: 14px; -fx-font-weight: bold;");
+            Label lblDomandaTitle = new Label("Domanda di sicurezza:");
+            lblDomandaTitle.setStyle("-fx-font-weight: bold;");
 
-        Label lblRisposta = new Label("Risposta:");
-        TextField txtRisposta = new TextField();
-        txtRisposta.setPromptText("Inserisci la tua risposta");
+            Label lblDomandaText = new Label(domanda);
+            lblDomandaText.setStyle("-fx-text-fill: #0284c7; -fx-font-size: 14px; -fx-font-weight: bold;");
 
-        Label lblNuovaPassword = new Label("Nuova Password:");
-        PasswordField pwdNuova = new PasswordField();
-        pwdNuova.setPromptText("Nuova password (minimo 6 caratteri)");
+            Label lblRisposta = new Label("Risposta:");
+            TextField txtRisposta = new TextField();
+            txtRisposta.setPromptText("Inserisci la tua risposta");
 
-        Label lblConfermaPassword = new Label("Conferma Nuova Password:");
-        PasswordField pwdConferma = new PasswordField();
-        pwdConferma.setPromptText("Ripeti la nuova password");
+            Label lblNuovaPassword = new Label("Nuova Password:");
+            PasswordField pwdNuova = new PasswordField();
+            pwdNuova.setPromptText("Nuova password (minimo 6 caratteri)");
 
-        contentBox.getChildren().addAll(
-                lblDomandaTitle, lblDomandaText,
-                lblRisposta, txtRisposta,
-                lblNuovaPassword, pwdNuova,
-                lblConfermaPassword, pwdConferma
-        );
+            Label lblConfermaPassword = new Label("Conferma Nuova Password:");
+            PasswordField pwdConferma = new PasswordField();
+            pwdConferma.setPromptText("Ripeti la nuova password");
 
-        recoveryDialog.getDialogPane().setContent(contentBox);
+            contentBox.getChildren().addAll(
+                    lblDomandaTitle, lblDomandaText,
+                    lblRisposta, txtRisposta,
+                    lblNuovaPassword, pwdNuova,
+                    lblConfermaPassword, pwdConferma
+            );
 
-        Optional<ButtonType> result = recoveryDialog.showAndWait();
-        if (result.isPresent() && result.get() == btnConferma) {
-            String risposta = txtRisposta.getText().trim();
-            String nuovaPassword = pwdNuova.getText();
-            String conferma = pwdConferma.getText();
+            recoveryDialog.getDialogPane().setContent(contentBox);
 
-            if (risposta.isEmpty()) {
-                AlertPersonalizzato.mostraErrore("Risposta Mancante", "Devi inserire la risposta alla domanda di sicurezza.");
-                return;
+            Optional<ButtonType> result = recoveryDialog.showAndWait();
+            if (result.isPresent() && result.get() == btnConferma) {
+                String risposta = txtRisposta.getText().trim();
+                String nuovaPassword = pwdNuova.getText();
+                String conferma = pwdConferma.getText();
+
+                if (risposta.isEmpty()) {
+                    AlertPersonalizzato.mostraErrore("Risposta Mancante", "Devi inserire la risposta alla domanda di sicurezza.");
+                    return;
+                }
+                if (nuovaPassword.isEmpty() || nuovaPassword.length() < 6) {
+                    AlertPersonalizzato.mostraErrore("Password non valida", "La nuova password deve contenere almeno 6 caratteri.");
+                    return;
+                }
+                if (!nuovaPassword.equals(conferma)) {
+                    AlertPersonalizzato.mostraErrore("Password non coincidenti", "La nuova password e la conferma non coincidono.");
+                    return;
+                }
+
+                boolean successo = utenteDAO.verificaRispostaEResetPassword(cf, risposta, nuovaPassword);
+                if (successo) {
+                    AlertPersonalizzato.mostraInfo("Password Aggiornata!", "La tua password è stata modificata con successo. Ora puoi accedere con le nuove credenziali.");
+                    txtCodiceFiscale.setText(cf);
+                    txtPassword.clear();
+                    txtPasswordMostrata.clear();
+                } else {
+                    AlertPersonalizzato.mostraErrore("Risposta Errata", "La risposta alla domanda di sicurezza è errata.");
+                }
             }
-            if (nuovaPassword.isEmpty() || nuovaPassword.length() < 6) {
-                AlertPersonalizzato.mostraErrore("Password non valida", "La nuova password deve contenere almeno 6 caratteri.");
-                return;
-            }
-            if (!nuovaPassword.equals(conferma)) {
-                AlertPersonalizzato.mostraErrore("Password non coincidenti", "La nuova password e la conferma non coincidono.");
-                return;
-            }
+        } else {
+            // CASO B: Utente registrato in passato senza domanda di sicurezza -> Fallback con Email
+            Dialog<ButtonType> emailDialog = new Dialog<>();
+            emailDialog.setTitle("Recupero Password");
+            emailDialog.setHeaderText("Passo 2: Conferma Email di Registrazione");
 
-            boolean successo = utenteDAO.verificaRispostaEResetPassword(cf, risposta, nuovaPassword);
-            if (successo) {
-                AlertPersonalizzato.mostraInfo("Password Aggiornata!", "La tua password è stata modificata con successo. Ora puoi accedere con le nuove credenziali.");
-                txtCodiceFiscale.setText(cf);
-                txtPassword.clear();
-                txtPasswordMostrata.clear();
-            } else {
-                AlertPersonalizzato.mostraErrore("Risposta Errata", "La risposta alla domanda di sicurezza è errata.");
+            ButtonType btnConferma = new ButtonType("Reimposta Password", ButtonBar.ButtonData.OK_DONE);
+            ButtonType btnAnnulla = new ButtonType("Annulla", ButtonBar.ButtonData.CANCEL_CLOSE);
+            emailDialog.getDialogPane().getButtonTypes().addAll(btnConferma, btnAnnulla);
+
+            VBox contentBox = new VBox(10);
+            contentBox.setPadding(new Insets(15));
+
+            Label lblInfoText = new Label("Non hai ancora impostato una domanda di sicurezza.\nInserisci l'Email associata al tuo account per verificare l'identità:");
+            lblInfoText.setWrapText(true);
+            lblInfoText.setStyle("-fx-font-size: 12px;");
+
+            Label lblEmail = new Label("Email Registrata:");
+            TextField txtEmail = new TextField();
+            txtEmail.setPromptText("esempio@email.com");
+
+            Label lblNuovaPassword = new Label("Nuova Password:");
+            PasswordField pwdNuova = new PasswordField();
+            pwdNuova.setPromptText("Nuova password (minimo 6 caratteri)");
+
+            Label lblConfermaPassword = new Label("Conferma Nuova Password:");
+            PasswordField pwdConferma = new PasswordField();
+            pwdConferma.setPromptText("Ripeti la nuova password");
+
+            Label lblDomandaOpt = new Label("Imposta Domanda Sicurezza Futura (Consigliato):");
+            lblDomandaOpt.setStyle("-fx-font-weight: bold; -fx-padding: 5 0 0 0;");
+
+            javafx.scene.control.ComboBox<String> cmbDomandaOpt = new javafx.scene.control.ComboBox<>();
+            cmbDomandaOpt.setItems(javafx.collections.FXCollections.observableArrayList(
+                "(Facoltativa) Scegli domanda...",
+                "Qual è il cognome da nubile di tua madre?",
+                "In quale città sei nato/a?",
+                "Qual è la tua materia preferita a scuola?",
+                "Qual è il nome della tua prima scuola?"
+            ));
+            cmbDomandaOpt.getSelectionModel().selectFirst();
+
+            TextField txtRispostaOpt = new TextField();
+            txtRispostaOpt.setPromptText("Risposta (Facoltativa)");
+
+            contentBox.getChildren().addAll(
+                    lblInfoText,
+                    lblEmail, txtEmail,
+                    lblNuovaPassword, pwdNuova,
+                    lblConfermaPassword, pwdConferma,
+                    lblDomandaOpt, cmbDomandaOpt, txtRispostaOpt
+            );
+
+            emailDialog.getDialogPane().setContent(contentBox);
+
+            Optional<ButtonType> result = emailDialog.showAndWait();
+            if (result.isPresent() && result.get() == btnConferma) {
+                String email = txtEmail.getText().trim();
+                String nuovaPassword = pwdNuova.getText();
+                String conferma = pwdConferma.getText();
+                String domandaOpt = cmbDomandaOpt.getValue();
+                String rispostaOpt = txtRispostaOpt.getText().trim();
+
+                if (email.isEmpty()) {
+                    AlertPersonalizzato.mostraErrore("Email Mancante", "Inserisci l'indirizzo email associato al tuo account.");
+                    return;
+                }
+                if (nuovaPassword.isEmpty() || nuovaPassword.length() < 6) {
+                    AlertPersonalizzato.mostraErrore("Password non valida", "La nuova password deve contenere almeno 6 caratteri.");
+                    return;
+                }
+                if (!nuovaPassword.equals(conferma)) {
+                    AlertPersonalizzato.mostraErrore("Password non coincidenti", "La nuova password e la conferma non coincidono.");
+                    return;
+                }
+
+                String domF = (domandaOpt != null && !domandaOpt.startsWith("(Facoltativa)")) ? domandaOpt : null;
+                String risF = (domF != null) ? rispostaOpt : null;
+
+                boolean successo = utenteDAO.verificaEmailEResetPassword(cf, email, nuovaPassword, domF, risF);
+                if (successo) {
+                    AlertPersonalizzato.mostraInfo("Password Aggiornata!", "La tua password è stata modificata con successo. Ora puoi accedere con le nuove credenziali.");
+                    txtCodiceFiscale.setText(cf);
+                    txtPassword.clear();
+                    txtPasswordMostrata.clear();
+                } else {
+                    AlertPersonalizzato.mostraErrore("Email Errata", "L'indirizzo email inserito non corrisponde a quello salvato per questo Codice Fiscale.");
+                }
             }
         }
     }

@@ -154,6 +154,23 @@ public class UtenteDAO {
     }
 
     /**
+     * Verifica se un codice fiscale esiste nel database.
+     */
+    public boolean esisteUtente(String codiceFiscale) {
+        String sql = "SELECT 1 FROM utenti WHERE UPPER(codice_fiscale) = UPPER(?)";
+        Connection conn = DatabaseConnection.getConnection();
+        if (conn == null) return false;
+        try (PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setString(1, codiceFiscale);
+            try (ResultSet rs = stmt.executeQuery()) {
+                return rs.next();
+            }
+        } catch (SQLException e) {
+            return false;
+        }
+    }
+
+    /**
      * Recupera la domanda di sicurezza impostata per un dato codice fiscale.
      */
     public String recuperaDomandaSicurezza(String codiceFiscale) {
@@ -199,6 +216,49 @@ public class UtenteDAO {
             System.err.println("Errore verifica risposta e reset password: " + e.getMessage());
         }
         return false;
+    }
+
+    /**
+     * Verifica l'email dell'utente (per vecchi account senza domanda di sicurezza) e reimposta la password.
+     */
+    public boolean verificaEmailEResetPassword(String codiceFiscale, String emailData, String nuovaPasswordInChiaro, String nuovaDomanda, String nuovaRisposta) {
+        String sql = "SELECT email FROM utenti WHERE UPPER(codice_fiscale) = UPPER(?)";
+        Connection conn = DatabaseConnection.getConnection();
+        if (conn == null) return false;
+        try (PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setString(1, codiceFiscale);
+            try (ResultSet rs = stmt.executeQuery()) {
+                if (rs.next()) {
+                    String emailSalvata = rs.getString("email");
+                    if (emailSalvata != null && emailSalvata.trim().equalsIgnoreCase(emailData.trim())) {
+                        boolean ok = cambiaPassword(codiceFiscale.toUpperCase(), nuovaPasswordInChiaro);
+                        if (ok && nuovaDomanda != null && !nuovaDomanda.isEmpty() && nuovaRisposta != null && !nuovaRisposta.isEmpty()) {
+                            impostaDomandaSicurezza(codiceFiscale.toUpperCase(), nuovaDomanda, nuovaRisposta);
+                        }
+                        return ok;
+                    }
+                }
+            }
+        } catch (SQLException e) {
+            System.err.println("Errore verifica email e reset password: " + e.getMessage());
+        }
+        return false;
+    }
+
+    public boolean impostaDomandaSicurezza(String codiceFiscale, String domanda, String risposta) {
+        String sql = "UPDATE utenti SET domanda_sicurezza = ?, risposta_sicurezza = ? WHERE UPPER(codice_fiscale) = UPPER(?)";
+        Connection conn = DatabaseConnection.getConnection();
+        if (conn == null) return false;
+        try (PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setString(1, domanda);
+            String rispostaNorm = risposta.trim().toLowerCase();
+            stmt.setString(2, PasswordUtil.hashPassword(rispostaNorm));
+            stmt.setString(3, codiceFiscale);
+            return stmt.executeUpdate() > 0;
+        } catch (SQLException e) {
+            System.err.println("Errore impostazione domanda sicurezza: " + e.getMessage());
+            return false;
+        }
     }
 
     /**
