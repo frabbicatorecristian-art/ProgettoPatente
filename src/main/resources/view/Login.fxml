@@ -20,6 +20,7 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.Hyperlink?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.TextField?>
@@ -126,6 +127,9 @@
                 -->
                 <CheckBox fx:id="chkMostraPassword" text="Mostra password" onAction="#gestisciMostraPassword"
                           GridPane.columnIndex="1" GridPane.rowIndex="2" styleClass="form-label"/>
+
+                <Hyperlink fx:id="linkPasswordDimenticata" text="Hai dimenticato la password?" onAction="#gestisciPasswordDimenticata"
+                           GridPane.columnIndex="1" GridPane.rowIndex="3" style="-fx-text-fill: #3b82f6; -fx-font-size: 13px; -fx-padding: 5 0 0 0;"/>
 
             </children>
         </GridPane>

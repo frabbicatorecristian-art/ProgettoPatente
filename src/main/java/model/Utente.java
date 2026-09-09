@@ -22,6 +22,8 @@ public class Utente {
     private String email;
     private String codiceFiscale;
     private String dataIscrizione;  // Formato "dd/MM/yyyy"
+    private String domandaSicurezza;
+    private String rispostaSicurezza;
 
     // =========================================================================
     // COSTRUTTORI
@@ -37,11 +39,17 @@ public class Utente {
      * @param codiceFiscale Codice Fiscale (16 caratteri, maiuscolo)
      */
     public Utente(String nome, String cognome, String email, String codiceFiscale) {
+        this(nome, cognome, email, codiceFiscale, null, null);
+    }
+
+    public Utente(String nome, String cognome, String email, String codiceFiscale,
+                  String domandaSicurezza, String rispostaSicurezza) {
         this.nome = nome;
         this.cognome = cognome;
         this.email = email;
         this.codiceFiscale = codiceFiscale;
-        // Imposta la data di iscrizione al momento attuale
+        this.domandaSicurezza = domandaSicurezza;
+        this.rispostaSicurezza = rispostaSicurezza;
         this.dataIscrizione = LocalDate.now()
                 .format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
     }
@@ -49,40 +57,46 @@ public class Utente {
     /**
      * Costruttore con data esplicita: usato quando i dati vengono caricati dal database
      * e la data di iscrizione è già memorizzata.
-     *
-     * @param nome           Nome dell'utente
-     * @param cognome        Cognome dell'utente
-     * @param email          Indirizzo email
-     * @param codiceFiscale  Codice Fiscale
-     * @param dataIscrizione Data di iscrizione già formattata (es. "05/01/2026")
      */
     public Utente(String nome, String cognome, String email,
                   String codiceFiscale, String dataIscrizione) {
+        this(nome, cognome, email, codiceFiscale, dataIscrizione, null, null);
+    }
+
+    public Utente(String nome, String cognome, String email,
+                  String codiceFiscale, String dataIscrizione,
+                  String domandaSicurezza, String rispostaSicurezza) {
         this.nome = nome;
         this.cognome = cognome;
         this.email = email;
         this.codiceFiscale = codiceFiscale;
         this.dataIscrizione = dataIscrizione;
+        this.domandaSicurezza = domandaSicurezza;
+        this.rispostaSicurezza = rispostaSicurezza;
     }
 
     // =========================================================================
     // GETTER
     // =========================================================================
 
-    public String getNome()           { return nome; }
-    public String getCognome()        { return cognome; }
-    public String getNomeCompleto()   { return nome + " " + cognome; }
-    public String getEmail()          { return email; }
-    public String getCodiceFiscale()  { return codiceFiscale; }
-    public String getDataIscrizione() { return dataIscrizione; }
+    public String getNome()             { return nome; }
+    public String getCognome()          { return cognome; }
+    public String getNomeCompleto()     { return nome + " " + cognome; }
+    public String getEmail()            { return email; }
+    public String getCodiceFiscale()    { return codiceFiscale; }
+    public String getDataIscrizione()   { return dataIscrizione; }
+    public String getDomandaSicurezza()  { return domandaSicurezza; }
+    public String getRispostaSicurezza() { return rispostaSicurezza; }
 
     // =========================================================================
     // SETTER (solo i campi modificabili dall'utente)
     // =========================================================================
 
-    public void setNome(String nome)         { this.nome = nome; }
-    public void setCognome(String cognome)   { this.cognome = cognome; }
-    public void setEmail(String email)       { this.email = email; }
+    public void setNome(String nome)                     { this.nome = nome; }
+    public void setCognome(String cognome)               { this.cognome = cognome; }
+    public void setEmail(String email)                   { this.email = email; }
+    public void setDomandaSicurezza(String d)            { this.domandaSicurezza = d; }
+    public void setRispostaSicurezza(String r)           { this.rispostaSicurezza = r; }
 
     // =========================================================================
     // UTILITY
