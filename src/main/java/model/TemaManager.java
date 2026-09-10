@@ -52,7 +52,25 @@ public class TemaManager {
      * Costruttore privato per impedire l'istanziazione diretta della classe.
      * La creazione dell'istanza è controllata dal metodo statico getInstance().
      */
-    private TemaManager() {}
+    private TemaManager() {
+        try {
+            javafx.stage.Window.getWindows().addListener((javafx.collections.ListChangeListener<javafx.stage.Window>) change -> {
+                while (change.next()) {
+                    if (change.wasAdded()) {
+                        for (javafx.stage.Window w : change.getAddedSubList()) {
+                            if (isTemaScuro()) {
+                                javafx.application.Platform.runLater(() -> {
+                                    if (w.getScene() != null && w.getScene().getRoot() instanceof javafx.scene.layout.Region) {
+                                        applicaTemaANodo((javafx.scene.layout.Region) w.getScene().getRoot(), true);
+                                    }
+                                });
+                            }
+                        }
+                    }
+                }
+            });
+        } catch (Exception ignored) {}
+    }
 
     // =====================================================================
     // METODI SINGLETON - Accesso all'istanza unica
@@ -93,6 +111,11 @@ public class TemaManager {
      */
     public void setTemaScuro(boolean scuro) { 
         this.temaScuro = scuro; 
+        for (javafx.stage.Window w : javafx.stage.Window.getWindows()) {
+            if (w.getScene() != null && w.getScene().getRoot() instanceof javafx.scene.layout.Region) {
+                applicaTemaANodo((javafx.scene.layout.Region) w.getScene().getRoot(), scuro);
+            }
+        }
     }
 
     // =====================================================================
@@ -121,7 +144,11 @@ public class TemaManager {
      */
     public void applicaTemaTemporaneo(Scene scene, boolean scuro) {
         if (scene == null) return;
-        applicaTemaANodo((javafx.scene.layout.Region) scene.getRoot(), scuro);
+        for (javafx.stage.Window w : javafx.stage.Window.getWindows()) {
+            if (w.getScene() != null && w.getScene().getRoot() instanceof javafx.scene.layout.Region) {
+                applicaTemaANodo((javafx.scene.layout.Region) w.getScene().getRoot(), scuro);
+            }
+        }
     }
 
     /**

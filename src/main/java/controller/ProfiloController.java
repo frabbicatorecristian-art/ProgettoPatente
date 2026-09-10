@@ -161,21 +161,46 @@ public class ProfiloController extends BaseController {
         javafx.scene.control.TextField txtEmail = new javafx.scene.control.TextField(u.getEmail());
         javafx.scene.control.PasswordField txtPassword = new javafx.scene.control.PasswordField();
         javafx.scene.control.PasswordField txtConferma = new javafx.scene.control.PasswordField();
+        javafx.scene.control.TextField tfPassword = new javafx.scene.control.TextField();
+        javafx.scene.control.TextField tfConferma = new javafx.scene.control.TextField();
 
         txtNome.setPrefWidth(240);
         txtCognome.setPrefWidth(240);
         txtEmail.setPrefWidth(240);
         txtPassword.setPrefWidth(240);
         txtConferma.setPrefWidth(240);
+        tfPassword.setPrefWidth(240);
+        tfConferma.setPrefWidth(240);
 
         txtPassword.setPromptText("Lascia vuoto per non cambiare");
         txtConferma.setPromptText("Conferma nuova password");
+        tfPassword.setPromptText("Lascia vuoto per non cambiare");
+        tfConferma.setPromptText("Conferma nuova password");
+
+        tfPassword.setVisible(false); tfPassword.setManaged(false);
+        tfConferma.setVisible(false); tfConferma.setManaged(false);
+
+        tfPassword.textProperty().bindBidirectional(txtPassword.textProperty());
+        tfConferma.textProperty().bindBidirectional(txtConferma.textProperty());
+
+        javafx.scene.layout.StackPane stackPassword = new javafx.scene.layout.StackPane(txtPassword, tfPassword);
+        javafx.scene.layout.StackPane stackConferma = new javafx.scene.layout.StackPane(txtConferma, tfConferma);
+
+        javafx.scene.control.CheckBox chkMostra = new javafx.scene.control.CheckBox("Mostra password");
+        chkMostra.setOnAction(e -> {
+            boolean mostra = chkMostra.isSelected();
+            tfPassword.setVisible(mostra); tfPassword.setManaged(mostra);
+            txtPassword.setVisible(!mostra); txtPassword.setManaged(!mostra);
+            tfConferma.setVisible(mostra); tfConferma.setManaged(mostra);
+            txtConferma.setVisible(!mostra); txtConferma.setManaged(!mostra);
+        });
 
         grid.add(new Label("Nome:"), 0, 0); grid.add(txtNome, 1, 0);
         grid.add(new Label("Cognome:"), 0, 1); grid.add(txtCognome, 1, 1);
         grid.add(new Label("Email:"), 0, 2); grid.add(txtEmail, 1, 2);
-        grid.add(new Label("Nuova Password:"), 0, 3); grid.add(txtPassword, 1, 3);
-        grid.add(new Label("Conferma Password:"), 0, 4); grid.add(txtConferma, 1, 4);
+        grid.add(new Label("Nuova Password:"), 0, 3); grid.add(stackPassword, 1, 3);
+        grid.add(new Label("Conferma Password:"), 0, 4); grid.add(stackConferma, 1, 4);
+        grid.add(chkMostra, 1, 5);
 
         dialog.getDialogPane().setContent(grid);
 

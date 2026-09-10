@@ -1089,7 +1089,8 @@
     -fx-effect: null;
 }
 
-.root-form .hyperlink {
+.root-form .hyperlink,
+.root-form .hyperlink:visited {
     -fx-text-fill: white;
     -fx-border-color: transparent;
     -fx-underline: true;
@@ -1098,4 +1099,113 @@
     -fx-text-fill: #e0f2fe;
 }
 
+.hyperlink,
+.hyperlink:visited {
+    -fx-border-color: transparent;
+    -fx-underline: true;
+}
+
 .dark-theme .label { -fx-text-fill: #f8fafc; }
+
+/* =================================================================================
+   CONTEXT MENU & DROPDOWN STYLING (Light & Dark Theme)
+   ================================================================================= */
+
+/* Light Theme Defaults */
+.context-menu {
+    -fx-background-color: #ffffff;
+    -fx-border-color: #cbd5e1;
+    -fx-border-radius: 8px;
+    -fx-background-radius: 8px;
+    -fx-padding: 4px;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.15), 10, 0, 0, 4);
+}
+
+.menu-item {
+    -fx-padding: 8px 14px;
+    -fx-background-radius: 6px;
+}
+
+.menu-item > .label {
+    -fx-text-fill: #1e293b;
+    -fx-font-size: 13px;
+    -fx-font-weight: bold;
+}
+
+.menu-item:focused, .menu-item:hover {
+    -fx-background-color: #e0f2fe;
+}
+
+.menu-item:focused > .label, .menu-item:hover > .label {
+    -fx-text-fill: #0284c7;
+}
+
+/* Dark Theme Dropdowns & Popups */
+.dark-theme.context-menu,
+.dark-theme .context-menu {
+    -fx-background-color: #1e293b;
+    -fx-border-color: #334155;
+    -fx-border-radius: 8px;
+    -fx-background-radius: 8px;
+    -fx-padding: 4px;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.4), 12, 0, 0, 5);
+}
+
+.dark-theme .menu-item {
+    -fx-background-color: #1e293b;
+    -fx-padding: 8px 14px;
+    -fx-background-radius: 6px;
+}
+
+.dark-theme .menu-item > .label {
+    -fx-text-fill: #f8fafc !important;
+}
+
+.dark-theme .menu-item:focused, .dark-theme .menu-item:hover {
+    -fx-background-color: #0284c7;
+}
+
+.dark-theme .menu-item:focused > .label, .dark-theme .menu-item:hover > .label {
+    -fx-text-fill: #ffffff !important;
+}
+
+/* DialogPane styling in Dark Theme */
+.dark-theme.dialog-pane,
+.dark-theme .dialog-pane {
+    -fx-background-color: #1e293b;
+}
+
+.dark-theme .dialog-pane > .content.label,
+.dark-theme .dialog-pane .label {
+    -fx-text-fill: #f8fafc;
+}
+
+.dark-theme .dialog-pane .header-panel {
+    -fx-background-color: #0f172a;
+}
+
+.dark-theme .dialog-pane .header-panel .label {
+    -fx-text-fill: #f8fafc;
+}
+
+.dark-theme .dialog-pane .button {
+    -fx-background-color: #334155;
+    -fx-text-fill: #f8fafc;
+    -fx-font-weight: bold;
+    -fx-background-radius: 6px;
+    -fx-cursor: hand;
+}
+
+.dark-theme .dialog-pane .button:hover {
+    -fx-background-color: #0284c7;
+    -fx-text-fill: #ffffff;
+}
+
+.dark-theme .text-field, .dark-theme .password-field {
+    -fx-background-color: #0f172a;
+    -fx-text-fill: #f8fafc;
+    -fx-prompt-text-fill: #94a3b8;
+    -fx-border-color: #334155;
+    -fx-border-radius: 6px;
+    -fx-background-radius: 6px;
+}

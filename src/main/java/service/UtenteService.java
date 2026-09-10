@@ -168,6 +168,11 @@ public class UtenteService {
             return errorePassword;
         }
 
+        String hashAttuale = utenteDAO.getPasswordHash(codiceFiscale);
+        if (hashAttuale != null && util.PasswordUtil.checkPassword(nuovaPassword, hashAttuale)) {
+            return "La nuova password non può essere uguale a quella precedente.";
+        }
+
         boolean successo = utenteDAO.cambiaPassword(codiceFiscale, nuovaPassword);
         if (!successo) {
             return "Impossibile aggiornare la password nel database.";

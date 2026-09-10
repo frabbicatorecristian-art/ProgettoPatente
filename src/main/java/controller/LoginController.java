@@ -119,17 +119,38 @@ public class LoginController extends BaseController {
 
         Label lblNuovaPassword = new Label("Nuova Password:");
         PasswordField pwdNuova = new PasswordField();
-        pwdNuova.setPromptText("Nuova password (minimo 6 caratteri)");
+        pwdNuova.setPromptText("Nuova password (minimo 8 caratteri)");
+        TextField txtNuova = new TextField();
+        txtNuova.setPromptText(pwdNuova.getPromptText());
+        txtNuova.setVisible(false); txtNuova.setManaged(false);
+        txtNuova.textProperty().bindBidirectional(pwdNuova.textProperty());
 
         Label lblConfermaPassword = new Label("Conferma Nuova Password:");
         PasswordField pwdConferma = new PasswordField();
         pwdConferma.setPromptText("Ripeti la nuova password");
+        TextField txtConferma = new TextField();
+        txtConferma.setPromptText(pwdConferma.getPromptText());
+        txtConferma.setVisible(false); txtConferma.setManaged(false);
+        txtConferma.textProperty().bindBidirectional(pwdConferma.textProperty());
+
+        javafx.scene.layout.StackPane stackNuova = new javafx.scene.layout.StackPane(pwdNuova, txtNuova);
+        javafx.scene.layout.StackPane stackConferma = new javafx.scene.layout.StackPane(pwdConferma, txtConferma);
+
+        CheckBox chkMostraRecupero = new CheckBox("Mostra password");
+        chkMostraRecupero.setOnAction(e -> {
+            boolean mostra = chkMostraRecupero.isSelected();
+            txtNuova.setVisible(mostra); txtNuova.setManaged(mostra);
+            pwdNuova.setVisible(!mostra); pwdNuova.setManaged(!mostra);
+            txtConferma.setVisible(mostra); txtConferma.setManaged(!mostra);
+            pwdConferma.setVisible(!mostra); pwdConferma.setManaged(!mostra);
+        });
 
         contentBox.getChildren().addAll(
                 lblDomandaTitle, lblDomandaText,
                 lblRisposta, txtRisposta,
-                lblNuovaPassword, pwdNuova,
-                lblConfermaPassword, pwdConferma
+                lblNuovaPassword, stackNuova,
+                lblConfermaPassword, stackConferma,
+                chkMostraRecupero
         );
 
         recoveryDialog.getDialogPane().setContent(contentBox);
@@ -144,12 +165,18 @@ public class LoginController extends BaseController {
                 AlertPersonalizzato.mostraErrore("Risposta Mancante", "Devi inserire la risposta alla domanda di sicurezza.");
                 return;
             }
-            if (nuovaPassword.isEmpty() || nuovaPassword.length() < 6) {
-                AlertPersonalizzato.mostraErrore("Password non valida", "La nuova password deve contenere almeno 6 caratteri.");
+            if (nuovaPassword.isEmpty() || nuovaPassword.length() < 8) {
+                AlertPersonalizzato.mostraErrore("Password non valida", "La nuova password deve contenere almeno 8 caratteri.");
                 return;
             }
             if (!nuovaPassword.equals(conferma)) {
                 AlertPersonalizzato.mostraErrore("Password non coincidenti", "La nuova password e la conferma non coincidono.");
+                return;
+            }
+
+            String hashSalvato = utenteDAO.getPasswordHash(cf);
+            if (hashSalvato != null && util.PasswordUtil.checkPassword(nuovaPassword, hashSalvato)) {
+                AlertPersonalizzato.mostraErrore("Password non valida", "La nuova password non può essere uguale a quella precedente.");
                 return;
             }
 

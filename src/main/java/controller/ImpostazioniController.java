@@ -276,13 +276,39 @@ public class ImpostazioniController extends BaseController {
         grid.setVgap(14);                                           // Spazio verticale tra righe: 14 pixel
         grid.setPadding(new Insets(20, 30, 10, 20));                // Margini interni: 20px sopra, 30px destra, 10px sotto, 20px sinistra
 
-        // Crea i due campi PasswordField per l'inserimento della nuova password
+        // Crea i campi PasswordField per l'inserimento della nuova password
         PasswordField pfNuova    = new PasswordField();
         PasswordField pfConferma = new PasswordField();
-        pfNuova.setPromptText("Minimo 6 caratteri");                // Testo di placeholder per il primo campo
-        pfConferma.setPromptText("Ripeti la nuova password");       // Testo di placeholder per il secondo campo
-        pfNuova.setPrefWidth(240);                                  // Larghezza preferita: 240 pixel
-        pfConferma.setPrefWidth(240);                               // Larghezza preferita: 240 pixel
+        javafx.scene.control.TextField tfNuova = new javafx.scene.control.TextField();
+        javafx.scene.control.TextField tfConferma = new javafx.scene.control.TextField();
+
+        pfNuova.setPromptText("Minimo 8 caratteri");
+        pfConferma.setPromptText("Ripeti la nuova password");
+        tfNuova.setPromptText("Minimo 8 caratteri");
+        tfConferma.setPromptText("Ripeti la nuova password");
+
+        pfNuova.setPrefWidth(240);
+        pfConferma.setPrefWidth(240);
+        tfNuova.setPrefWidth(240);
+        tfConferma.setPrefWidth(240);
+
+        tfNuova.setVisible(false); tfNuova.setManaged(false);
+        tfConferma.setVisible(false); tfConferma.setManaged(false);
+
+        tfNuova.textProperty().bindBidirectional(pfNuova.textProperty());
+        tfConferma.textProperty().bindBidirectional(pfConferma.textProperty());
+
+        javafx.scene.layout.StackPane stackNuova = new javafx.scene.layout.StackPane(pfNuova, tfNuova);
+        javafx.scene.layout.StackPane stackConferma = new javafx.scene.layout.StackPane(pfConferma, tfConferma);
+
+        javafx.scene.control.CheckBox chkMostra = new javafx.scene.control.CheckBox("Mostra password");
+        chkMostra.setOnAction(e -> {
+            boolean mostra = chkMostra.isSelected();
+            tfNuova.setVisible(mostra); tfNuova.setManaged(mostra);
+            pfNuova.setVisible(!mostra); pfNuova.setManaged(!mostra);
+            tfConferma.setVisible(mostra); tfConferma.setManaged(mostra);
+            pfConferma.setVisible(!mostra); pfConferma.setManaged(!mostra);
+        });
 
         // Crea le etichette per le righe della griglia
         Label lblNuova    = new Label("Nuova password:");
@@ -291,9 +317,10 @@ public class ImpostazioniController extends BaseController {
         lblErrore.setStyle("-fx-text-fill: #ef4444; -fx-font-size: 12px;"); // Stile CSS: testo rosso, font 12px
 
         // Aggiunge i componenti alla griglia (colonna, riga)
-        grid.add(lblNuova,    0, 0); grid.add(pfNuova,    1, 0);   // Riga 0: "Nuova password:" e campo input
-        grid.add(lblConf,     0, 1); grid.add(pfConferma, 1, 1);   // Riga 1: "Conferma password:" e campo input
-        grid.add(lblErrore,   1, 2);                               // Riga 2: Etichetta per i messaggi di errore
+        grid.add(lblNuova,    0, 0); grid.add(stackNuova,    1, 0);   // Riga 0: "Nuova password:" e campo input
+        grid.add(lblConf,     0, 1); grid.add(stackConferma, 1, 1);   // Riga 1: "Conferma password:" e campo input
+        grid.add(chkMostra,   1, 2);
+        grid.add(lblErrore,   1, 3);                               // Riga 3: Etichetta per i messaggi di errore
 
         // Inserisce la griglia nel dialogo come contenuto principale
         dialog.getDialogPane().setContent(grid);

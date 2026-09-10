@@ -202,6 +202,26 @@ public class UtenteDAO {
     }
 
     /**
+     * Recupera l'hash della password memorizzato nel DB per un dato codice fiscale.
+     */
+    public String getPasswordHash(String codiceFiscale) {
+        String sql = "SELECT password FROM utenti WHERE UPPER(codice_fiscale) = UPPER(?)";
+        Connection conn = DatabaseConnection.getConnection();
+        if (conn == null) return null;
+        try (PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setString(1, codiceFiscale);
+            try (ResultSet rs = stmt.executeQuery()) {
+                if (rs.next()) {
+                    return rs.getString("password");
+                }
+            }
+        } catch (SQLException e) {
+            System.err.println("Errore recupero hash password: " + e.getMessage());
+        }
+        return null;
+    }
+
+    /**
      * =============================================================================
      * 3. CAMBIO PASSWORD (UPDATE)
      * =============================================================================
