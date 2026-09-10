@@ -61,28 +61,52 @@
                     <RowConstraints percentHeight="50.0" vgrow="ALWAYS" />
                 </rowConstraints>
                 <children>
-                    <VBox styleClass="teoria-module-btn" GridPane.columnIndex="0" GridPane.rowIndex="0" maxWidth="Infinity" maxHeight="Infinity" onMouseClicked="#apriModulo1">
-                        <Label text="Ã°Å¸â€ºâ€˜" styleClass="teoria-module-emoji"/>
+                    <VBox styleClass="teoria-module-btn" alignment="CENTER" GridPane.columnIndex="0" GridPane.rowIndex="0" maxWidth="Infinity" maxHeight="Infinity" onMouseClicked="#apriModulo1">
+                        <ImageView fitHeight="48.0" fitWidth="48.0" preserveRatio="true">
+                            <image>
+                                <Image url="@../images/teoria/modulo1/segnaletica_teoria.png" />
+                            </image>
+                        </ImageView>
                         <Label text="SEGNALETICA VERTICALE E ORIZZONTALE" styleClass="teoria-module-text"/>
                     </VBox>
-                    <VBox styleClass="teoria-module-btn" GridPane.columnIndex="1" GridPane.rowIndex="0" maxWidth="Infinity" maxHeight="Infinity">
-                        <Label text="Ã°Å¸â€ºÂ£Ã¯Â¸Â" styleClass="teoria-module-emoji"/>
+                    <VBox styleClass="teoria-module-btn" alignment="CENTER" GridPane.columnIndex="1" GridPane.rowIndex="0" maxWidth="Infinity" maxHeight="Infinity" onMouseClicked="#apriModulo1">
+                        <ImageView fitHeight="48.0" fitWidth="48.0" preserveRatio="true">
+                            <image>
+                                <Image url="@../images/teoria/modulo1/comportamento_sicurezza.png" />
+                            </image>
+                        </ImageView>
                         <Label text="NORME DI COMPORTAMENTO E SICUREZZA" styleClass="teoria-module-text"/>
                     </VBox>
-                    <VBox styleClass="teoria-module-btn" GridPane.columnIndex="2" GridPane.rowIndex="0" maxWidth="Infinity" maxHeight="Infinity">
-                        <Label text="Ã°Å¸â€â‚¬" styleClass="teoria-module-emoji"/>
+                    <VBox styleClass="teoria-module-btn" alignment="CENTER" GridPane.columnIndex="2" GridPane.rowIndex="0" maxWidth="Infinity" maxHeight="Infinity" onMouseClicked="#apriModulo1">
+                        <ImageView fitHeight="48.0" fitWidth="48.0" preserveRatio="true">
+                            <image>
+                                <Image url="@../images/teoria/modulo1/precedenza_incroci.png" />
+                            </image>
+                        </ImageView>
                         <Label text="PRECEDENZE E INCROCI" styleClass="teoria-module-text"/>
                     </VBox>
-                    <VBox styleClass="teoria-module-btn" GridPane.columnIndex="0" GridPane.rowIndex="1" maxWidth="Infinity" maxHeight="Infinity">
-                        <Label text="Ã°Å¸Å¡â€˜" styleClass="teoria-module-emoji"/>
+                    <VBox styleClass="teoria-module-btn" alignment="CENTER" GridPane.columnIndex="0" GridPane.rowIndex="1" maxWidth="Infinity" maxHeight="Infinity" onMouseClicked="#apriModulo1">
+                        <ImageView fitHeight="48.0" fitWidth="48.0" preserveRatio="true">
+                            <image>
+                                <Image url="@../images/teoria/modulo1/emergenza_soccorso.png" />
+                            </image>
+                        </ImageView>
                         <Label text="MANOVRE DI EMERGENZA E PRIMO SOCCORSO" styleClass="teoria-module-text"/>
                     </VBox>
-                    <VBox styleClass="teoria-module-btn" GridPane.columnIndex="1" GridPane.rowIndex="1" maxWidth="Infinity" maxHeight="Infinity">
-                        <Label text="Ã°Å¸â€œâ€ž" styleClass="teoria-module-emoji"/>
+                    <VBox styleClass="teoria-module-btn" alignment="CENTER" GridPane.columnIndex="1" GridPane.rowIndex="1" maxWidth="Infinity" maxHeight="Infinity" onMouseClicked="#apriModulo1">
+                        <ImageView fitHeight="48.0" fitWidth="48.0" preserveRatio="true">
+                            <image>
+                                <Image url="@../images/teoria/modulo1/documenti_patenti.png" />
+                            </image>
+                        </ImageView>
                         <Label text="TIPI DI PATENTE E DOCUMENTI" styleClass="teoria-module-text"/>
                     </VBox>
-                    <VBox styleClass="teoria-module-btn" GridPane.columnIndex="2" GridPane.rowIndex="1" maxWidth="Infinity" maxHeight="Infinity">
-                        <Label text="Ã¢Å¡â„¢Ã¯Â¸Â" styleClass="teoria-module-emoji"/>
+                    <VBox styleClass="teoria-module-btn" alignment="CENTER" GridPane.columnIndex="2" GridPane.rowIndex="1" maxWidth="Infinity" maxHeight="Infinity" onMouseClicked="#apriModulo1">
+                        <ImageView fitHeight="48.0" fitWidth="48.0" preserveRatio="true">
+                            <image>
+                                <Image url="@../images/teoria/modulo1/mechanic_car.png" />
+                            </image>
+                        </ImageView>
                         <Label text="MECCANICA E FUNZIONAMENTO MEZZO" styleClass="teoria-module-text"/>
                     </VBox>
                 </children>
