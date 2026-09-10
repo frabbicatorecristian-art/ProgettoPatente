@@ -561,20 +561,59 @@
     -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.35), 14, 0, 0, 3);
 }
 
+.dark-theme .profile-card {
+    -fx-background-color: #1e293b;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.35), 14, 0, 0, 3);
+}
+
+.profile-avatar-box {
+    -fx-background-color: #dbeafe;
+    -fx-background-radius: 50%;
+}
+.dark-theme .profile-avatar-box {
+    -fx-background-color: #334155;
+}
+
+.profile-role-badge {
+    -fx-font-size: 12px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #0284c7;
+    -fx-background-color: #e0f2fe;
+    -fx-background-radius: 20px;
+    -fx-padding: 4px 14px;
+}
+.dark-theme .profile-role-badge {
+    -fx-text-fill: #38bdf8;
+    -fx-background-color: #0c4a6e;
+    -fx-border-color: #0284c7;
+    -fx-border-radius: 20px;
+}
+
 .dark-theme .profile-name {
-    -fx-text-fill: #f8fafc;
+    -fx-text-fill: #ffffff !important;
 }
 
 .dark-theme .profile-field-label {
-    -fx-text-fill: #94a3b8;
+    -fx-text-fill: #38bdf8 !important;
+    -fx-font-weight: bold;
 }
 
 .dark-theme .profile-field-value {
-    -fx-text-fill: #f8fafc;
+    -fx-text-fill: #ffffff !important;
+    -fx-font-weight: bold;
 }
 
 .dark-theme .profile-icon-box {
-    -fx-background-color: #e2e8f0;
+    -fx-background-color: #334155;
+    -fx-background-radius: 10px;
+}
+
+.dark-theme .profile-icon-box > .label {
+    -fx-text-fill: #ffffff !important;
+}
+
+.dark-theme .profile-icon-box > .image-view {
+    -fx-effect: colorAdjust(0, 0, 0.9, 0);
 }
 
 .dark-theme .profile-row-divider {
@@ -660,11 +699,12 @@
 
 
 .dark-theme .header-deco-box {
-    -fx-background-color: #f1f5f9;
+    -fx-background-color: #334155;
+    -fx-background-radius: 12px;
 }
 
 .dark-theme .navbar-logo-box {
-    -fx-background-color: #f1f5f9;
+    -fx-background-color: #334155;
     -fx-background-radius: 8px;
     -fx-padding: 4px;
 }
@@ -847,8 +887,6 @@
 .dark-theme .stat-box .form-label,
 .dark-theme .stat-box .label {
     -fx-text-fill: #f8fafc;
-    -fx-background-color: #0f172a;
-    -fx-border-color: #334155;
 }
 
 /* History Row in Quiz Dashboard */
@@ -1208,4 +1246,72 @@
     -fx-border-color: #334155;
     -fx-border-radius: 6px;
     -fx-background-radius: 6px;
+}
+
+/* =================================================================================
+   QUIZ & VEICOLI & PATENTI - PILLS E BADGES (Alto Contrasto Tema Scuro)
+   ================================================================================= */
+.quiz-counter-pill {
+    -fx-background-color: #dbeafe;
+    -fx-text-fill: #1e40af;
+    -fx-padding: 8px 16px;
+    -fx-background-radius: 20px;
+    -fx-font-weight: bold;
+    -fx-font-size: 14px;
+}
+.dark-theme .quiz-counter-pill {
+    -fx-background-color: #1e3a8a;
+    -fx-text-fill: #93c5fd;
+}
+
+.quiz-timer-pill {
+    -fx-background-color: #fee2e2;
+    -fx-text-fill: #b91c1c;
+    -fx-padding: 8px 16px;
+    -fx-background-radius: 20px;
+    -fx-font-weight: bold;
+    -fx-font-size: 14px;
+}
+.dark-theme .quiz-timer-pill {
+    -fx-background-color: #7f1d1d;
+    -fx-text-fill: #fca5a5;
+}
+
+.badge-scadenza-ok {
+    -fx-background-color: #bbf7d0;
+    -fx-text-fill: #166534;
+    -fx-padding: 6px 12px;
+    -fx-background-radius: 6px;
+    -fx-font-weight: bold;
+}
+.dark-theme .badge-scadenza-ok {
+    -fx-background-color: #14532d;
+    -fx-text-fill: #86efac;
+}
+
+.patenti-alert-box {
+    -fx-background-color: #a7f3d0;
+    -fx-background-radius: 8px;
+    -fx-padding: 15px;
+}
+.dark-theme .patenti-alert-box {
+    -fx-background-color: #064e3b;
+    -fx-border-color: #10b981;
+    -fx-border-radius: 8px;
+}
+.patenti-alert-title {
+    -fx-font-weight: bold;
+    -fx-font-size: 11px;
+    -fx-text-fill: #064e3b;
+}
+.dark-theme .patenti-alert-title {
+    -fx-text-fill: #6ee7b7 !important;
+}
+.patenti-alert-value {
+    -fx-font-size: 20px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #064e3b;
+}
+.dark-theme .patenti-alert-value {
+    -fx-text-fill: #ffffff !important;
 }

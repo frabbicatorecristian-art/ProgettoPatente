@@ -99,7 +99,7 @@
                         <VBox alignment="CENTER" spacing="10.0">
                             <children>
                                 <StackPane maxHeight="90.0" maxWidth="90.0" prefHeight="90.0" prefWidth="90.0"
-                                           style="-fx-background-color: #dbeafe; -fx-background-radius: 50%;">
+                                           styleClass="profile-avatar-box">
                                     <children>
                                         <ImageView fitHeight="52.0" fitWidth="52.0" preserveRatio="true">
                                             <image><Image url="@../images/icons/user-account.png" /></image>
@@ -110,7 +110,7 @@
                                 <Label fx:id="lblNomeCompleto" styleClass="profile-name" text="Cristian Fabbricatore" />
 
                                 <Label fx:id="lblRuolo"
-                                       style="-fx-font-size: 12px; -fx-font-weight: bold; -fx-text-fill: #0284c7; -fx-background-color: #e0f2fe; -fx-background-radius: 20px; -fx-padding: 4px 14px;"
+                                       styleClass="profile-role-badge"
                                        text="Utente MyPatenti" />
                             </children>
                             <padding><Insets top="30.0" bottom="20.0" /></padding>

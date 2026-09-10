@@ -16,8 +16,8 @@
     <top>
         <HBox alignment="CENTER_RIGHT" spacing="15.0" style="-fx-padding: 20 30 10 30;">
             <children>
-                <Label fx:id="lblContatore" text="1 di 30" style="-fx-background-color: #dbeafe; -fx-text-fill: #1e40af; -fx-padding: 8 16; -fx-background-radius: 20; -fx-font-weight: bold; -fx-font-size: 14px;" />
-                <Label fx:id="lblTimer" text="20:00" style="-fx-background-color: #fee2e2; -fx-text-fill: #b91c1c; -fx-padding: 8 16; -fx-background-radius: 20; -fx-font-weight: bold; -fx-font-size: 14px;" />
+                <Label fx:id="lblContatore" text="1 di 30" styleClass="quiz-counter-pill" />
+                <Label fx:id="lblTimer" text="20:00" styleClass="quiz-timer-pill" />
             </children>
         </HBox>
     </top>

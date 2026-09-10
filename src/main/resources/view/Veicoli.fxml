@@ -164,7 +164,7 @@
                                     </VBox>
                                 </children>
                             </GridPane>
-                            <Label fx:id="lblScadenzaAssicurazione" text="Scadenza prevista: [Calcolata in tempo reale]" style="-fx-background-color: #bbf7d0; -fx-text-fill: #166534; -fx-padding: 5px; -fx-background-radius: 4px;"/>
+                            <Label fx:id="lblScadenzaAssicurazione" text="Scadenza prevista: [Calcolata in tempo reale]" styleClass="badge-scadenza-ok"/>
                             
                             <!-- Separatore -->
                             <Region prefHeight="10.0" />
@@ -191,7 +191,7 @@
                                 </children>
                             </VBox>
                             
-                            <Label fx:id="lblScadenzaRevisione" text="Scadenza ricalcolata: [Calcolata in tempo reale]" style="-fx-background-color: #bbf7d0; -fx-text-fill: #166534; -fx-padding: 5px; -fx-background-radius: 4px;"/>
+                            <Label fx:id="lblScadenzaRevisione" text="Scadenza ricalcolata: [Calcolata in tempo reale]" styleClass="badge-scadenza-ok"/>
                         </children>
                     </VBox>
                 </GridPane>

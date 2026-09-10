@@ -218,10 +218,10 @@
                                             <DatePicker fx:id="dpNuovaDataRilascio" promptText="Seleziona data" maxWidth="Infinity" styleClass="input-field"/>
                                             
                                             <!-- Feedback -->
-                                            <HBox style="-fx-background-color: #a7f3d0; -fx-background-radius: 8; -fx-padding: 15;" alignment="CENTER_LEFT" spacing="10">
+                                            <HBox styleClass="patenti-alert-box" alignment="CENTER_LEFT" spacing="10">
                                                 <VBox>
-                                                    <Label text="SCADENZA PREVISTA:" style="-fx-font-weight: bold; -fx-font-size: 11px; -fx-text-fill: #064e3b;"/>
-                                                    <Label fx:id="lblNuovaScadenzaCalcolata" text="--/--/----" style="-fx-font-size: 20px; -fx-font-weight: bold; -fx-text-fill: #064e3b;"/>
+                                                    <Label text="SCADENZA PREVISTA:" styleClass="patenti-alert-title"/>
+                                                    <Label fx:id="lblNuovaScadenzaCalcolata" text="--/--/----" styleClass="patenti-alert-value"/>
                                                 </VBox>
                                             </HBox>
                                         </VBox>
