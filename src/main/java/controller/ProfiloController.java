@@ -177,29 +177,24 @@ public class ProfiloController extends BaseController {
         tfPassword.setPromptText("Lascia vuoto per non cambiare");
         tfConferma.setPromptText("Conferma nuova password");
 
-        tfPassword.setVisible(false); tfPassword.setManaged(false);
-        tfConferma.setVisible(false); tfConferma.setManaged(false);
-
         tfPassword.textProperty().bindBidirectional(txtPassword.textProperty());
         tfConferma.textProperty().bindBidirectional(txtConferma.textProperty());
-
-        javafx.scene.layout.StackPane stackPassword = new javafx.scene.layout.StackPane(txtPassword, tfPassword);
-        javafx.scene.layout.StackPane stackConferma = new javafx.scene.layout.StackPane(txtConferma, tfConferma);
 
         javafx.scene.control.CheckBox chkMostra = new javafx.scene.control.CheckBox("Mostra password");
         chkMostra.setOnAction(e -> {
             boolean mostra = chkMostra.isSelected();
-            tfPassword.setVisible(mostra); tfPassword.setManaged(mostra);
-            txtPassword.setVisible(!mostra); txtPassword.setManaged(!mostra);
-            tfConferma.setVisible(mostra); tfConferma.setManaged(mostra);
-            txtConferma.setVisible(!mostra); txtConferma.setManaged(!mostra);
+            grid.getChildren().remove(mostra ? txtPassword : tfPassword);
+            grid.add(mostra ? tfPassword : txtPassword, 1, 3);
+
+            grid.getChildren().remove(mostra ? txtConferma : tfConferma);
+            grid.add(mostra ? tfConferma : txtConferma, 1, 4);
         });
 
         grid.add(new Label("Nome:"), 0, 0); grid.add(txtNome, 1, 0);
         grid.add(new Label("Cognome:"), 0, 1); grid.add(txtCognome, 1, 1);
         grid.add(new Label("Email:"), 0, 2); grid.add(txtEmail, 1, 2);
-        grid.add(new Label("Nuova Password:"), 0, 3); grid.add(stackPassword, 1, 3);
-        grid.add(new Label("Conferma Password:"), 0, 4); grid.add(stackConferma, 1, 4);
+        grid.add(new Label("Nuova Password:"), 0, 3); grid.add(txtPassword, 1, 3);
+        grid.add(new Label("Conferma Password:"), 0, 4); grid.add(txtConferma, 1, 4);
         grid.add(chkMostra, 1, 5);
 
         dialog.getDialogPane().setContent(grid);

@@ -122,7 +122,6 @@ public class LoginController extends BaseController {
         pwdNuova.setPromptText("Nuova password (minimo 8 caratteri)");
         TextField txtNuova = new TextField();
         txtNuova.setPromptText(pwdNuova.getPromptText());
-        txtNuova.setVisible(false); txtNuova.setManaged(false);
         txtNuova.textProperty().bindBidirectional(pwdNuova.textProperty());
 
         Label lblConfermaPassword = new Label("Conferma Nuova Password:");
@@ -130,26 +129,26 @@ public class LoginController extends BaseController {
         pwdConferma.setPromptText("Ripeti la nuova password");
         TextField txtConferma = new TextField();
         txtConferma.setPromptText(pwdConferma.getPromptText());
-        txtConferma.setVisible(false); txtConferma.setManaged(false);
         txtConferma.textProperty().bindBidirectional(pwdConferma.textProperty());
-
-        javafx.scene.layout.StackPane stackNuova = new javafx.scene.layout.StackPane(pwdNuova, txtNuova);
-        javafx.scene.layout.StackPane stackConferma = new javafx.scene.layout.StackPane(pwdConferma, txtConferma);
 
         CheckBox chkMostraRecupero = new CheckBox("Mostra password");
         chkMostraRecupero.setOnAction(e -> {
             boolean mostra = chkMostraRecupero.isSelected();
-            txtNuova.setVisible(mostra); txtNuova.setManaged(mostra);
-            pwdNuova.setVisible(!mostra); pwdNuova.setManaged(!mostra);
-            txtConferma.setVisible(mostra); txtConferma.setManaged(!mostra);
-            pwdConferma.setVisible(!mostra); pwdConferma.setManaged(!mostra);
+            int iNuova = contentBox.getChildren().indexOf(mostra ? pwdNuova : txtNuova);
+            if (iNuova != -1) {
+                contentBox.getChildren().set(iNuova, mostra ? txtNuova : pwdNuova);
+            }
+            int iConf = contentBox.getChildren().indexOf(mostra ? pwdConferma : txtConferma);
+            if (iConf != -1) {
+                contentBox.getChildren().set(iConf, mostra ? txtConferma : pwdConferma);
+            }
         });
 
         contentBox.getChildren().addAll(
                 lblDomandaTitle, lblDomandaText,
                 lblRisposta, txtRisposta,
-                lblNuovaPassword, stackNuova,
-                lblConfermaPassword, stackConferma,
+                lblNuovaPassword, pwdNuova,
+                lblConfermaPassword, pwdConferma,
                 chkMostraRecupero
         );
 

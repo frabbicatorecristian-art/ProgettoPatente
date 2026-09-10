@@ -292,22 +292,17 @@ public class ImpostazioniController extends BaseController {
         tfNuova.setPrefWidth(240);
         tfConferma.setPrefWidth(240);
 
-        tfNuova.setVisible(false); tfNuova.setManaged(false);
-        tfConferma.setVisible(false); tfConferma.setManaged(false);
-
         tfNuova.textProperty().bindBidirectional(pfNuova.textProperty());
         tfConferma.textProperty().bindBidirectional(pfConferma.textProperty());
-
-        javafx.scene.layout.StackPane stackNuova = new javafx.scene.layout.StackPane(pfNuova, tfNuova);
-        javafx.scene.layout.StackPane stackConferma = new javafx.scene.layout.StackPane(pfConferma, tfConferma);
 
         javafx.scene.control.CheckBox chkMostra = new javafx.scene.control.CheckBox("Mostra password");
         chkMostra.setOnAction(e -> {
             boolean mostra = chkMostra.isSelected();
-            tfNuova.setVisible(mostra); tfNuova.setManaged(mostra);
-            pfNuova.setVisible(!mostra); pfNuova.setManaged(!mostra);
-            tfConferma.setVisible(mostra); tfConferma.setManaged(mostra);
-            pfConferma.setVisible(!mostra); pfConferma.setManaged(!mostra);
+            grid.getChildren().remove(mostra ? pfNuova : tfNuova);
+            grid.add(mostra ? tfNuova : pfNuova, 1, 0);
+
+            grid.getChildren().remove(mostra ? pfConferma : tfConferma);
+            grid.add(mostra ? tfConferma : pfConferma, 1, 1);
         });
 
         // Crea le etichette per le righe della griglia
@@ -317,8 +312,8 @@ public class ImpostazioniController extends BaseController {
         lblErrore.setStyle("-fx-text-fill: #ef4444; -fx-font-size: 12px;"); // Stile CSS: testo rosso, font 12px
 
         // Aggiunge i componenti alla griglia (colonna, riga)
-        grid.add(lblNuova,    0, 0); grid.add(stackNuova,    1, 0);   // Riga 0: "Nuova password:" e campo input
-        grid.add(lblConf,     0, 1); grid.add(stackConferma, 1, 1);   // Riga 1: "Conferma password:" e campo input
+        grid.add(lblNuova,    0, 0); grid.add(pfNuova,    1, 0);   // Riga 0: "Nuova password:" e campo input
+        grid.add(lblConf,     0, 1); grid.add(pfConferma, 1, 1);   // Riga 1: "Conferma password:" e campo input
         grid.add(chkMostra,   1, 2);
         grid.add(lblErrore,   1, 3);                               // Riga 3: Etichetta per i messaggi di errore
 
